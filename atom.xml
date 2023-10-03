@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>舍利子的博客</title>
   
-  
+  <subtitle>心事无人诉，苦、苦、苦！</subtitle>
   <link href="http://kettycode.github.io/atom.xml" rel="self"/>
   
   <link href="http://kettycode.github.io/"/>
@@ -10,7 +10,7 @@
   <id>http://kettycode.github.io/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>ketty</name>
     
   </author>
   

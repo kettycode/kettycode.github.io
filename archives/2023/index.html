@@ -33,6 +33,10 @@
 
   
   
+    
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  
   
 <meta name="generator" content="Hexo 6.3.0"></head>
 
@@ -45,6 +49,10 @@
       <h1 id="logo-wrap">
         <a href="/" id="logo">舍利子的博客</a>
       </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">心事无人诉，苦、苦、苦！</a>
+        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -212,7 +220,7 @@
         </p>
       
       <p>
-        <span>Copyright &copy; 2023 John Doe.</span>
+        <span>Copyright &copy; 2023 ketty.</span>
         <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
         <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
       </p>
@@ -250,6 +258,27 @@
 
 
 
+  
+    
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+    
+<script src="//cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.js"></script>
+
+    <script>
+      var gitalk = new Gitalk({
+        clientID: '226276de9c4da429c237',
+        clientSecret: '2defd885fe1068fe92d1e70c21314b7cd59e4d40',
+        repo: 'https://github.com/kettycode/comment.github.io.git',
+        owner: 'kettycode',
+        admin: ['kettycode'],
+        id: md5(window.location.pathname),
+        distractionFreeMode: false,
+        language: 'zh-CN',
+        pagerDirection: 'last'
+      });
+      gitalk.render('comments');
+    </script>
   
 
   
