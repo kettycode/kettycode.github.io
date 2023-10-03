@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>舍利子的博客</title>
   
   
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="http://kettycode.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
-  <updated>2023-10-03T05:32:45.535Z</updated>
-  <id>http://example.com/</id>
+  <link href="http://kettycode.github.io/"/>
+  <updated>2023-10-03T08:27:50.280Z</updated>
+  <id>http://kettycode.github.io/</id>
   
   <author>
     <name>John Doe</name>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>我的第一篇博客</title>
-    <link href="http://example.com/2023/10/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://example.com/2023/10/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
+    <link href="http://kettycode.github.io/2023/10/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://kettycode.github.io/2023/10/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
     <published>2023-10-03T05:29:59.000Z</published>
-    <updated>2023-10-03T05:32:45.535Z</updated>
+    <updated>2023-10-03T08:27:50.280Z</updated>
     
     
     
@@ -31,8 +31,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/2023/10/03/hello-world/"/>
-    <id>http://example.com/2023/10/03/hello-world/</id>
+    <link href="http://kettycode.github.io/2023/10/03/hello-world/"/>
+    <id>http://kettycode.github.io/2023/10/03/hello-world/</id>
     <published>2023-10-03T05:21:14.098Z</published>
     <updated>2023-10-03T05:21:14.098Z</updated>
     
