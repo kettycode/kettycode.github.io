@@ -6,7 +6,7 @@
   <link href="https://kettycode.github.io/atom.xml" rel="self"/>
   
   <link href="https://kettycode.github.io/"/>
-  <updated>2023-10-03T08:27:50.280Z</updated>
+  <updated>2023-10-06T06:11:30.588Z</updated>
   <id>https://kettycode.github.io/</id>
   
   <author>
@@ -17,15 +17,24 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>我的第一篇博客</title>
-    <link href="https://kettycode.github.io/2023/10/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>https://kettycode.github.io/2023/10/03/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
-    <published>2023-10-03T05:29:59.000Z</published>
-    <updated>2023-10-03T08:27:50.280Z</updated>
+    <title>github pages + Hexo建立一个自己的个人博客</title>
+    <link href="https://kettycode.github.io/2023/10/06/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://kettycode.github.io/2023/10/06/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2023-10-06T06:59:59.000Z</published>
+    <updated>2023-10-06T06:11:30.588Z</updated>
+    
+    <content type="html"><![CDATA[<p>主要步骤我推荐看这个视频: <a href="https://www.bilibili.com/video/BV1Yb411a7ty/?spm_id_from=333.880.my_history.page.click&vd_source=fd097abccadb93f0af95012d138e511b">bilibili </a><br>基本没有什么问题，有问题也可以留言，我会尽量帮助解答。 </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;主要步骤我推荐看这个视频: &lt;a href=&quot;https://www.bilibili.com/video/BV1Yb411a7ty/?spm_id_from=333.880.my_history.page.click&amp;vd_source=fd097abccadb93f0a</summary>
+      
     
     
     
     
+    <category term="博客" scheme="https://kettycode.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
