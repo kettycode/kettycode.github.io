@@ -2,7 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://kettycode.github.io/2023/10/06/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/</loc>
+    <loc>https://kettycode.github.io/2023/10/23/bitSum/%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E6%95%B0/</loc>
+    
+    <lastmod>2023-10-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kettycode.github.io/2023/10/23/bitSum/%E6%89%BE%E5%87%BA%E5%8D%95%E8%BA%AB%E7%8B%97/</loc>
+    
+    <lastmod>2023-10-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kettycode.github.io/2023/10/06/blog/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/</loc>
     
     <lastmod>2023-10-07</lastmod>
     
@@ -11,7 +29,7 @@
   </url>
   
   <url>
-    <loc>https://kettycode.github.io/2023/10/06/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <loc>https://kettycode.github.io/2023/10/06/blog/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
     
     <lastmod>2023-10-06</lastmod>
     
@@ -40,15 +58,22 @@
 
   <url>
     <loc>https://kettycode.github.io/</loc>
-    <lastmod>2023-10-07</lastmod>
+    <lastmod>2023-10-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
+    <loc>https://kettycode.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
+    <lastmod>2023-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://kettycode.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2023-10-07</lastmod>
+    <lastmod>2023-10-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

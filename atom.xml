@@ -6,7 +6,7 @@
   <link href="https://kettycode.github.io/atom.xml" rel="self"/>
   
   <link href="https://kettycode.github.io/"/>
-  <updated>2023-10-07T09:59:50.880Z</updated>
+  <updated>2023-10-24T01:56:08.787Z</updated>
   <id>https://kettycode.github.io/</id>
   
   <author>
@@ -17,9 +17,53 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>位运算基础——不需要额外空间交换两个数</title>
+    <link href="https://kettycode.github.io/2023/10/23/bitSum/%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E6%95%B0/"/>
+    <id>https://kettycode.github.io/2023/10/23/bitSum/%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E6%95%B0/</id>
+    <published>2023-10-23T12:59:59.000Z</published>
+    <updated>2023-10-24T01:56:08.787Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="不用额外空间交换两个数"><a href="#不用额外空间交换两个数" class="headerlink" title="不用额外空间交换两个数"></a>不用额外空间交换两个数</h1><h2 id="基础位运算"><a href="#基础位运算" class="headerlink" title="基础位运算"></a>基础位运算</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&amp;----与</span><br><span class="line">|----或</span><br><span class="line">!----非</span><br><span class="line">^----异或</span><br></pre></td></tr></table></figure><h2 id="简单交换算法"><a href="#简单交换算法" class="headerlink" title="简单交换算法"></a>简单交换算法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Swap</span><span class="params">(<span class="type">int</span>&amp; num1, <span class="type">int</span>&amp; num2)</span></span>&#123;</span><br><span class="line">    num1 = num1 ^ num2;</span><br><span class="line">    num2 = num1 ^ num2;     <span class="comment">//num2 = num1 ^ num2 ^ num2 = num1;</span></span><br><span class="line">    num1 = num1 ^ num2;     <span class="comment">//num1 = num1 ^ num2 ^ num1 = num2;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;不用额外空间交换两个数&quot;&gt;&lt;a href=&quot;#不用额外空间交换两个数&quot; class=&quot;headerlink&quot; title=&quot;不用额外空间交换两个数&quot;&gt;&lt;/a&gt;不用额外空间交换两个数&lt;/h1&gt;&lt;h2 id=&quot;基础位运算&quot;&gt;&lt;a href=&quot;#基础位运算&quot; class</summary>
+      
+    
+    
+    
+    
+    <category term="位运算" scheme="https://kettycode.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>位运算基础——找出数组中唯一一个只有一个的数</title>
+    <link href="https://kettycode.github.io/2023/10/23/bitSum/%E6%89%BE%E5%87%BA%E5%8D%95%E8%BA%AB%E7%8B%97/"/>
+    <id>https://kettycode.github.io/2023/10/23/bitSum/%E6%89%BE%E5%87%BA%E5%8D%95%E8%BA%AB%E7%8B%97/</id>
+    <published>2023-10-23T12:59:59.000Z</published>
+    <updated>2023-10-24T01:56:04.845Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简单模式：数组中只有一个数出现一次，其他均出现两次，请找出这个数。"><a href="#简单模式：数组中只有一个数出现一次，其他均出现两次，请找出这个数。" class="headerlink" title="简单模式：数组中只有一个数出现一次，其他均出现两次，请找出这个数。"></a>简单模式：数组中只有一个数出现一次，其他均出现两次，请找出这个数。</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原理：a ^ a = 0   a ^ 0 = a</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">FindOnlySum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; num : nums)&#123;</span><br><span class="line">        result ^= num;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="进阶模式：数组中只有一个数出现一次，其他均出现三次，请找出这个数。-题目来自力扣137"><a href="#进阶模式：数组中只有一个数出现一次，其他均出现三次，请找出这个数。-题目来自力扣137" class="headerlink" title="进阶模式：数组中只有一个数出现一次，其他均出现三次，请找出这个数。(题目来自力扣137)"></a>进阶模式：数组中只有一个数出现一次，其他均出现三次，请找出这个数。(题目来自力扣137)</h2><p>例：<br>【1，2，3，2，4，4，3，4，2，3】<br>0001<br>0010<br>0011<br>0010<br>0100<br>0100<br>0011<br>0100<br>0010<br>0011<br>++++<br>0364<br>%%%%3<br>0001</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">FindOnlySum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i) &#123;</span><br><span class="line">        <span class="type">int</span> total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num: nums) &#123;</span><br><span class="line">            total += ((num &gt;&gt; i) &amp; <span class="number">1</span>);<span class="comment">//(num &gt;&gt; i) &amp; 1 -&gt; num左移i位，然后与1与  == 取num的第i位</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (total % <span class="number">3</span>) &#123;  <span class="comment">//total % 3 = 0 / 1</span></span><br><span class="line">            ans |= (<span class="number">1</span> &lt;&lt; i);  <span class="comment">// ans | (1 &lt;&lt; i) -&gt; 1右移i位，与ans或 == 将ans的第i位变成1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="算法改进"><a href="#算法改进" class="headerlink" title="算法改进"></a>算法改进</h2><p>第i位(ai,bi)初始(00)连续经过三个零或三个1又变回(00)</p><p>(00)-&gt;(01)-&gt;(10)-&gt;(00)</p><table><thead><tr><th>(ai,bi)</th><th>xi</th><th>新(ai,bi)</th></tr></thead><tbody><tr><td>00</td><td>0</td><td>00</td></tr><tr><td>00</td><td>1</td><td>01</td></tr><tr><td>01</td><td>0</td><td>01</td></tr><tr><td>01</td><td>1</td><td>10</td></tr><tr><td>10</td><td>0</td><td>10</td></tr><tr><td>10</td><td>1</td><td>00</td></tr></tbody></table><p>a &#x3D; (~a &amp; b &amp; x) | (a &amp; ~b &amp; ~x)<br>b &#x3D; ~a &amp; (b ^ x)</p><p>最后结果:ai&#x3D;0 ,bi&#x3D;0&#x2F;1,即返回b即可。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">FindOnlySum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> num: nums) &#123;</span><br><span class="line">        <span class="built_in">tie</span>(a, b) = pair&#123;(~a &amp; b &amp; num) | (a &amp; ~b &amp; ~num), ~a &amp; (b ^ num)&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="进一步改进–同时计算改为分步计算"><a href="#进一步改进–同时计算改为分步计算" class="headerlink" title="进一步改进–同时计算改为分步计算"></a>进一步改进–同时计算改为分步计算</h2><p>因为bi计算更简单，所以我们先计算bi,再用新bi计算ai。<br>(00)-&gt;(01) &#x3D;&gt; (00)-&gt;(01)-&gt;(01)</p><table><thead><tr><th>(ai,bi)</th><th>xi</th><th>新bi</th></tr></thead><tbody><tr><td>00</td><td>0</td><td>0</td></tr><tr><td>00</td><td>1</td><td>1</td></tr><tr><td>01</td><td>0</td><td>1</td></tr><tr><td>01</td><td>1</td><td>0</td></tr><tr><td>10</td><td>0</td><td>0</td></tr><tr><td>10</td><td>1</td><td>0</td></tr></tbody></table><table><thead><tr><th>(新ai,bi)</th><th>xi</th><th>新ai</th></tr></thead><tbody><tr><td>00</td><td>0</td><td>0</td></tr><tr><td>01</td><td>1</td><td>0</td></tr><tr><td>01</td><td>0</td><td>0</td></tr><tr><td>00</td><td>1</td><td>1</td></tr><tr><td>10</td><td>0</td><td>1</td></tr><tr><td>10</td><td>1</td><td>0</td></tr></tbody></table><p>b &#x3D; ~a &amp; (b ˆ x)<br>a &#x3D; ~b &amp; (a ˆ x)<br>​</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">FindOnlySum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num: nums) &#123;</span><br><span class="line">            b = ~a &amp; (b ^ num);</span><br><span class="line">            a = ~b &amp; (a ^ num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;简单模式：数组中只有一个数出现一次，其他均出现两次，请找出这个数。&quot;&gt;&lt;a href=&quot;#简单模式：数组中只有一个数出现一次，其他均出现两次，请找出这个数。&quot; class=&quot;headerlink&quot; title=&quot;简单模式：数组中只有一个数出现一次，其他均出现两次，</summary>
+      
+    
+    
+    
+    
+    <category term="位运算" scheme="https://kettycode.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
+  
+  <entry>
     <title>如何使用 makedown 编写个人博客</title>
-    <link href="https://kettycode.github.io/2023/10/06/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
-    <id>https://kettycode.github.io/2023/10/06/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/</id>
+    <link href="https://kettycode.github.io/2023/10/06/blog/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/"/>
+    <id>https://kettycode.github.io/2023/10/06/blog/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/</id>
     <published>2023-10-06T06:59:59.000Z</published>
     <updated>2023-10-07T09:59:50.880Z</updated>
     
@@ -40,8 +84,8 @@
   
   <entry>
     <title>github pages + Hexo建立一个自己的个人博客</title>
-    <link href="https://kettycode.github.io/2023/10/06/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>https://kettycode.github.io/2023/10/06/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <link href="https://kettycode.github.io/2023/10/06/blog/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://kettycode.github.io/2023/10/06/blog/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
     <published>2023-10-06T06:59:59.000Z</published>
     <updated>2023-10-06T06:11:30.588Z</updated>
     
