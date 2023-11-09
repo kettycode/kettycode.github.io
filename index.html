@@ -87,6 +87,147 @@
 
       <div class="outer">
         <section id="main">
+  <article id="post-Hazel_bug/bug" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/25/Hazel_bug/bug/">hazel具体实践遇到的一些小bug</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-10-25T06:59:59.000Z" itemprop="datePublished">2023年10月25日</time>
+</span>
+      
+      
+      
+<a href="/2023/10/25/Hazel_bug/bug/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1-事件系统–未定义的标识符"><a href="#1-事件系统–未定义的标识符" class="headerlink" title="1.事件系统–未定义的标识符"></a>1.事件系统–未定义的标识符</h1><p>Hazel和sandBox预处理器设置错误。</p>
+<h1 id="2-日志系统"><a href="#2-日志系统" class="headerlink" title="2.日志系统"></a>2.日志系统</h1><p>错误	C2338	static_assert failed: ‘Cannot format an argument. To make type T formattable provide a formatter<T> specialization: <a target="_blank" rel="noopener" href="https://fmt.dev/latest/api.html#udt">https://fmt.dev/latest/api.html#udt</a>‘	Hazel	C:\Cpp_Dev\Hazel\Hazel\vendor\spdlog\include\spdlog\fmt\bundled\core.h	1757	</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">HZ_CORE_TRACE(<span class="string">&quot;&#123;0&#125;&quot;</span>, e.);   =&gt;   HZ_CORE_TRACE(<span class="string">&quot;&#123;0&#125;&quot;</span>, e.ToString());</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-GLFW"><a href="#3-GLFW" class="headerlink" title="3.GLFW"></a>3.GLFW</h1><p>这里的011的GLFW和现有库不同  会导致编译出错<br>需要把GLFW的分支切到 git checkout -f b4b4319   这个是当时录制教程的一个中间commit<br>然后把lua脚本中的systemversion改为latest<br>然后premake 然后再编译 就可以避免LINK错误了</p>
+
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/index.html">https://kettycode.github.io/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
+  <article id="post-essay/2023-10-24" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/10/25/essay/2023-10-24/">无题</a>
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2023-10-25T06:59:59.000Z" itemprop="datePublished">2023年10月25日</time>
+</span>
+      
+      
+      
+<a href="/2023/10/25/essay/2023-10-24/#comments" class="article-comment-link">
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/index.html">https://kettycode.github.io/index.html</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+      
+    </footer>
+  </div>
+</article>
+
+
   <article id="post-bitSum/交换两个数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner">
     
@@ -488,7 +629,8 @@ int main()&#123;
     </div>
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>主要步骤我推荐看这个视频: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty/?spm_id_from=333.880.my_history.page.click&vd_source=fd097abccadb93f0af95012d138e511b">bilibili </a><br>基本没有什么问题，有问题也可以留言，我会尽量帮助解答。 </p>
+        <p>主要步骤我推荐看这个视频: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Yb411a7ty/?spm_id_from=333.880.my_history.page.click&vd_source=fd097abccadb93f0af95012d138e511b">bilibili </a> </p>
+<p>基本没有什么问题，有问题也可以留言，我会尽量帮助解答。 </p>
 
         
         
@@ -614,6 +756,14 @@ int main()&#123;
       <ul>
         
           <li>
+            <a href="/2023/10/25/Hazel_bug/bug/">hazel具体实践遇到的一些小bug</a>
+          </li>
+        
+          <li>
+            <a href="/2023/10/25/essay/2023-10-24/">无题</a>
+          </li>
+        
+          <li>
             <a href="/2023/10/23/bitSum/%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E6%95%B0/">位运算基础——不需要额外空间交换两个数</a>
           </li>
         
@@ -623,14 +773,6 @@ int main()&#123;
         
           <li>
             <a href="/2023/10/06/blog/%E5%8D%9A%E5%AE%A2%E7%BC%96%E5%86%99/">如何使用 makedown 编写个人博客</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/06/blog/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">github pages + Hexo建立一个自己的个人博客</a>
-          </li>
-        
-          <li>
-            <a href="/2023/10/03/hello-world/">Hello World</a>
           </li>
         
       </ul>
@@ -643,7 +785,7 @@ int main()&#123;
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 10px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a>
+      <a href="/tags/Hazel-bug/" style="font-size: 10px;">Hazel_bug</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 20px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 20px;">博客</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 10px;">随笔</a>
     </div>
   </div>
 
@@ -655,7 +797,7 @@ int main()&#123;
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">5</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -665,7 +807,7 @@ int main()&#123;
   <div class="widget-wrap">
     <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 

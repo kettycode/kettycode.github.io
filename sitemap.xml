@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://kettycode.github.io/2023/10/25/Hazel_bug/bug/</loc>
+    
+    <lastmod>2023-11-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kettycode.github.io/2023/10/25/essay/2023-10-24/</loc>
+    
+    <lastmod>2023-11-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://kettycode.github.io/2023/10/06/blog/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    
+    <lastmod>2023-10-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://kettycode.github.io/2023/10/23/bitSum/%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E6%95%B0/</loc>
     
     <lastmod>2023-10-24</lastmod>
@@ -29,15 +56,6 @@
   </url>
   
   <url>
-    <loc>https://kettycode.github.io/2023/10/06/blog/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
-    
-    <lastmod>2023-10-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://kettycode.github.io/about/index.html</loc>
     
     <lastmod>2023-10-03</lastmod>
@@ -58,22 +76,36 @@
 
   <url>
     <loc>https://kettycode.github.io/</loc>
-    <lastmod>2023-10-24</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
+    <loc>https://kettycode.github.io/tags/Hazel-bug/</loc>
+    <lastmod>2023-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://kettycode.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
-    <lastmod>2023-10-24</lastmod>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://kettycode.github.io/tags/%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2023-10-24</lastmod>
+    <lastmod>2023-11-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://kettycode.github.io/tags/%E9%9A%8F%E7%AC%94/</loc>
+    <lastmod>2023-11-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
