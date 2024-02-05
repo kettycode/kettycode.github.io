@@ -1,3 +1,5 @@
+https://kettycode.github.io/2023/10/23/vue/vue-based/
+https://kettycode.github.io/2023/10/23/vue/vue-learning/
 https://kettycode.github.io/2023/10/25/Hazel_bug/bug/
 https://kettycode.github.io/2023/10/25/essay/2023-10-24/
 https://kettycode.github.io/2023/10/06/blog/%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/
@@ -11,3 +13,4 @@ https://kettycode.github.io/tags/Hazel-bug/
 https://kettycode.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/
 https://kettycode.github.io/tags/%E5%8D%9A%E5%AE%A2/
 https://kettycode.github.io/tags/%E9%9A%8F%E7%AC%94/
+https://kettycode.github.io/tags/vue/
