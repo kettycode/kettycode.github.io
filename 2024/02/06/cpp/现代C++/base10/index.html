@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>现代C++学习 | 舍利子的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="舍利子的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">舍利子的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">心事无人诉，苦、苦、苦！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cpp/现代C++/base10" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      现代C++学习
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-02-06T04:59:59.000Z" itemprop="datePublished">2024年02月06日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2024/02/06/cpp/%E7%8E%B0%E4%BB%A3C++/base10/#comments" class="article-comment-link">
+  
+    
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/02/06/cpp/%E7%8E%B0%E4%BB%A3C++/base10/" itemprop="commentCount"></span>
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="其他杂项"><a href="#其他杂项" class="headerlink" title="其他杂项"></a>其他杂项</h1><h2 id="1-新类型-long-long-int"><a href="#1-新类型-long-long-int" class="headerlink" title="1.新类型 long long int"></a>1.新类型 long long int</h2><p>long long int 并不是 C++11 最先引入的，其实早在 C99， long long int 就已经被纳入 C 标准中，所以大部分的编译器早已支持。 C++11 的工作则是正式把它纳入标准库， 规定了一个 long long int 类型至少具备 64 位的比特数</p>
+<h2 id="2-noexcept的修饰和操作"><a href="#2-noexcept的修饰和操作" class="headerlink" title="2.noexcept的修饰和操作"></a>2.noexcept的修饰和操作</h2><p>C++11 将异常的声明简化为以下两种情况：<br>1.函数可能抛出任何异常<br>2.函数不能抛出任何异常<br>并使用 noexcept 对这两种行为进行限制</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">may_throw</span><span class="params">()</span></span>; <span class="comment">// 可能抛出异常</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">no_throw</span><span class="params">()</span> <span class="keyword">noexcept</span></span>; <span class="comment">// 不可能抛出异常</span></span><br></pre></td></tr></table></figure>
+<p>使用 noexcept 修饰过的函数如果抛出异常，编译器会使用 std::terminate() 来立即终止程序运行。</p>
+<p>noexcept 还能够做操作符，用于操作一个表达式，当表达式无异常时，返回 true，否则返回 false</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">may_throw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">auto</span> non_block_throw = []&#123;</span><br><span class="line">    <span class="built_in">may_throw</span>();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">no_throw</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> block_throw = []() <span class="keyword">noexcept</span> &#123;</span><br><span class="line">    <span class="built_in">no_throw</span>();</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; std::boolalpha</span><br><span class="line">        &lt;&lt; <span class="string">&quot;may_throw() noexcept? &quot;</span> &lt;&lt; <span class="built_in">noexcept</span>(<span class="built_in">may_throw</span>()) &lt;&lt; std::endl</span><br><span class="line">        &lt;&lt; <span class="string">&quot;no_throw() noexcept? &quot;</span> &lt;&lt; <span class="built_in">noexcept</span>(<span class="built_in">no_throw</span>()) &lt;&lt; std::endl</span><br><span class="line">        &lt;&lt; <span class="string">&quot;lmay_throw() noexcept? &quot;</span> &lt;&lt; <span class="built_in">noexcept</span>(<span class="built_in">non_block_throw</span>()) &lt;&lt; std::endl</span><br><span class="line">        &lt;&lt; <span class="string">&quot;lno_throw() noexcept? &quot;</span> &lt;&lt; <span class="built_in">noexcept</span>(<span class="built_in">block_throw</span>()) &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>noexcept 修饰完一个函数之后能够起到封锁异常扩散的功效，如果内部产生异常，外部也不会触发</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="built_in">may_throw</span>();</span><br><span class="line">&#125; <span class="built_in">catch</span> (...) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;捕获异常, 来自 may_throw()&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="built_in">non_block_throw</span>();</span><br><span class="line">&#125; <span class="built_in">catch</span> (...) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;捕获异常, 来自 non_block_throw()&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="built_in">block_throw</span>();</span><br><span class="line">&#125; <span class="built_in">catch</span> (...) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;捕获异常, 来自 block_throw()&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">捕获异常, 来自 <span class="built_in">may_throw</span>()</span><br><span class="line">捕获异常, 来自 <span class="built_in">non_block_throw</span>()</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-字面量"><a href="#3-字面量" class="headerlink" title="3.字面量"></a>3.字面量</h2><h3 id="原始字符串字面量"><a href="#原始字符串字面量" class="headerlink" title="原始字符串字面量"></a>原始字符串字面量</h3><p>C++11 提供了原始字符串字面量的写法，可以在一个字符串前方使用 R 来修饰这个字符串， 同时，将原始字符串使用括号包裹</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::string str = <span class="string">R&quot;(C:\File\To\Path)&quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; str &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义字面量"><a href="#自定义字面量" class="headerlink" title="自定义字面量"></a>自定义字面量</h3><p>C++11 引进了自定义字面量的能力，通过重载双引号后缀运算符实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串字面量自定义必须设置如下的参数列表</span></span><br><span class="line">std::string <span class="keyword">operator</span><span class="string">&quot;&quot;</span> _wow1(<span class="type">const</span> <span class="type">char</span> *wow1, <span class="type">size_t</span> len) &#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">string</span>(wow1)+<span class="string">&quot;woooooooooow, amazing&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::string <span class="keyword">operator</span><span class="string">&quot;&quot;</span> _wow2 (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> i) &#123;</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">to_string</span>(i)+<span class="string">&quot;woooooooooow, amazing&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> str = <span class="string">&quot;abc&quot;</span>_wow1;</span><br><span class="line">    <span class="keyword">auto</span> num = <span class="number">1</span>_wow2;</span><br><span class="line">    std::cout &lt;&lt; str &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; num &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>自定义字面量支持四种字面量：<br>1.整型字面量：重载时必须使用 unsigned long long、const char *、模板字面量算符参数，在上面的代码中使用的是前者；<br>2.浮点型字面量：重载时必须使用 long double、const char *、模板字面量算符；<br>3.字符串字面量：必须使用 (const char *, size_t) 形式的参数表；<br>4.字符字面量：参数只能是 char, wchar_t, char16_t, char32_t 这几种类型</p>
+<h2 id="4-内存对齐"><a href="#4-内存对齐" class="headerlink" title="4.内存对齐"></a>4.内存对齐</h2><p>C++ 11 引入了两个新的关键字 alignof 和 alignas 来支持对内存对齐进行控制。 alignof 关键字能够获得一个与平台相关的 std::size_t 类型的值，用于查询该平台的对齐方式。 当然我们有时候并不满足于此，甚至希望自定定义结构的对齐方式，同样，C++ 11 还引入了 alignas 来重新修饰某个结构的对齐方式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Storage</span> &#123;</span><br><span class="line">    <span class="type">char</span>      a;</span><br><span class="line">    <span class="type">int</span>       b;</span><br><span class="line">    <span class="type">double</span>    c;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">alignas</span>(std::<span class="type">max_align_t</span>) AlignasStorage &#123;</span><br><span class="line">    <span class="type">char</span>      a;</span><br><span class="line">    <span class="type">int</span>       b;</span><br><span class="line">    <span class="type">double</span>    c;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> d;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">alignof</span>(Storage) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">alignof</span>(AlignasStorage) &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 std::max_align_t 要求每个标量类型的对齐方式严格一样，因此它几乎是最大标量没有差异， 进而大部分平台上得到的结果为 long double，因此我们这里得到的 AlignasStorage 的对齐要求是 8 或 16</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%9D%82%E9%A1%B9"><span class="toc-text">其他杂项</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%96%B0%E7%B1%BB%E5%9E%8B-long-long-int"><span class="toc-text">1.新类型 long long int</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-noexcept%E7%9A%84%E4%BF%AE%E9%A5%B0%E5%92%8C%E6%93%8D%E4%BD%9C"><span class="toc-text">2.noexcept的修饰和操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="toc-text">3.字面量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="toc-text">原始字符串字面量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="toc-text">自定义字面量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90"><span class="toc-text">4.内存对齐</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/2024/02/06/cpp/现代C++/base10/">https://kettycode.github.io/2024/02/06/cpp/现代C++/base10/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2024/02/06/cpp/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/template4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          C++模板学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/02/06/cpp/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/template3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          C++模板学习
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+          
+        
+
+
+  <section id="comments" class="vcomment"></section>
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/char/">cahr 和 wchar_t</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/hash/">哈希表小知识点及引申</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake1/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake2/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/git/git/">git学习从0开始</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hazel-bug/" style="font-size: 10px;">Hazel_bug</a> <a href="/tags/c-template/" style="font-size: 15px;">c++ template</a> <a href="/tags/c-%E5%B9%B6%E5%8F%91/" style="font-size: 17.5px;">c++并发</a> <a href="/tags/cmake/" style="font-size: 12.5px;">cmake</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 12.5px;">linux网络编程</a> <a href="/tags/modern-c/" style="font-size: 20px;">modern c++</a> <a href="/tags/tip/" style="font-size: 12.5px;">tip</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 12.5px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-%E5%B9%B6%E5%8F%91/" rel="tag">c++并发</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">linux网络编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tip/" rel="tag">tip</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://leetcode.cn/">力扣</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">博客园</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.bilibili.com/">b站</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 ketty.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+    <script>
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+      });
+      var notify = 'false' == true;
+      var verify = 'false' == true;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "7P3CzNq7WLUp6w49UFAQ6RLK-gzGzoHsz",
+          appKey: "ywWKNaoGnWQfvzV12QRNU12t",
+          placeholder: "Just go go",
+          pageSize:'10',
+          avatar:'mm',
+          lang:'zh-cn'
+      });
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

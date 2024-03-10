@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C++模板学习 | 舍利子的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="舍利子的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">舍利子的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">心事无人诉，苦、苦、苦！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cpp/泛型编程/template2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C++模板学习
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-02-06T04:59:59.000Z" itemprop="datePublished">2024年02月06日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2024/02/06/cpp/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/template2/#comments" class="article-comment-link">
+  
+    
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/02/06/cpp/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/template2/" itemprop="commentCount"></span>
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="2-Template的基本语法"><a href="#2-Template的基本语法" class="headerlink" title="2. Template的基本语法"></a>2. Template的基本语法</h1><h2 id="2-1-什么是模板-Template"><a href="#2-1-什么是模板-Template" class="headerlink" title="2.1. 什么是模板(Template)"></a>2.1. 什么是模板(Template)</h2><h2 id="2-2-类模板-Class-Template-的基本语法"><a href="#2-2-类模板-Class-Template-的基本语法" class="headerlink" title="2.2. 类模板 (Class Template) 的基本语法"></a>2.2. 类模板 (Class Template) 的基本语法</h2><h3 id="2-2-1-“模板类”还是“类模板”"><a href="#2-2-1-“模板类”还是“类模板”" class="headerlink" title="2.2.1. “模板类”还是“类模板”"></a>2.2.1. “模板类”还是“类模板”</h3><h3 id="2-2-2-Class-Template的与成员变量定义"><a href="#2-2-2-Class-Template的与成员变量定义" class="headerlink" title="2.2.2. Class Template的与成员变量定义"></a>2.2.2. Class Template的与成员变量定义</h3><p>我们来回顾一下最基本的Class Template声明和定义形式：</p>
+<p>Class Template声明：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">ClassA</span>;</span><br></pre></td></tr></table></figure>
+
+<p>Class Template定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">ClassA</span></span><br><span class="line">&#123;</span><br><span class="line">    T member;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>template</code> 是C++关键字，意味着我们接下来将定义一个模板。和函数一样，模板也有一系列参数。这些参数都被囊括在template之后的<code>&lt; &gt;</code>中。在上文的例子中， <code>typename T</code>便是模板参数。回顾一下与之相似的函数参数的声明形式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">int</span> a)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>T</code>则可以类比为函数形参<code>a</code>，这里的“模板形参”<code>T</code>，也同函数形参一样取成任何你想要的名字；<code>typename</code>则类似于例子中函数参数类型<code>int</code>，它表示模板参数中的<code>T</code>将匹配一个类型。除了 <code>typename</code> 之外，我们在后面还要讲到，整型也可以作为模板的参数。</p>
+<p>在定义完模板参数之后，便可以定义你所需要的类。不过在定义类的时候，除了一般类可以使用的类型外，你还可以使用在模板参数中使用的类型 <code>T</code>。可以说，这个 <code>T</code>是模板的精髓，因为你可以通过指定模板实参，将T替换成你所需要的类型。</p>
+<p>例如我们用<code>ClassA&lt;int&gt;</code>来实例化类模板ClassA，那么<code>ClassA&lt;int&gt;</code>可以等同于以下的定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意：这并不是有效的C++语法，只是为了说明模板的作用</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">class</span> &#123;</span><br><span class="line">    <span class="type">int</span> member;</span><br><span class="line">&#125; ClassA&lt;<span class="type">int</span>&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，通过模板参数替换类型，可以获得很多形式相同的新类型，有效减少了代码量。这种用法，我们称之为“泛型”（Generic Programming），它最常见的应用，即是STL中的容器类模板。</p>
+<h3 id="2-2-3-模板的使用"><a href="#2-2-3-模板的使用" class="headerlink" title="2.2.3. 模板的使用"></a>2.2.3. 模板的使用</h3><p>对于C++来说，类型最重要的作用之一就是用它去产生一个变量。例如我们定义了一个动态数组（列表）的类模板<code>vector</code>，它对于任意的元素类型都具有push_back和clear的操作，我们便可以如下定义这个类：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">vector</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push_back</span><span class="params">(T <span class="type">const</span>&amp;)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">clear</span><span class="params">()</span></span>;				</span><br><span class="line">	</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    T* elements;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们的程序需要一个整型和一个浮点型的列表，那么便可以通过以下代码获得两个变量：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; intArray;</span><br><span class="line">vector&lt;<span class="type">float</span>&gt; floatArray;</span><br></pre></td></tr></table></figure>
+
+<p>此时我们就可以执行以下的操作，获得我们想要的结果：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">intArray.<span class="built_in">push_back</span>(<span class="number">5</span>);</span><br><span class="line">floatArray.<span class="built_in">push_back</span>(<span class="number">3.0f</span>);</span><br></pre></td></tr></table></figure>
+
+<p>变量定义的过程可以分成两步来看：第一步，<code>vector&lt;int&gt;</code>将<code>int</code>绑定到类模板<code>vector</code>上，获得了一个“普通的类<code>vector&lt;int&gt;</code>”；第二步通过“vector<int>”定义了一个变量。<br>与“普通的类”不同，类模板是不能直接用来定义变量的 —— 毕竟它的名字是“模板”而不是“类”。例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector unknownVector; <span class="comment">// 错误示例</span></span><br></pre></td></tr></table></figure>
+
+<p>这样就是错误的。我们把通过类型绑定将类模板变成“普通的类”的过程，称之为模板实例化（Template Instantiate）。实例化的语法是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">模板名 &lt; [模板实参1，模板实参2，...] &gt;</span><br></pre></td></tr></table></figure>
+
+<p>看几个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt;</span><br><span class="line">ClassA&lt;<span class="type">double</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> T1&gt; <span class="keyword">class</span> <span class="title class_">ClassB</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Class body ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ClassB&lt;<span class="type">int</span>, <span class="type">float</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当然，在实例化过程中，被绑定到模板参数上的类型（即模板实参）需要与模板形参正确匹配。<br>就如同函数一样，如果没有提供足够并匹配的参数，模板便不能正确的实例化。</p>
+<h3 id="2-2-4-类模板的成员函数定义"><a href="#2-2-4-类模板的成员函数定义" class="headerlink" title="2.2.4. 类模板的成员函数定义"></a>2.2.4. 类模板的成员函数定义</h3><p>由于C++11正式废弃“模板导出”这一特性，因此在类模板的变量在调用成员函数的时候，需要看到完整的成员函数定义。因此现在的类模板中的成员函数，通常都是以内联的方式实现。<br>例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">vector</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">clear</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// Function body</span></span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    T* elements;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当然，我们也可以将<code>vector&lt;T&gt;::clear</code>的定义部分放在类型之外，只不过这个时候的语法就显得蹩脚许多：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">vector</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">clear</span><span class="params">()</span></span>;  <span class="comment">// 注意这里只有声明</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    T* elements;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="type">void</span> vector&lt;T&gt;::<span class="built_in">clear</span>()  <span class="comment">// 函数的实现放在这里</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Function body</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数的实现部分看起来略微拗口。我第一次学到的时候，觉得</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">vector::clear</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Function body</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样不就行了吗？但是简单想就会知道，<code>clear</code>里面是找不到泛型类型<code>T</code>的符号的。</p>
+<p>因此，在成员函数实现的时候，必须要提供模板参数。此外，为什么类型名不是<code>vector</code>而是<code>vector&lt;T&gt;</code>呢？<br>如果你了解过模板的偏特化与特化的语法，应该能看出，这里的vector<T>在语法上类似于特化&#x2F;偏特化。实际上，这里的函数定义也确实是成员函数的偏特化。特化和偏特化的概念，本文会在第二部分详细介绍。</p>
+<p>综上，正确的成员函数实现如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="comment">// 模板参数</span></span><br><span class="line"><span class="type">void</span> vector&lt;T&gt; <span class="comment">/*看起来像偏特化*/</span> ::<span class="built_in">clear</span>() <span class="comment">// 函数的实现放在这里</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Function body</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-函数模板-Function-Tempalte-入门"><a href="#2-3-函数模板-Function-Tempalte-入门" class="headerlink" title="2.3. 函数模板 (Function Tempalte) 入门"></a>2.3. 函数模板 (Function Tempalte) 入门</h2><h3 id="2-3-1-函数模板的声明和定义"><a href="#2-3-1-函数模板的声明和定义" class="headerlink" title="2.3.1. 函数模板的声明和定义"></a>2.3.1. 函数模板的声明和定义</h3><p>函数模板的语法与类模板基本相同，也是以关键字<code>template</code>和模板参数列表作为声明与定义的开始。模板参数列表中的类型，可以出现在参数、返回值以及函数体中。比方说下面几个例子</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(T <span class="type">const</span>&amp; v)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function">T <span class="title">foo</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt; <span class="function">U <span class="title">foo</span><span class="params">(T <span class="type">const</span>&amp;)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T var;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>无论是函数模板还是类模板，在实际代码中看起来都是“千变万化”的。这些“变化”，主要是因为类型被当做了参数，导致代码中可以变化的部分更多了。</p>
+<p>归根结底，模板无外乎两点：</p>
+<ol>
+<li><p>函数或者类里面，有一些类型我们希望它能变化一下，我们用标识符来代替它，这就是“模板参数”；</p>
+</li>
+<li><p>在需要这些类型的地方，写上相对应的标识符（“模板参数”）。</p>
+</li>
+</ol>
+<p>当然，这里的“可变”实际上在代码编译好后就固定下来了，可以称之为编译期的可变性。</p>
+<p>这里多啰嗦一点，主要也是想告诉大家，模板其实是个很简单的东西。</p>
+<p>下面这个例子，或许可以帮助大家解决以下两个问题：</p>
+<ol>
+<li><p>什么样的需求会使用模板来解决？</p>
+</li>
+<li><p>怎样把脑海中的“泛型”变成真正“泛型”的代码？</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">举个例子：generic typed function ‘add’</span><br></pre></td></tr></table></figure>
+
+<p>在我遇到的朋友中，即便如此对他解释了模板，即便他了解了模板，也仍然会对模板产生畏难情绪。毕竟从形式上来说，模板化的类和模板化的函数都要较非模板的版本更加复杂，阅读代码所需要理解的内容也有所增多。</p>
+<p>如何才能克服这一问题，最终视模板如平坦代码呢？</p>
+<p>答案只有一个：<strong>无他，唯手熟尔</strong>。</p>
+<p>在学习模板的时候，要反复做以下的思考和练习：</p>
+<ol>
+<li><p>提出问题：我的需求能不能用模板来解决？</p>
+</li>
+<li><p>怎么解决？</p>
+</li>
+<li><p>把解决方案用代码写出来。</p>
+</li>
+<li><p>如果失败了，找到原因。是知识有盲点（例如不知道怎么将 <code>T&amp;</code> 转化成 <code>T</code>），还是不可行（比如试图利用浮点常量特化类模板，但实际上这样做是不可行的）？</p>
+</li>
+</ol>
+<p>通过重复以上的练习，应该可以对模板的语法和含义都有所掌握。如果提出问题本身有困难，或许下面这个经典案例可以作为你思考的开始：</p>
+<ol>
+<li><p>写一个泛型的数据结构：例如，线性表，数组，链表，二叉树；</p>
+</li>
+<li><p>写一个可以在不同数据结构、不同的元素类型上工作的泛型函数，例如求和；</p>
+</li>
+</ol>
+<p>当然和“设计模式”一样，模板在实际应用中，也会有一些固定的需求和解决方案。比较常见的场景包括：泛型（最基本的用法）、通过类型获得相应的信息（型别萃取）、编译期间的计算、类型间的推导和变换（从一个类型变换成另外一个类型，比如boost::function）。这些本文在以后的章节中会陆续介绍。</p>
+<h3 id="2-3-2-函数模板的使用"><a href="#2-3-2-函数模板的使用" class="headerlink" title="2.3.2. 函数模板的使用"></a>2.3.2. 函数模板的使用</h3><p>我们先来看一个简单的函数模板，两个数相加：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function">T <span class="title">Add</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数模板的调用格式是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">函数模板名 &lt; 模板参数列表 &gt; ( 参数 )</span><br></pre></td></tr></table></figure>
+
+<p>例如，我们想对两个 <code>int</code> 求和，那么套用类的模板实例化方法，我们可以这么写：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="type">int</span> result = <span class="built_in">Add</span>&lt;<span class="type">int</span>&gt;(a, b);</span><br></pre></td></tr></table></figure>
+
+<p>这时我们等于拥有了一个新函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="built_in">Add</span>&lt;<span class="type">int</span>&gt;(<span class="type">int</span> a, <span class="type">int</span> b) &#123; <span class="keyword">return</span> a + b; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时在另外一个偏远的程序角落，你也需要求和。而此时你的参数类型是 <code>float</code> ，于是你写下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Add</span>&lt;<span class="type">float</span>&gt;(a, b);</span><br></pre></td></tr></table></figure>
+
+<p>一切看起来都很完美。但如果你具备程序员的最佳美德——懒惰——的话，你肯定会这样想，我在调用 <code>Add&lt;int&gt;(a, b)</code> 的时候， <code>a</code> 和 <code>b</code> 匹配的都是那个 <code>T</code>。编译器就应该知道那个 <code>T</code> 实际上是 <code>int</code> 呀？为什么还要我多此一举写 <code>Add&lt;int&gt;</code> 呢？<br>唔，我想说的是，编译器的作者也是这么想的。所以实际上你在编译器里面写下以下片段：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="type">int</span> result = <span class="built_in">Add</span>(a, b);</span><br></pre></td></tr></table></figure>
+
+<p>编译器会心领神会地将 <code>Add</code> 变成 <code>Add&lt;int&gt;</code>。但是编译器不能面对模棱两可的答案。比如你这么写的话呢？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>  a = <span class="number">5</span>;</span><br><span class="line"><span class="type">char</span> b = <span class="number">3</span>;</span><br><span class="line"><span class="type">int</span>  result = <span class="built_in">Add</span>(a, b);</span><br></pre></td></tr></table></figure>
+
+<p>第一个参数 <code>a</code> 告诉编译器，这个 <code>T</code> 是 <code>int</code>。编译器点点头说，好。但是第二个参数 <code>b</code> 不高兴了，告诉编译器说，你这个 <code>T</code>，其实是 <code>char</code>。<br>两个参数各自指导 <code>T</code> 的类型，编译器就不知道怎么做了。在Visual Studio 2012下，会有这样的提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error C2782: &#x27;T _1_2_2::Add(T,T)&#x27; : template parameter &#x27;T&#x27; is ambiguous</span><br></pre></td></tr></table></figure>
+
+<p>好吧，”ambiguous”，这个提示再明确不过了。</p>
+<p>不过，只要你别逼得编译器精神分裂的话，编译器其实是非常聪明的，它可以从很多的蛛丝马迹中，猜测到你真正的意图，有如下面的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">A</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function">T <span class="title">foo</span><span class="params">( A&lt;T&gt; v )</span></span>;</span><br><span class="line"></span><br><span class="line">A&lt;<span class="type">int</span>&gt; v;</span><br><span class="line"><span class="built_in">foo</span>(v);	<span class="comment">// 它能准确地猜到 T 是 int.</span></span><br></pre></td></tr></table></figure>
+
+<p>咦，编译器居然绕过了A这个外套，猜到了 <code>T</code> 匹配的是 <code>int</code>。编译器是怎么完成这一“魔法”的，我们暂且不表，2.2节时再和盘托出。</p>
+<p>下面轮到你的练习时间了。你试着写了很多的例子，但是其中一个你还是犯了疑惑：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> data[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function">T <span class="title">GetValue</span><span class="params">(<span class="type">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;T&gt;(data[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> a = <span class="built_in">GetValue</span>(<span class="number">0</span>);	<span class="comment">// 出错了！</span></span><br><span class="line"><span class="type">int</span> b = <span class="built_in">GetValue</span>(<span class="number">1</span>);	<span class="comment">// 也出错了！</span></span><br></pre></td></tr></table></figure>
+
+<p>为什么会出错呢？你仔细想了想，原来编译器是没办法去根据返回值推断类型的。函数调用的时候，返回值被谁接受还不知道呢。如下修改后，就一切正常了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> a = <span class="built_in">GetValue</span>&lt;<span class="type">float</span>&gt;(<span class="number">0</span>);</span><br><span class="line"><span class="type">int</span> b = <span class="built_in">GetValue</span>&lt;<span class="type">int</span>&gt;(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>嗯，是不是so easy啊？嗯，你又信心满满的做了一个练习：</p>
+<p>你要写一个函数模板叫 <code>c_style_cast</code>，顾名思义，执行的是C风格的转换。然后出于方便起见，你希望它能和 <code>static_cast</code> 这样的内置转换有同样的写法。于是你写了一个use case。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DstT dest = <span class="built_in">c_style_cast</span>&lt;DstT&gt;(src);</span><br></pre></td></tr></table></figure>
+
+<p>根据调用形式你知道了，有 <code>DstT</code> 和 <code>SrcT</code> 两个模板参数。参数只有一个， <code>src</code>，所以函数的形参当然是这么写了： <code>(SrcT src)</code>。实现也很简单， <code>(DstT)v</code>。</p>
+<p>我们把手上得到的信息来拼一拼，就可以编写自己的函数模板了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> SrcT, <span class="keyword">typename</span> DstT&gt; <span class="function">DstT <span class="title">c_style_cast</span><span class="params">(SrcT v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (DstT)(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> v = <span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> i = <span class="built_in">c_style_cast</span>&lt;<span class="type">float</span>&gt;(v);</span><br></pre></td></tr></table></figure>
+
+<p>嗯，很Easy嘛！我们F6一下…咦！这是什么意思！</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error C2783: <span class="string">&#x27;DstT _1_2_2::c_style_cast(SrcT)&#x27;</span> : could <span class="keyword">not</span> deduce <span class="keyword">template</span> argument <span class="keyword">for</span> <span class="string">&#x27;DstT&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后你仔细的比较了一下，然后发现 … 模板参数有两个，而参数里面能得到的只有 <code>SrcT</code> 一个。结合出错信息看来关键在那个 <code>DstT</code> 上。这个时候，你死马当活马医，把模板参数写完整了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> i = <span class="built_in">c_style_cast</span>&lt;<span class="type">int</span>, <span class="type">float</span>&gt;(v);</span><br></pre></td></tr></table></figure>
+
+<p>嗯，很顺利的通过了。难道C++不能支持让参数推导一部分模板参数吗？</p>
+<p>当然是可以的。只不过在部分推导、部分指定的情况下，编译器对模板参数的顺序是有限制的：<strong>先写需要指定的模板参数，再把能推导出来的模板参数放在后面</strong>。</p>
+<p>在这个例子中，能推导出来的是 <code>SrcT</code>，需要指定的是 <code>DstT</code>。把函数模板写成下面这样就可以了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> DstT, <span class="keyword">typename</span> SrcT&gt; <span class="function">DstT <span class="title">c_style_cast</span><span class="params">(SrcT v)</span>	<span class="comment">// 模板参数 DstT 需要人肉指定，放前面。</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (DstT)(v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> v = <span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> i = <span class="built_in">c_style_cast</span>&lt;<span class="type">float</span>&gt;(v);  <span class="comment">// 形象地说，DstT会先把你指定的参数吃掉，剩下的就交给编译器从函数参数列表中推导啦。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-整型也可是Template参数"><a href="#2-4-整型也可是Template参数" class="headerlink" title="2.4. 整型也可是Template参数"></a>2.4. 整型也可是Template参数</h2><p>模板参数除了类型外（包括基本类型、结构、类类型等），也可以是一个整型数（Integral Number）。这里的整型数比较宽泛，包括布尔型，不同位数、有无符号的整型，甚至包括指针。我们将整型的模板参数和类型作为模板参数来做一个对比：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">TemplateWithType</span>;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="type">int</span>      V&gt; <span class="keyword">class</span> <span class="title class_">TemplateWithValue</span>;</span><br></pre></td></tr></table></figure>
+
+<p>我想这个时候你也更能理解 <code>typename</code> 的意思了：它相当于是模板参数的“类型”，告诉你 <code>T</code> 是一个 <code>typename</code>。</p>
+<p>按照C++ Template最初的想法，模板不就是为了提供一个类型安全、易于调试的宏吗？有类型就够了，为什么要引入整型参数呢？考虑宏，它除了代码替换，还有一个作用是作为常数出现。所以整型模板参数最基本的用途，也是定义一个常数。例如这段代码的作用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="type">int</span> Size&gt; <span class="keyword">struct</span> <span class="title class_">Array</span></span><br><span class="line">&#123;</span><br><span class="line">    T data[Size];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Array&lt;<span class="type">int</span>, <span class="number">16</span>&gt; arr;</span><br></pre></td></tr></table></figure>
+
+<p>便相当于下面这段代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">IntArrayWithSize16</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> data[<span class="number">16</span>]; <span class="comment">// int 替换了 T, 16 替换了 Size</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">IntArrayWithSize16 arr;</span><br></pre></td></tr></table></figure>
+
+<p>其中有一点需要注意，因为模板的匹配是在编译的时候完成的，所以实例化模板的时候所使用的参数，也必须要在编译期就能确定。例如以下的例子编译器就会报错：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="type">int</span> i&gt; <span class="keyword">class</span> <span class="title class_">A</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">3</span>;</span><br><span class="line">    A&lt;<span class="number">5</span>&gt; a; <span class="comment">// 正确！</span></span><br><span class="line">    A&lt;x&gt; b; <span class="comment">// error C2971: &#x27;_1_3::A&#x27; : template parameter &#x27;i&#x27; : &#x27;x&#x27; : a local variable cannot be used as a non-type argument</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为x不是一个编译期常量，所以 <code>A&lt;x&gt;</code> 就会告诉你，x是一个局部变量，不能作为一个模板参数出现。</p>
+<p>嗯，这里我们再来写几个相对复杂的例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="type">int</span> i&gt; <span class="keyword">class</span> <span class="title class_">A</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">int</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="type">uint8_t</span> a, <span class="keyword">typename</span> b, <span class="type">void</span>* c&gt; <span class="keyword">class</span> <span class="title class_">B</span> &#123;&#125;;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="type">bool</span>, <span class="built_in">void</span> (*a)()&gt; <span class="keyword">class</span> <span class="title class_">C</span> &#123;&#125;;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="built_in">void</span> (A&lt;<span class="number">3</span>&gt;::*a)(<span class="type">int</span>)&gt; <span class="keyword">class</span> <span class="title class_">D</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="type">int</span> i&gt; <span class="function"><span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a)</span>	<span class="comment">// 当然也能用于函数模板</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    A&lt;<span class="number">5</span>&gt; a;</span><br><span class="line">    B&lt;<span class="number">7</span>, A&lt;<span class="number">5</span>&gt;, <span class="literal">nullptr</span>&gt;	b; <span class="comment">// 模板参数可以是一个无符号八位整数，可以是模板生成的类；可以是一个指针。</span></span><br><span class="line">    C&lt;<span class="literal">false</span>, &amp;foo&gt; c;      <span class="comment">// 模板参数可以是一个bool类型的常量，甚至可以是一个函数指针。</span></span><br><span class="line">    D&lt;&amp;A&lt;<span class="number">3</span>&gt;::foo&gt; d;       <span class="comment">// 丧心病狂啊！它还能是一个成员函数指针！</span></span><br><span class="line">    <span class="type">int</span> x = <span class="built_in">Add</span>&lt;<span class="number">3</span>&gt;(<span class="number">5</span>);     <span class="comment">// x == 8。因为整型模板参数无法从函数参数获得，所以只能是手工指定啦。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="type">float</span> a&gt; <span class="keyword">class</span> <span class="title class_">E</span> &#123;&#125;; <span class="comment">// ERROR: 别闹！早说过只能是整数类型的啦！</span></span><br></pre></td></tr></table></figure>
+
+<p>当然，除了单纯的用作常数之外，整型参数还有一些其它的用途。这些“其它”用途最重要的一点是让类型也可以像整数一样运算。《Modern C++ Design》给我们展示了很多这方面的例子。不过你不用急着去阅读那本天书，我们会在做好足够的知识铺垫后，让你轻松学会这些招数。</p>
+<h2 id="2-5-模板形式与功能是统一的"><a href="#2-5-模板形式与功能是统一的" class="headerlink" title="2.5. 模板形式与功能是统一的"></a>2.5. 模板形式与功能是统一的</h2><p>第一章走马观花的带着大家复习了一下C++ Template的基本语法形式，也解释了包括 <code>typename</code> 在内，类&#x2F;函数模板写法中各个语法元素的含义。形式是功能的外在体现，介绍它们也是为了让大家能理解到，模板之所以写成这种形式是有必要的，而不是语言的垃圾成分。</p>
+<p>从下一章开始，我们便进入了更加复杂和丰富的世界：讨论模板的匹配规则。其中有令人望而生畏的特化与偏特化。但是，请相信我们在序言中所提到的：将模板作为一门语言来看待，它会变得有趣而简单。</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Template%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-text">2. Template的基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%A8%A1%E6%9D%BF-Template"><span class="toc-text">2.1. 什么是模板(Template)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%B1%BB%E6%A8%A1%E6%9D%BF-Class-Template-%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-text">2.2. 类模板 (Class Template) 的基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E2%80%9C%E6%A8%A1%E6%9D%BF%E7%B1%BB%E2%80%9D%E8%BF%98%E6%98%AF%E2%80%9C%E7%B1%BB%E6%A8%A1%E6%9D%BF%E2%80%9D"><span class="toc-text">2.2.1. “模板类”还是“类模板”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-Class-Template%E7%9A%84%E4%B8%8E%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89"><span class="toc-text">2.2.2. Class Template的与成员变量定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">2.2.3. 模板的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-%E7%B1%BB%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%AE%9A%E4%B9%89"><span class="toc-text">2.2.4. 类模板的成员函数定义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF-Function-Tempalte-%E5%85%A5%E9%97%A8"><span class="toc-text">2.3. 函数模板 (Function Tempalte) 入门</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89"><span class="toc-text">2.3.1. 函数模板的声明和定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">2.3.2. 函数模板的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%95%B4%E5%9E%8B%E4%B9%9F%E5%8F%AF%E6%98%AFTemplate%E5%8F%82%E6%95%B0"><span class="toc-text">2.4. 整型也可是Template参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E6%A8%A1%E6%9D%BF%E5%BD%A2%E5%BC%8F%E4%B8%8E%E5%8A%9F%E8%83%BD%E6%98%AF%E7%BB%9F%E4%B8%80%E7%9A%84"><span class="toc-text">2.5. 模板形式与功能是统一的</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/2024/02/06/cpp/泛型编程/template2/">https://kettycode.github.io/2024/02/06/cpp/泛型编程/template2/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2024/02/06/cpp/%E7%8E%B0%E4%BB%A3C++/base1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          现代C++学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/02/06/cpp/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/thread/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          C++并发编程学习
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+          
+        
+
+
+  <section id="comments" class="vcomment"></section>
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/char/">cahr 和 wchar_t</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/hash/">哈希表小知识点及引申</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake1/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake2/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/git/git/">git学习从0开始</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hazel-bug/" style="font-size: 10px;">Hazel_bug</a> <a href="/tags/c-template/" style="font-size: 15px;">c++ template</a> <a href="/tags/c-%E5%B9%B6%E5%8F%91/" style="font-size: 17.5px;">c++并发</a> <a href="/tags/cmake/" style="font-size: 12.5px;">cmake</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 12.5px;">linux网络编程</a> <a href="/tags/modern-c/" style="font-size: 20px;">modern c++</a> <a href="/tags/tip/" style="font-size: 12.5px;">tip</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 12.5px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-%E5%B9%B6%E5%8F%91/" rel="tag">c++并发</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">linux网络编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tip/" rel="tag">tip</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://leetcode.cn/">力扣</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">博客园</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.bilibili.com/">b站</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 ketty.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+    <script>
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+      });
+      var notify = 'false' == true;
+      var verify = 'false' == true;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "7P3CzNq7WLUp6w49UFAQ6RLK-gzGzoHsz",
+          appKey: "ywWKNaoGnWQfvzV12QRNU12t",
+          placeholder: "Just go go",
+          pageSize:'10',
+          avatar:'mm',
+          lang:'zh-cn'
+      });
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

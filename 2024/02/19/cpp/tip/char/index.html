@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>cahr 和 wchar_t | 舍利子的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="舍利子的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">舍利子的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">心事无人诉，苦、苦、苦！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cpp/tip/char" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      cahr 和 wchar_t
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-02-19T04:59:59.000Z" itemprop="datePublished">2024年02月19日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2024/02/19/cpp/tip/char/#comments" class="article-comment-link">
+  
+    
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/02/19/cpp/tip/char/" itemprop="commentCount"></span>
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="char和wchar-t"><a href="#char和wchar-t" class="headerlink" title="char和wchar_t"></a>char和wchar_t</h1><h2 id="char-和-wchar-t-都是-C-中的字符类型，但它们之间有一些区别。char-是一个字节（8-位）长，而-wchar-t-是两个字节（16-位）或四个字节（32-位）长，具体取决于编译器和操作系统。因此，wchar-t-可以表示更多的字符，包括-Unicode-字符。"><a href="#char-和-wchar-t-都是-C-中的字符类型，但它们之间有一些区别。char-是一个字节（8-位）长，而-wchar-t-是两个字节（16-位）或四个字节（32-位）长，具体取决于编译器和操作系统。因此，wchar-t-可以表示更多的字符，包括-Unicode-字符。" class="headerlink" title="char 和 wchar_t 都是 C++ 中的字符类型，但它们之间有一些区别。char 是一个字节（8 位）长，而 wchar_t 是两个字节（16 位）或四个字节（32 位）长，具体取决于编译器和操作系统。因此，wchar_t 可以表示更多的字符，包括 Unicode 字符。"></a>char 和 wchar_t 都是 C++ 中的字符类型，但它们之间有一些区别。<br>char 是一个字节（8 位）长，而 wchar_t 是两个字节（16 位）或四个字节（32 位）长，具体取决于编译器和操作系统。<br>因此，wchar_t 可以表示更多的字符，包括 Unicode 字符。</h2><h2 id="在-Windows-操作系统中，许多-API-函数都使用-wchar-t-类型的字符串参数。如果需要处理-Unicode-字符或调用这些函数，则应使用-wchar-t-类型。否则，可以使用-char-类型。"><a href="#在-Windows-操作系统中，许多-API-函数都使用-wchar-t-类型的字符串参数。如果需要处理-Unicode-字符或调用这些函数，则应使用-wchar-t-类型。否则，可以使用-char-类型。" class="headerlink" title="在 Windows 操作系统中，许多 API 函数都使用 wchar_t 类型的字符串参数。如果需要处理 Unicode 字符或调用这些函数，则应使用 wchar_t 类型。否则，可以使用 char 类型。"></a>在 Windows 操作系统中，许多 API 函数都使用 wchar_t 类型的字符串参数。如果需要处理 Unicode 字符或调用这些函数，则应使用 wchar_t 类型。否则，可以使用 char 类型。</h2><h2 id="为了使程序适配多语言场景，不建议在代码中使用char或wchar-t，可直接使用TCHAR类型定义字符（串），需要包含对应头文件（在包含了Windows-h时则不需要）。TCHAR在源码中的定义如下："><a href="#为了使程序适配多语言场景，不建议在代码中使用char或wchar-t，可直接使用TCHAR类型定义字符（串），需要包含对应头文件（在包含了Windows-h时则不需要）。TCHAR在源码中的定义如下：" class="headerlink" title="为了使程序适配多语言场景，不建议在代码中使用char或wchar_t，可直接使用TCHAR类型定义字符（串），需要包含对应头文件&lt;TCHAR.H&gt;（在包含了Windows.h时则不需要）。TCHAR在源码中的定义如下："></a>为了使程序适配多语言场景，不建议在代码中使用char或wchar_t，可直接使用TCHAR类型定义字符（串），需要包含对应头文件&lt;TCHAR.H&gt;（在包含了Windows.h时则不需要）。TCHAR在源码中的定义如下：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _UNICODE</span></span><br><span class="line">     <span class="keyword">typedef</span> <span class="type">wchar_t</span> TCHAR;</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">char</span> TCHAR;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="同理，在涉及到字符串操作的接口时，也推荐使用支持多语言场景的接口-tcscpy、-tcslen、-tcscat，而不是strcpy-s、strlen-s、strcat-s或wcscpy、wcslen、wcscat。头文件中有很多类似的宏定义。"><a href="#同理，在涉及到字符串操作的接口时，也推荐使用支持多语言场景的接口-tcscpy、-tcslen、-tcscat，而不是strcpy-s、strlen-s、strcat-s或wcscpy、wcslen、wcscat。头文件中有很多类似的宏定义。" class="headerlink" title="同理，在涉及到字符串操作的接口时，也推荐使用支持多语言场景的接口_tcscpy、_tcslen、_tcscat，而不是strcpy_s、strlen_s、strcat_s或wcscpy、wcslen、wcscat。头文件&lt;TCHAR.H&gt;中有很多类似的宏定义。"></a>同理，在涉及到字符串操作的接口时，也推荐使用支持多语言场景的接口_tcscpy、_tcslen、_tcscat，而不是strcpy_s、strlen_s、strcat_s或wcscpy、wcslen、wcscat。头文件&lt;TCHAR.H&gt;中有很多类似的宏定义。</h2><h1 id="前缀L-和-前缀-T"><a href="#前缀L-和-前缀-T" class="headerlink" title="前缀L 和 前缀_T"></a>前缀L 和 前缀_T</h1><h2 id="通常，我们使用双引号标识ANSI字符串，比如：”I’m-an-example-“-这种类型的字符串，每个字符占用一个字节。当我们想要标识UNICODE字符串时，需要添加前缀L，比如：L”I’m-an-example-“-。这种类型的字符串，每个字符占用两个字节。当然，为了适配多语言场景，也设计了一个通用的字符串前缀，即-T（或TEXT），这个前缀也是宏定义，其在源码中的定义如下："><a href="#通常，我们使用双引号标识ANSI字符串，比如：”I’m-an-example-“-这种类型的字符串，每个字符占用一个字节。当我们想要标识UNICODE字符串时，需要添加前缀L，比如：L”I’m-an-example-“-。这种类型的字符串，每个字符占用两个字节。当然，为了适配多语言场景，也设计了一个通用的字符串前缀，即-T（或TEXT），这个前缀也是宏定义，其在源码中的定义如下：" class="headerlink" title="通常，我们使用双引号标识ANSI字符串，比如：”I’m an example. “ 这种类型的字符串，每个字符占用一个字节。当我们想要标识UNICODE字符串时，需要添加前缀L，比如：L”I’m an example. “ 。这种类型的字符串，每个字符占用两个字节。当然，为了适配多语言场景，也设计了一个通用的字符串前缀，即_T（或TEXT），这个前缀也是宏定义，其在源码中的定义如下："></a>通常，我们使用双引号标识ANSI字符串，比如：”I’m an example. “ 这种类型的字符串，每个字符占用一个字节。当我们想要标识UNICODE字符串时，需要添加前缀L，比如：L”I’m an example. “ 。这种类型的字符串，每个字符占用两个字节。当然，为了适配多语言场景，也设计了一个通用的字符串前缀，即_T（或TEXT），这个前缀也是宏定义，其在源码中的定义如下：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _UNICODE </span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> _T(c) L##c</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> TEXT(c) L##c</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span> </span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> _T(c) c</span></span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> TEXT(c) c</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="WCHAR-LPCTSTR-LPSTR-LPWSTR"><a href="#WCHAR-LPCTSTR-LPSTR-LPWSTR" class="headerlink" title="WCHAR LPCTSTR LPSTR LPWSTR"></a>WCHAR LPCTSTR LPSTR LPWSTR</h1><h2 id="WCHAR是一种Unicode编码类型，其在源码中的定义如下："><a href="#WCHAR是一种Unicode编码类型，其在源码中的定义如下：" class="headerlink" title="WCHAR是一种Unicode编码类型，其在源码中的定义如下："></a>WCHAR是一种Unicode编码类型，其在源码中的定义如下：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">if</span> !defined(_NATIVE_WCHAR_T_DEFINED)</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">short</span> WCHAR;</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">     <span class="keyword">typedef</span> <span class="type">wchar_t</span> WCHAR;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="LPCTSTR是一种指针类型，该类型名可按照如下方式解读：LP-Pointer-C-Constant-T-TCHAR-STR-String-根据我们创建工程时的配置，LPCTSTR会映射为LPCSTR（ANSI）或LPCWSTR（Unicode）。"><a href="#LPCTSTR是一种指针类型，该类型名可按照如下方式解读：LP-Pointer-C-Constant-T-TCHAR-STR-String-根据我们创建工程时的配置，LPCTSTR会映射为LPCSTR（ANSI）或LPCWSTR（Unicode）。" class="headerlink" title="LPCTSTR是一种指针类型，该类型名可按照如下方式解读：LP - Pointer, C - Constant, T - TCHAR, STR - String.根据我们创建工程时的配置，LPCTSTR会映射为LPCSTR（ANSI）或LPCWSTR（Unicode）。"></a>LPCTSTR是一种指针类型，该类型名可按照如下方式解读：<br>LP - Pointer, C - Constant, T - TCHAR, STR - String.<br>根据我们创建工程时的配置，LPCTSTR会映射为LPCSTR（ANSI）或LPCWSTR（Unicode）。</h2><h2 id="LPSTR是一种指针类型，可能指向的数据编码类型为-ANSI-或-UTF-8，具体由protocol文件决定。LPSTR在源码中的定义如下：typedef-char-PSTR-LPSTR"><a href="#LPSTR是一种指针类型，可能指向的数据编码类型为-ANSI-或-UTF-8，具体由protocol文件决定。LPSTR在源码中的定义如下：typedef-char-PSTR-LPSTR" class="headerlink" title="LPSTR是一种指针类型，可能指向的数据编码类型为 ANSI 或 UTF-8，具体由protocol文件决定。LPSTR在源码中的定义如下：typedef char* PSTR, *LPSTR;"></a>LPSTR是一种指针类型，可能指向的数据编码类型为 ANSI 或 UTF-8，具体由protocol文件决定。LPSTR在源码中的定义如下：<br>typedef char* PSTR, *LPSTR;</h2><h2 id="LPWSTR也是一种指针类型，它用32位字符表示16位的Unicode字符，其在源码中的定义如下："><a href="#LPWSTR也是一种指针类型，它用32位字符表示16位的Unicode字符，其在源码中的定义如下：" class="headerlink" title="LPWSTR也是一种指针类型，它用32位字符表示16位的Unicode字符，其在源码中的定义如下："></a>LPWSTR也是一种指针类型，它用32位字符表示16位的Unicode字符，其在源码中的定义如下：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">wchar_t</span>* LPWSTR, *PWSTR;</span><br></pre></td></tr></table></figure>
+
+<h1 id="stprintf-s"><a href="#stprintf-s" class="headerlink" title="_stprintf_s"></a>_stprintf_s</h1><h2 id="stprintf-s-函数的第一个参数是要格式化的字符串，第二个参数是要插入到字符串中的值。"><a href="#stprintf-s-函数的第一个参数是要格式化的字符串，第二个参数是要插入到字符串中的值。" class="headerlink" title="_stprintf_s() 函数的第一个参数是要格式化的字符串，第二个参数是要插入到字符串中的值。"></a>_stprintf_s() 函数的第一个参数是要格式化的字符串，第二个参数是要插入到字符串中的值。</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifdef</span> UNICODE</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _stprintf_s     swprintf_s</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _stprintf_s     sprintf_s</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TCHAR str[<span class="number">256</span>];</span><br><span class="line">_stprintf_s(str, _T(<span class="string">&quot;(%f,%f,%f)&quot;</span>), pt[<span class="number">0</span>], pt[<span class="number">1</span>], pt[<span class="number">2</span>]);</span><br></pre></td></tr></table></figure>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#char%E5%92%8Cwchar-t"><span class="toc-text">char和wchar_t</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#char-%E5%92%8C-wchar-t-%E9%83%BD%E6%98%AF-C-%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B%EF%BC%8C%E4%BD%86%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E6%9C%89%E4%B8%80%E4%BA%9B%E5%8C%BA%E5%88%AB%E3%80%82char-%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AD%97%E8%8A%82%EF%BC%888-%E4%BD%8D%EF%BC%89%E9%95%BF%EF%BC%8C%E8%80%8C-wchar-t-%E6%98%AF%E4%B8%A4%E4%B8%AA%E5%AD%97%E8%8A%82%EF%BC%8816-%E4%BD%8D%EF%BC%89%E6%88%96%E5%9B%9B%E4%B8%AA%E5%AD%97%E8%8A%82%EF%BC%8832-%E4%BD%8D%EF%BC%89%E9%95%BF%EF%BC%8C%E5%85%B7%E4%BD%93%E5%8F%96%E5%86%B3%E4%BA%8E%E7%BC%96%E8%AF%91%E5%99%A8%E5%92%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%82%E5%9B%A0%E6%AD%A4%EF%BC%8Cwchar-t-%E5%8F%AF%E4%BB%A5%E8%A1%A8%E7%A4%BA%E6%9B%B4%E5%A4%9A%E7%9A%84%E5%AD%97%E7%AC%A6%EF%BC%8C%E5%8C%85%E6%8B%AC-Unicode-%E5%AD%97%E7%AC%A6%E3%80%82"><span class="toc-text">char 和 wchar_t 都是 C++ 中的字符类型，但它们之间有一些区别。char 是一个字节（8 位）长，而 wchar_t 是两个字节（16 位）或四个字节（32 位）长，具体取决于编译器和操作系统。因此，wchar_t 可以表示更多的字符，包括 Unicode 字符。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-Windows-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%AD%EF%BC%8C%E8%AE%B8%E5%A4%9A-API-%E5%87%BD%E6%95%B0%E9%83%BD%E4%BD%BF%E7%94%A8-wchar-t-%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%82%E6%95%B0%E3%80%82%E5%A6%82%E6%9E%9C%E9%9C%80%E8%A6%81%E5%A4%84%E7%90%86-Unicode-%E5%AD%97%E7%AC%A6%E6%88%96%E8%B0%83%E7%94%A8%E8%BF%99%E4%BA%9B%E5%87%BD%E6%95%B0%EF%BC%8C%E5%88%99%E5%BA%94%E4%BD%BF%E7%94%A8-wchar-t-%E7%B1%BB%E5%9E%8B%E3%80%82%E5%90%A6%E5%88%99%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8-char-%E7%B1%BB%E5%9E%8B%E3%80%82"><span class="toc-text">在 Windows 操作系统中，许多 API 函数都使用 wchar_t 类型的字符串参数。如果需要处理 Unicode 字符或调用这些函数，则应使用 wchar_t 类型。否则，可以使用 char 类型。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BA%86%E4%BD%BF%E7%A8%8B%E5%BA%8F%E9%80%82%E9%85%8D%E5%A4%9A%E8%AF%AD%E8%A8%80%E5%9C%BA%E6%99%AF%EF%BC%8C%E4%B8%8D%E5%BB%BA%E8%AE%AE%E5%9C%A8%E4%BB%A3%E7%A0%81%E4%B8%AD%E4%BD%BF%E7%94%A8char%E6%88%96wchar-t%EF%BC%8C%E5%8F%AF%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8TCHAR%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%E5%AD%97%E7%AC%A6%EF%BC%88%E4%B8%B2%EF%BC%89%EF%BC%8C%E9%9C%80%E8%A6%81%E5%8C%85%E5%90%AB%E5%AF%B9%E5%BA%94%E5%A4%B4%E6%96%87%E4%BB%B6%EF%BC%88%E5%9C%A8%E5%8C%85%E5%90%AB%E4%BA%86Windows-h%E6%97%B6%E5%88%99%E4%B8%8D%E9%9C%80%E8%A6%81%EF%BC%89%E3%80%82TCHAR%E5%9C%A8%E6%BA%90%E7%A0%81%E4%B8%AD%E7%9A%84%E5%AE%9A%E4%B9%89%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">为了使程序适配多语言场景，不建议在代码中使用char或wchar_t，可直接使用TCHAR类型定义字符（串），需要包含对应头文件&lt;TCHAR.H&gt;（在包含了Windows.h时则不需要）。TCHAR在源码中的定义如下：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E7%90%86%EF%BC%8C%E5%9C%A8%E6%B6%89%E5%8F%8A%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E7%9A%84%E6%8E%A5%E5%8F%A3%E6%97%B6%EF%BC%8C%E4%B9%9F%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8%E6%94%AF%E6%8C%81%E5%A4%9A%E8%AF%AD%E8%A8%80%E5%9C%BA%E6%99%AF%E7%9A%84%E6%8E%A5%E5%8F%A3-tcscpy%E3%80%81-tcslen%E3%80%81-tcscat%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AFstrcpy-s%E3%80%81strlen-s%E3%80%81strcat-s%E6%88%96wcscpy%E3%80%81wcslen%E3%80%81wcscat%E3%80%82%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9C%89%E5%BE%88%E5%A4%9A%E7%B1%BB%E4%BC%BC%E7%9A%84%E5%AE%8F%E5%AE%9A%E4%B9%89%E3%80%82"><span class="toc-text">同理，在涉及到字符串操作的接口时，也推荐使用支持多语言场景的接口_tcscpy、_tcslen、_tcscat，而不是strcpy_s、strlen_s、strcat_s或wcscpy、wcslen、wcscat。头文件&lt;TCHAR.H&gt;中有很多类似的宏定义。</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%BC%80L-%E5%92%8C-%E5%89%8D%E7%BC%80-T"><span class="toc-text">前缀L 和 前缀_T</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E5%B8%B8%EF%BC%8C%E6%88%91%E4%BB%AC%E4%BD%BF%E7%94%A8%E5%8F%8C%E5%BC%95%E5%8F%B7%E6%A0%87%E8%AF%86ANSI%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E6%AF%94%E5%A6%82%EF%BC%9A%E2%80%9DI%E2%80%99m-an-example-%E2%80%9C-%E8%BF%99%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E6%AF%8F%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%8D%A0%E7%94%A8%E4%B8%80%E4%B8%AA%E5%AD%97%E8%8A%82%E3%80%82%E5%BD%93%E6%88%91%E4%BB%AC%E6%83%B3%E8%A6%81%E6%A0%87%E8%AF%86UNICODE%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%97%B6%EF%BC%8C%E9%9C%80%E8%A6%81%E6%B7%BB%E5%8A%A0%E5%89%8D%E7%BC%80L%EF%BC%8C%E6%AF%94%E5%A6%82%EF%BC%9AL%E2%80%9DI%E2%80%99m-an-example-%E2%80%9C-%E3%80%82%E8%BF%99%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E6%AF%8F%E4%B8%AA%E5%AD%97%E7%AC%A6%E5%8D%A0%E7%94%A8%E4%B8%A4%E4%B8%AA%E5%AD%97%E8%8A%82%E3%80%82%E5%BD%93%E7%84%B6%EF%BC%8C%E4%B8%BA%E4%BA%86%E9%80%82%E9%85%8D%E5%A4%9A%E8%AF%AD%E8%A8%80%E5%9C%BA%E6%99%AF%EF%BC%8C%E4%B9%9F%E8%AE%BE%E8%AE%A1%E4%BA%86%E4%B8%80%E4%B8%AA%E9%80%9A%E7%94%A8%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%89%8D%E7%BC%80%EF%BC%8C%E5%8D%B3-T%EF%BC%88%E6%88%96TEXT%EF%BC%89%EF%BC%8C%E8%BF%99%E4%B8%AA%E5%89%8D%E7%BC%80%E4%B9%9F%E6%98%AF%E5%AE%8F%E5%AE%9A%E4%B9%89%EF%BC%8C%E5%85%B6%E5%9C%A8%E6%BA%90%E7%A0%81%E4%B8%AD%E7%9A%84%E5%AE%9A%E4%B9%89%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">通常，我们使用双引号标识ANSI字符串，比如：”I’m an example. “ 这种类型的字符串，每个字符占用一个字节。当我们想要标识UNICODE字符串时，需要添加前缀L，比如：L”I’m an example. “ 。这种类型的字符串，每个字符占用两个字节。当然，为了适配多语言场景，也设计了一个通用的字符串前缀，即_T（或TEXT），这个前缀也是宏定义，其在源码中的定义如下：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WCHAR-LPCTSTR-LPSTR-LPWSTR"><span class="toc-text">WCHAR LPCTSTR LPSTR LPWSTR</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#WCHAR%E6%98%AF%E4%B8%80%E7%A7%8DUnicode%E7%BC%96%E7%A0%81%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%85%B6%E5%9C%A8%E6%BA%90%E7%A0%81%E4%B8%AD%E7%9A%84%E5%AE%9A%E4%B9%89%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">WCHAR是一种Unicode编码类型，其在源码中的定义如下：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LPCTSTR%E6%98%AF%E4%B8%80%E7%A7%8D%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B%EF%BC%8C%E8%AF%A5%E7%B1%BB%E5%9E%8B%E5%90%8D%E5%8F%AF%E6%8C%89%E7%85%A7%E5%A6%82%E4%B8%8B%E6%96%B9%E5%BC%8F%E8%A7%A3%E8%AF%BB%EF%BC%9ALP-Pointer-C-Constant-T-TCHAR-STR-String-%E6%A0%B9%E6%8D%AE%E6%88%91%E4%BB%AC%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B%E6%97%B6%E7%9A%84%E9%85%8D%E7%BD%AE%EF%BC%8CLPCTSTR%E4%BC%9A%E6%98%A0%E5%B0%84%E4%B8%BALPCSTR%EF%BC%88ANSI%EF%BC%89%E6%88%96LPCWSTR%EF%BC%88Unicode%EF%BC%89%E3%80%82"><span class="toc-text">LPCTSTR是一种指针类型，该类型名可按照如下方式解读：LP - Pointer, C - Constant, T - TCHAR, STR - String.根据我们创建工程时的配置，LPCTSTR会映射为LPCSTR（ANSI）或LPCWSTR（Unicode）。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LPSTR%E6%98%AF%E4%B8%80%E7%A7%8D%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%8F%AF%E8%83%BD%E6%8C%87%E5%90%91%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BC%96%E7%A0%81%E7%B1%BB%E5%9E%8B%E4%B8%BA-ANSI-%E6%88%96-UTF-8%EF%BC%8C%E5%85%B7%E4%BD%93%E7%94%B1protocol%E6%96%87%E4%BB%B6%E5%86%B3%E5%AE%9A%E3%80%82LPSTR%E5%9C%A8%E6%BA%90%E7%A0%81%E4%B8%AD%E7%9A%84%E5%AE%9A%E4%B9%89%E5%A6%82%E4%B8%8B%EF%BC%9Atypedef-char-PSTR-LPSTR"><span class="toc-text">LPSTR是一种指针类型，可能指向的数据编码类型为 ANSI 或 UTF-8，具体由protocol文件决定。LPSTR在源码中的定义如下：typedef char* PSTR, *LPSTR;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LPWSTR%E4%B9%9F%E6%98%AF%E4%B8%80%E7%A7%8D%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%AE%83%E7%94%A832%E4%BD%8D%E5%AD%97%E7%AC%A6%E8%A1%A8%E7%A4%BA16%E4%BD%8D%E7%9A%84Unicode%E5%AD%97%E7%AC%A6%EF%BC%8C%E5%85%B6%E5%9C%A8%E6%BA%90%E7%A0%81%E4%B8%AD%E7%9A%84%E5%AE%9A%E4%B9%89%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="toc-text">LPWSTR也是一种指针类型，它用32位字符表示16位的Unicode字符，其在源码中的定义如下：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#stprintf-s"><span class="toc-text">_stprintf_s</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#stprintf-s-%E5%87%BD%E6%95%B0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%E6%98%AF%E8%A6%81%E6%A0%BC%E5%BC%8F%E5%8C%96%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8F%82%E6%95%B0%E6%98%AF%E8%A6%81%E6%8F%92%E5%85%A5%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%80%BC%E3%80%82"><span class="toc-text">_stprintf_s() 函数的第一个参数是要格式化的字符串，第二个参数是要插入到字符串中的值。</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/2024/02/19/cpp/tip/char/">https://kettycode.github.io/2024/02/19/cpp/tip/char/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tip/" rel="tag">tip</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2024/02/19/cpp/tip/hash/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          哈希表小知识点及引申
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+      
+      
+        
+          
+        
+
+
+  <section id="comments" class="vcomment"></section>
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/char/">cahr 和 wchar_t</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/hash/">哈希表小知识点及引申</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake1/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake2/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/git/git/">git学习从0开始</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hazel-bug/" style="font-size: 10px;">Hazel_bug</a> <a href="/tags/c-template/" style="font-size: 15px;">c++ template</a> <a href="/tags/c-%E5%B9%B6%E5%8F%91/" style="font-size: 17.5px;">c++并发</a> <a href="/tags/cmake/" style="font-size: 12.5px;">cmake</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 12.5px;">linux网络编程</a> <a href="/tags/modern-c/" style="font-size: 20px;">modern c++</a> <a href="/tags/tip/" style="font-size: 12.5px;">tip</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 12.5px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-%E5%B9%B6%E5%8F%91/" rel="tag">c++并发</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">linux网络编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tip/" rel="tag">tip</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://leetcode.cn/">力扣</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">博客园</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.bilibili.com/">b站</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 ketty.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+    <script>
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+      });
+      var notify = 'false' == true;
+      var verify = 'false' == true;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "7P3CzNq7WLUp6w49UFAQ6RLK-gzGzoHsz",
+          appKey: "ywWKNaoGnWQfvzV12QRNU12t",
+          placeholder: "Just go go",
+          pageSize:'10',
+          avatar:'mm',
+          lang:'zh-cn'
+      });
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

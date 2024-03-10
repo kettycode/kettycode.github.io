@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>哈希表小知识点及引申 | 舍利子的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="舍利子的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">舍利子的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">心事无人诉，苦、苦、苦！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cpp/tip/hash" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      哈希表小知识点及引申
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-02-19T04:59:59.000Z" itemprop="datePublished">2024年02月19日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2024/02/19/cpp/tip/hash/#comments" class="article-comment-link">
+  
+    
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/02/19/cpp/tip/hash/" itemprop="commentCount"></span>
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="unordered-map中的小知识"><a href="#unordered-map中的小知识" class="headerlink" title="unordered_map中的小知识"></a>unordered_map中的小知识</h1><h2 id="unordered-map-将-key的某种类型-通过哈希函数映射成-size-t-即可-等价成数组"><a href="#unordered-map-将-key的某种类型-通过哈希函数映射成-size-t-即可-等价成数组" class="headerlink" title="unordered_map 将 key的某种类型 通过哈希函数映射成 size_t 即可 等价成数组"></a>unordered_map 将 key的某种类型 通过哈希函数映射成 size_t 即可 等价成数组</h2><h2 id="例如：unordered-map-map中的键（key）string-通过hash函数转化成特定的size-t-unsigned-int-类型，即和vector没太大区别"><a href="#例如：unordered-map-map中的键（key）string-通过hash函数转化成特定的size-t-unsigned-int-类型，即和vector没太大区别" class="headerlink" title="例如：unordered_map&lt;string,int&gt; map中的键（key）string 通过hash函数转化成特定的size_t(unsigned int)类型，即和vector没太大区别"></a>例如：unordered_map&lt;string,int&gt; map中的键（key）string 通过hash函数转化成特定的size_t(unsigned int)类型，即和vector<int>没太大区别</h2><h2 id="对某些没有默认哈希函数的类型可以自定义哈希函数，例如下列函数："><a href="#对某些没有默认哈希函数的类型可以自定义哈希函数，例如下列函数：" class="headerlink" title="对某些没有默认哈希函数的类型可以自定义哈希函数，例如下列函数："></a>对某些没有默认哈希函数的类型可以自定义哈希函数，例如下列函数：</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过 对int类型的默认哈希函数 自定义 对array&lt;int, 26&gt; 类型的哈希函数</span></span><br><span class="line"><span class="keyword">auto</span> arrayHash = [fn = hash&lt;<span class="type">int</span>&gt;&#123;&#125;] (<span class="type">const</span> array&lt;<span class="type">int</span>, <span class="number">26</span>&gt;&amp; arr) -&gt; <span class="type">size_t</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">accumulate</span>(arr.<span class="built_in">begin</span>(), arr.<span class="built_in">end</span>(), <span class="number">0u</span>, [&amp;](<span class="type">size_t</span> acc, <span class="type">int</span> num) &#123;</span><br><span class="line">            <span class="built_in">return</span> (acc &lt;&lt; <span class="number">1</span>) ^ <span class="built_in">fn</span>(num);</span><br><span class="line">      &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">unordered_map&lt;array&lt;<span class="type">int</span>, 26&gt;, vector&lt;string&gt;, <span class="keyword">decltype</span>(arrayHash)&gt; <span class="built_in">mp</span>(<span class="number">0</span>, arrayHash);</span><br></pre></td></tr></table></figure>
+
+<h1 id="上述函数用到的lambda表达式"><a href="#上述函数用到的lambda表达式" class="headerlink" title="上述函数用到的lambda表达式"></a>上述函数用到的lambda表达式</h1><h2 id="lambda-lambda本质上是一个普通的函数，只是它不像普通函数这样声明，它是我们的代码在过程中生成的，用完即弃的函数，不算一个真正的函数，是匿名函数-。格式：-形参表-函数内容-返回类型-函数内容"><a href="#lambda-lambda本质上是一个普通的函数，只是它不像普通函数这样声明，它是我们的代码在过程中生成的，用完即弃的函数，不算一个真正的函数，是匿名函数-。格式：-形参表-函数内容-返回类型-函数内容" class="headerlink" title="lambda:lambda本质上是一个普通的函数，只是它不像普通函数这样声明，它是我们的代码在过程中生成的，用完即弃的函数，不算一个真正的函数，是匿名函数 。格式：[] ({形参表}) {函数内容} &#x2F;  -&gt;返回类型{函数内容}"></a>lambda:lambda本质上是一个普通的函数，只是它不像普通函数这样声明，<br>它是我们的代码在过程中生成的，用完即弃的函数，不算一个真正的函数，是匿名函数 。<br>格式：[] ({形参表}) {函数内容} &#x2F;  <a href="%7B%E5%BD%A2%E5%8F%82%E8%A1%A8%7D"></a>-&gt;返回类型{函数内容}</h2><h2 id="中括号表示的是捕获，作用是如何传递变量-lambda使用外部（相对）的变量时，就要使用捕获。如果使用捕获-则："><a href="#中括号表示的是捕获，作用是如何传递变量-lambda使用外部（相对）的变量时，就要使用捕获。如果使用捕获-则：" class="headerlink" title="中括号表示的是捕获，作用是如何传递变量 lambda使用外部（相对）的变量时，就要使用捕获。如果使用捕获,则："></a>中括号表示的是捕获，作用是如何传递变量 lambda使用外部（相对）的变量时，就要使用捕获。<br>如果使用捕获,则：</h2><h2 id="添加头文件：-include-functional-捕获-使用方式：-，则是将所有变量值传递到lambda中-，则是将所有变量引用传递到lambda中-a-是将变量a通过值传递，如果是-a-就是将变量a引用传递它可以有0个或者多个捕获"><a href="#添加头文件：-include-functional-捕获-使用方式：-，则是将所有变量值传递到lambda中-，则是将所有变量引用传递到lambda中-a-是将变量a通过值传递，如果是-a-就是将变量a引用传递它可以有0个或者多个捕获" class="headerlink" title="添加头文件： #include&lt; functional &gt;捕获[]使用方式：[&#x3D;]，则是将所有变量值传递到lambda中[&amp;]，则是将所有变量引用传递到lambda中[a]是将变量a通过值传递，如果是[&amp;a]就是将变量a引用传递它可以有0个或者多个捕获"></a>添加头文件： #include&lt; functional &gt;<br>捕获[]使用方式：<br>[&#x3D;]，则是将所有变量值传递到lambda中<br>[&amp;]，则是将所有变量引用传递到lambda中<br>[a]是将变量a通过值传递，如果是[&amp;a]就是将变量a引用传递<br>它可以有0个或者多个捕获</h2>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#unordered-map%E4%B8%AD%E7%9A%84%E5%B0%8F%E7%9F%A5%E8%AF%86"><span class="toc-text">unordered_map中的小知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#unordered-map-%E5%B0%86-key%E7%9A%84%E6%9F%90%E7%A7%8D%E7%B1%BB%E5%9E%8B-%E9%80%9A%E8%BF%87%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E6%98%A0%E5%B0%84%E6%88%90-size-t-%E5%8D%B3%E5%8F%AF-%E7%AD%89%E4%BB%B7%E6%88%90%E6%95%B0%E7%BB%84"><span class="toc-text">unordered_map 将 key的某种类型 通过哈希函数映射成 size_t 即可 等价成数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%A6%82%EF%BC%9Aunordered-map-map%E4%B8%AD%E7%9A%84%E9%94%AE%EF%BC%88key%EF%BC%89string-%E9%80%9A%E8%BF%87hash%E5%87%BD%E6%95%B0%E8%BD%AC%E5%8C%96%E6%88%90%E7%89%B9%E5%AE%9A%E7%9A%84size-t-unsigned-int-%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%8D%B3%E5%92%8Cvector%E6%B2%A1%E5%A4%AA%E5%A4%A7%E5%8C%BA%E5%88%AB"><span class="toc-text">例如：unordered_map&lt;string,int&gt; map中的键（key）string 通过hash函数转化成特定的size_t(unsigned int)类型，即和vector没太大区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%9F%90%E4%BA%9B%E6%B2%A1%E6%9C%89%E9%BB%98%E8%AE%A4%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%8F%AF%E4%BB%A5%E8%87%AA%E5%AE%9A%E4%B9%89%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%EF%BC%8C%E4%BE%8B%E5%A6%82%E4%B8%8B%E5%88%97%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-text">对某些没有默认哈希函数的类型可以自定义哈希函数，例如下列函数：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E8%BF%B0%E5%87%BD%E6%95%B0%E7%94%A8%E5%88%B0%E7%9A%84lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">上述函数用到的lambda表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda-lambda%E6%9C%AC%E8%B4%A8%E4%B8%8A%E6%98%AF%E4%B8%80%E4%B8%AA%E6%99%AE%E9%80%9A%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E5%8F%AA%E6%98%AF%E5%AE%83%E4%B8%8D%E5%83%8F%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E8%BF%99%E6%A0%B7%E5%A3%B0%E6%98%8E%EF%BC%8C%E5%AE%83%E6%98%AF%E6%88%91%E4%BB%AC%E7%9A%84%E4%BB%A3%E7%A0%81%E5%9C%A8%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%94%9F%E6%88%90%E7%9A%84%EF%BC%8C%E7%94%A8%E5%AE%8C%E5%8D%B3%E5%BC%83%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%8D%E7%AE%97%E4%B8%80%E4%B8%AA%E7%9C%9F%E6%AD%A3%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%8C%E6%98%AF%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0-%E3%80%82%E6%A0%BC%E5%BC%8F%EF%BC%9A-%E5%BD%A2%E5%8F%82%E8%A1%A8-%E5%87%BD%E6%95%B0%E5%86%85%E5%AE%B9-%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B-%E5%87%BD%E6%95%B0%E5%86%85%E5%AE%B9"><span class="toc-text">lambda:lambda本质上是一个普通的函数，只是它不像普通函数这样声明，它是我们的代码在过程中生成的，用完即弃的函数，不算一个真正的函数，是匿名函数 。格式：[] ({形参表}) {函数内容} &#x2F;  -&gt;返回类型{函数内容}</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%AD%E6%8B%AC%E5%8F%B7%E8%A1%A8%E7%A4%BA%E7%9A%84%E6%98%AF%E6%8D%95%E8%8E%B7%EF%BC%8C%E4%BD%9C%E7%94%A8%E6%98%AF%E5%A6%82%E4%BD%95%E4%BC%A0%E9%80%92%E5%8F%98%E9%87%8F-lambda%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%EF%BC%88%E7%9B%B8%E5%AF%B9%EF%BC%89%E7%9A%84%E5%8F%98%E9%87%8F%E6%97%B6%EF%BC%8C%E5%B0%B1%E8%A6%81%E4%BD%BF%E7%94%A8%E6%8D%95%E8%8E%B7%E3%80%82%E5%A6%82%E6%9E%9C%E4%BD%BF%E7%94%A8%E6%8D%95%E8%8E%B7-%E5%88%99%EF%BC%9A"><span class="toc-text">中括号表示的是捕获，作用是如何传递变量 lambda使用外部（相对）的变量时，就要使用捕获。如果使用捕获,则：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%A4%B4%E6%96%87%E4%BB%B6%EF%BC%9A-include-functional-%E6%8D%95%E8%8E%B7-%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F%EF%BC%9A-%EF%BC%8C%E5%88%99%E6%98%AF%E5%B0%86%E6%89%80%E6%9C%89%E5%8F%98%E9%87%8F%E5%80%BC%E4%BC%A0%E9%80%92%E5%88%B0lambda%E4%B8%AD-%EF%BC%8C%E5%88%99%E6%98%AF%E5%B0%86%E6%89%80%E6%9C%89%E5%8F%98%E9%87%8F%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E5%88%B0lambda%E4%B8%AD-a-%E6%98%AF%E5%B0%86%E5%8F%98%E9%87%8Fa%E9%80%9A%E8%BF%87%E5%80%BC%E4%BC%A0%E9%80%92%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%98%AF-a-%E5%B0%B1%E6%98%AF%E5%B0%86%E5%8F%98%E9%87%8Fa%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E5%AE%83%E5%8F%AF%E4%BB%A5%E6%9C%890%E4%B8%AA%E6%88%96%E8%80%85%E5%A4%9A%E4%B8%AA%E6%8D%95%E8%8E%B7"><span class="toc-text">添加头文件： #include&lt; functional &gt;捕获[]使用方式：[&#x3D;]，则是将所有变量值传递到lambda中[&amp;]，则是将所有变量引用传递到lambda中[a]是将变量a通过值传递，如果是[&amp;a]就是将变量a引用传递它可以有0个或者多个捕获</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/2024/02/19/cpp/tip/hash/">https://kettycode.github.io/2024/02/19/cpp/tip/hash/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tip/" rel="tag">tip</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2024/02/06/cmake/cmake1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          cmake学习从0开始
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/02/19/cpp/tip/char/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          cahr 和 wchar_t
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+          
+        
+
+
+  <section id="comments" class="vcomment"></section>
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/char/">cahr 和 wchar_t</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/hash/">哈希表小知识点及引申</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake1/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake2/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/git/git/">git学习从0开始</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hazel-bug/" style="font-size: 10px;">Hazel_bug</a> <a href="/tags/c-template/" style="font-size: 15px;">c++ template</a> <a href="/tags/c-%E5%B9%B6%E5%8F%91/" style="font-size: 17.5px;">c++并发</a> <a href="/tags/cmake/" style="font-size: 12.5px;">cmake</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 12.5px;">linux网络编程</a> <a href="/tags/modern-c/" style="font-size: 20px;">modern c++</a> <a href="/tags/tip/" style="font-size: 12.5px;">tip</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 12.5px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-%E5%B9%B6%E5%8F%91/" rel="tag">c++并发</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">linux网络编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tip/" rel="tag">tip</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://leetcode.cn/">力扣</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">博客园</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.bilibili.com/">b站</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 ketty.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+    <script>
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+      });
+      var notify = 'false' == true;
+      var verify = 'false' == true;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "7P3CzNq7WLUp6w49UFAQ6RLK-gzGzoHsz",
+          appKey: "ywWKNaoGnWQfvzV12QRNU12t",
+          placeholder: "Just go go",
+          pageSize:'10',
+          avatar:'mm',
+          lang:'zh-cn'
+      });
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

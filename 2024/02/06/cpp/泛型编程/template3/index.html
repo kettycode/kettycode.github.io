@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C++模板学习 | 舍利子的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="舍利子的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">舍利子的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">心事无人诉，苦、苦、苦！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cpp/泛型编程/template3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C++模板学习
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-02-06T04:59:59.000Z" itemprop="datePublished">2024年02月06日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2024/02/06/cpp/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/template3/#comments" class="article-comment-link">
+  
+    
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/02/06/cpp/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/template3/" itemprop="commentCount"></span>
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="3-模板元编程基础"><a href="#3-模板元编程基础" class="headerlink" title="3. 模板元编程基础"></a>3. 模板元编程基础</h1><h2 id="3-1-编程，元编程，模板元编程"><a href="#3-1-编程，元编程，模板元编程" class="headerlink" title="3.1. 编程，元编程，模板元编程"></a>3.1. 编程，元编程，模板元编程</h2><p>技术的学习是一个登山的过程。第一章是最为平坦的山脚道路。而从这一章开始，则是正式的爬坡。无论是我写作还是你阅读，都需要付出比第一章更多的代价。那么问题就是，付出更多的精力学习模板是否值得？</p>
+<p>这个问题很功利，但是一针见血。因为技术的根本目的在于解决需求。那C++的模板能做什么？</p>
+<p>一个高（树）大（新）上（风）的回答是，C++里面的模板，犹如C中的宏、C和Java中的自省（restropection）和反射（reflection），是一个改变语言内涵，拓展语言外延的存在。</p>
+<p>程序最根本的目的是什么？复现真实世界或人所构想的规律，减少重复工作的成本，或通过提升规模完成人所不能及之事。但是世间之事万千，有限的程序如何重现复杂的世界呢？</p>
+<p>答案是“抽象”。论及具体手段，无外乎“求同”与“存异”：概括一般规律，处理特殊情况。这也是软件工程所追求的目标。一般规律概括的越好，我们所付出的劳动也就越少。</p>
+<p>同样的，作为脑力劳动的产品，程序本身也是有规律性的。《Modern C++ Design》中的前言就抛出了一连串有代表性的问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">如何撰写更高级的C++程式？</span><br><span class="line">如何应付即使在很干净的设计中仍然像雪崩一样的不相干细节？</span><br><span class="line">如何构建可复用组件，使得每次在不同程式中应用组件时无需大动干戈？</span><br></pre></td></tr></table></figure>
+
+<p>我们以数据结构举例。在程序里，你需要一些堆栈。这个堆栈的元素可能是整数、浮点或者别的什么类型。一份整型堆栈的代码可能是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StackInt</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">int</span> v)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">pop</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Find</span><span class="params">(<span class="type">int</span> x)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(data[i] == x) &#123; <span class="keyword">return</span> i; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ... 其他代码 ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>如果你要支持浮点了，那么你只能将代码再次拷贝出来，并作如下修改：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">StackFloat</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(<span class="type">float</span> v)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">float</span> <span class="title">pop</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Find</span><span class="params">(<span class="type">float</span> x)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(data[i] == x) &#123; <span class="keyword">return</span> i; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ... 其他代码 ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>当然也许你觉得这样做能充分体会代码行数增长的成就感。但是有一天，你突然发现：呀，<code>Find</code> 函数实现有问题了。怎么办？这个时候也许你只有两份这样的代码，那好说，一一去修正就好了。如果你有十个呢？二十个？五十个？</p>
+<p>时间一长，你就厌倦了这样的生活。你觉得每个堆栈都差不多，但是又有点不一样。为了这一点点不一样，你付出了太多的时间。吃饭的时间，泡妞的时间，睡觉的时间，看岛国小电影顺便练习小臂力量的时间。</p>
+<p>于是便诞生了新的技术，来消解我们的烦恼。</p>
+<p>这个技术的名字，并不叫“模板”，而是叫“元编程”。</p>
+<p>元（meta）无论在中文还是英文里，都是个很“抽象（abstract）”的词。因为它的本意就是“抽象”。元编程，也可以说就是“编程的抽象”。用更好理解的说法，元编程意味着你撰写一段程序A，程序A会运行后生成另外一个程序B，程序B才是真正实现功能的程序。那么这个时候程序A可以称作程序B的元程序，撰写程序A的过程，就称之为“元编程”。</p>
+<p>回到我们的堆栈的例子。真正执行功能的，其实仍然是浮点的堆栈、整数的堆栈、各种你所需要的类型的堆栈。但是因为这些堆栈之间太相似了，仅仅有着些微的不同，我们为什么不能有一个将相似之处囊括起来，同时又能分别体现出不同之处的程序呢？很多语言都提供了这样的机会。C中的宏，C++中的模板，Python中的Duck Typing，广义上将都能够实现我们的思路。</p>
+<p>我们的目的，是找出程序之间的相似性，进行“元编程”。而在C++中，元编程的手段，可以是宏，也可以是模板。</p>
+<p>宏的例子姑且不论，我们来看一看模板：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Stack</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">push</span><span class="params">(T v)</span></span>;</span><br><span class="line">    <span class="function">T <span class="title">pop</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Find</span><span class="params">(T x)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(data[i] == x) &#123; <span class="keyword">return</span> i; &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ... 其他代码 ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> Stack&lt;<span class="type">int</span>&gt;   StackInt;</span><br><span class="line"><span class="keyword">typedef</span> Stack&lt;<span class="type">float</span>&gt; StackFloat;</span><br></pre></td></tr></table></figure>
+
+<p>通过模板，我们可以将形形色色的堆栈代码分为两个部分，一个部分是不变的接口，以及近乎相同的实现；另外一部分是元素的类型，它们是需要变化的。因此同函数类似，需要变化的部分，由模板参数来反映；不变的部分，则是模板内的代码。可以看到，使用模板的代码，要比不使用模板的代码简洁许多。</p>
+<p>如果元编程中所有变化的量（或者说元编程的参数），都是类型，那么这样的编程，我们有个特定的称呼，叫“泛型”。</p>
+<p>但是你会问，模板的发明，仅仅是为了做和宏几乎一样的替换工作吗？可以说是，也可以说不是。一方面，很多时候模板就是为了替换类型，这个时候作用上其实和宏没什么区别。只是宏是基于文本的替换，被替换的文本本身没有任何语义。只有替换完成，编译器才能进行接下来的处理。而模板会在分析模板时以及实例化模板时时候都会进行检查，而且源代码中也能与调试符号一一对应，所以无论是编译时还是运行时，排错都相对简单。</p>
+<p>但是模板和宏也有很大的不同，否则此文也就不能成立了。模板最大的不同在于它是“可以运算”的。我们来举一个例子，不过可能有点牵强。考虑我们要写一个向量逐分量乘法。只不过这个向量，它非常的大。所以为了保证速度，我们需要使用SIMD指令进行加速。假设我们有以下指令可以使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Int8,16: N/A</span><br><span class="line">Int32  : VInt32Mul(int32x4, int32x4)</span><br><span class="line">Int64  : VInt64Mul(int64x4, int64x4)</span><br><span class="line">Float  : VInt64Mul(floatx2, floatx2)</span><br></pre></td></tr></table></figure>
+<p>所以对于Int8和Int16，我们需要提升到Int32，而Int32和Int64，各自使用自己的指令。所以我们需要实现下的逻辑：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(v4a, v4b : vectorsA, vectorsB)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> type is Int8, <span class="function">Int16</span></span><br><span class="line"><span class="function">        <span class="title">VInt32Mul</span><span class="params">( ConvertToInt32(v4a), ConvertToInt32(v4b) )</span></span></span><br><span class="line"><span class="function">    elif type is Int32</span></span><br><span class="line"><span class="function">        <span class="title">VInt32Mul</span><span class="params">( v4a, v4b )</span></span></span><br><span class="line"><span class="function">    elif type is Float</span></span><br><span class="line"><span class="function">        ...</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的问题就在于，如何根据 <code>type</code> 分别提供我们需要的实现？这里有两个难点。首先， <code>if(type == xxx) &#123;&#125;</code> 是不存在于C++中的。第二，即便存在根据 <code>type</code> 的分配方法，我们也不希望它在运行时branch，这样会变得很慢。我们希望它能按照类型直接就把代码编译好，就跟直接写的一样。</p>
+<p>嗯，聪明你果然想到了，重载也可以解决这个问题。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">GenericMul</span>(int8x4,  int8x4);</span><br><span class="line"><span class="built_in">GenericMul</span>(int16x4, int16x4);</span><br><span class="line"><span class="built_in">GenericMul</span>(int32x4, int32x4);</span><br><span class="line"><span class="built_in">GenericMul</span>(int64x4, int64x4);</span><br><span class="line"><span class="comment">// 其它 Generic Mul ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(v4a, v4b : vectorsA, vectorsB)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">GenericMul</span>(v4a, v4b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样不就可以了吗？</p>
+<p>唔，你赢了，是这样没错。但是问题是，我这个平台是你可没见过，它叫 <code>Deep Thought</code>， 特别缺心眼儿，不光有 <code>int8</code>，还有更奇怪的 <code>int9</code>, <code>int11</code>，以及可以代表世间万物的 <code>int42</code>。你总不能为之提供所有的重载吧？这简直就像你枚举了所有程序的输入，并为之提供了对应的输出一样。</p>
+<p>好吧，我承认这个例子还是太牵强了。不过相信我，在你阅读完第二章和第三章之后，你会将这些特性自如地运用到你的程序之中。你的程序将会变成体现模板“可运算”威力的最好例子。</p>
+<h2 id="3-2-模板世界的If-Then-Else：类模板的特化与偏特化"><a href="#3-2-模板世界的If-Then-Else：类模板的特化与偏特化" class="headerlink" title="3.2. 模板世界的If-Then-Else：类模板的特化与偏特化"></a>3.2. 模板世界的If-Then-Else：类模板的特化与偏特化</h2><h3 id="3-2-1-根据类型执行代码"><a href="#3-2-1-根据类型执行代码" class="headerlink" title="3.2.1. 根据类型执行代码"></a>3.2.1. 根据类型执行代码</h3><p>前一节的示例提出了一个要求：需要做出根据类型执行不同代码。要达成这一目的，模板并不是唯一的途径。比如之前我们所说的重载。如果把眼界放宽一些，虚函数也是根据类型执行代码的例子。此外，在C语言时代，也会有一些技法来达到这个目的，比如下面这个例子，我们需要对两个浮点做加法， 或者对两个整数做乘法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Variant</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="type">int</span> x;</span><br><span class="line">        <span class="type">float</span> y;</span><br><span class="line">    &#125; data;</span><br><span class="line">    uint32 typeId;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Variant <span class="title function_">addFloatOrMulInt</span><span class="params">(Variant <span class="type">const</span>* a, Variant <span class="type">const</span>* b)</span></span><br><span class="line">&#123;</span><br><span class="line">    Variant ret;</span><br><span class="line">    assert(a-&gt;typeId == b-&gt;typeId);</span><br><span class="line">    <span class="keyword">if</span> (a-&gt;typeId == TYPE_INT)</span><br><span class="line">    &#123;</span><br><span class="line">        ret.x = a-&gt;x * b-&gt;x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        ret.y = a-&gt;y + b-&gt;y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>更常见的是 <code>void*</code>:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">define <span class="title">BIN_OP</span><span class="params">(type, a, op, b, result)</span> <span class="params">(*(type *)(result))</span> </span>= (*(type <span class="type">const</span> *)(a)) <span class="built_in">op</span> (*(type <span class="type">const</span>*)(b))</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">doDiv</span><span class="params">(<span class="type">void</span>* out, <span class="type">void</span> <span class="type">const</span>* data0, <span class="type">void</span> <span class="type">const</span>* data1, DATA_TYPE type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(type == TYPE_INT)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">BIN_OP</span>(<span class="type">int</span>, data0, *, data1, out);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">BIN_OP</span>(<span class="type">float</span>, data0, +, data1, out);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在C++中比如在 <code>Boost.Any</code> 的实现中，运用了 <code>typeid</code> 来查询类型信息。和 <code>typeid</code> 同属于RTTI机制的 <code>dynamic_cast</code>，也经常会用来做类型判别的工作。我想你应该写过类似于下面的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">IAnimal* animal = <span class="built_in">GetAnimalFromSystem</span>();</span><br><span class="line"></span><br><span class="line">IDog* maybeDog = <span class="built_in">dynamic_cast</span>&lt;IDog*&gt;(animal);</span><br><span class="line"><span class="keyword">if</span>(maybeDog)</span><br><span class="line">&#123;</span><br><span class="line">    maybeDog-&gt;<span class="built_in">Wangwang</span>();</span><br><span class="line">&#125;</span><br><span class="line">ICat* maybeCat = <span class="built_in">dynamic_cast</span>&lt;ICat*&gt;(animal);</span><br><span class="line"><span class="keyword">if</span>(maybeCat)</span><br><span class="line">&#123;</span><br><span class="line">    maybeCat-&gt;<span class="built_in">Moemoe</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然，在实际的工作中，我们建议把需要 <code>dynamic_cast</code> 后执行的代码，尽量变成虚函数。不过这个已经是另外一个问题了。我们看到，不管是哪种方法都很难避免 <code>if</code> 的存在。而且因为输入数据的类型是模糊的，经常需要强制地、没有任何检查的转换成某个类型，因此很容易出错。</p>
+<p>但是模板与这些方法最大的区别并不在这里。模板无论其参数或者是类型，它都是一个编译期分派的办法。编译期就能确定的东西既可以做类型检查，编译器也能进行优化，砍掉任何不必要的代码执行路径。例如在上例中，</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function">T <span class="title">addFloatOrMulInt</span><span class="params">(T a, T b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 迷之代码1：用于T是float的情况</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 迷之代码2：用于T是int时的情况</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你运用了模板来实现，那么当传入两个不同类型的变量，或者不是 <code>int</code> 和 <code>float</code> 变量，编译器就会提示错误。但是如果使用了我们前述的 <code>Variant</code> 来实现，编译器可就管不了那么多了。但是，成也编译期，败也编译期。最严重的“缺点”，就是你没办法根据用户输入或者别的什么在运行期间可能发生变化的量来决定它产生、或执行什么代码。比如下面的代码段，它是不成立的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="type">int</span> i, <span class="type">int</span> j&gt;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">foo</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> i + j; &#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cin &gt;&gt; x &gt;&gt; y;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">foo</span>&lt;x, y&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这点限制也粉碎了妄图用模板来包办工厂（Factory）甚至是反射的梦想。尽管在《Modern C++ Design》中（别问我为什么老举这本书，因为《C++ Templates》和《Generic Programming》我只是囫囵吞枣读过，基本不记得了)大量运用模板来简化工厂方法；同时C++11&#x2F;14中的一些机制如Variadic Template更是让这一问题的解决更加彻底。但无论如何，直到C++11&#x2F;14，光靠模板你就是写不出依靠类名或者ID变量产生类型实例的代码。</p>
+<p>所以说，从能力上来看，模板能做的事情都是编译期完成的。编译期完成的意思就是，当你编译一个程序的时候，所有的量就都已经确定了。比如下面的这个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">3</span>, b = <span class="number">5</span>;</span><br><span class="line">Variant aVar, bVar;</span><br><span class="line">aVar.<span class="built_in">setInt</span>(a);			<span class="comment">// 我们新加上的方法，怎么实现的无所谓，大家明白意思就行了。</span></span><br><span class="line">bVar.<span class="built_in">setInt</span>(b);</span><br><span class="line">Variant result = <span class="built_in">addFloatOrMulInt</span>(aVar, bVar);</span><br></pre></td></tr></table></figure>
+
+<p>除非世界末日，否则这个例子里不管你怎么蹦跶，单看代码我们就能知道， <code>aVar</code> 和 <code>bVar</code> 都一定会是整数。所以如果有合适的机制，编译器就能知道此处的 <code>addFloatOrMulInt</code> 中只需要执行 <code>Int</code> 路径上的代码，而且编译器在此处也能单独为 <code>Int</code> 路径生成代码，从而去掉那个不必要的 <code>if</code>。</p>
+<p>在模板代码中，这个“合适的机制”就是指“特化”和“部分特化（Partial Specialization）”，后者也叫“偏特化”。</p>
+<h3 id="3-2-2-特化"><a href="#3-2-2-特化" class="headerlink" title="3.2.2. 特化"></a>3.2.2. 特化</h3><p>我的高中物理老师对我说过一句令我受用至今的话：把自己能做的事情做好。编写模板程序也是一样。当你试图用模板解决问题之前，先撇开那些复杂的语法要素，用最直观的方式表达你的需求：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里是伪代码，意思一下</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span>|<span class="function"><span class="type">float</span> <span class="title">addFloatOrMulInt</span><span class="params">(a, b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(type is Int)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> a * b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (type is Float)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> a, b, c;</span><br><span class="line">    c = <span class="built_in">addFloatOrMulInt</span>(a, b);		<span class="comment">// c = a + b;</span></span><br><span class="line">	</span><br><span class="line">    <span class="type">int</span> x, y, z;</span><br><span class="line">    z = <span class="built_in">addFloatOrMulInt</span>(x, y);		<span class="comment">// z = x * y;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为这一节是讲类模板有关的特化和偏特化机制，所以我们不用普通的函数，而是用类的静态成员函数来做这个事情（这就是典型的没事找抽型）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这里仍然是伪代码，意思一下，too。</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span>|<span class="function"><span class="type">float</span> <span class="title">Do</span><span class="params">(a, b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(type is Int)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> a * b;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (type is Float)</span><br><span class="line">	&#123;</span><br><span class="line">	    <span class="keyword">return</span> a + b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> a, b, c;</span><br><span class="line">    c = AddFloatOrMulInt::<span class="built_in">Do</span>(a, b); <span class="comment">// c = a + b;</span></span><br><span class="line">	</span><br><span class="line">    <span class="type">int</span> x, y, z;</span><br><span class="line">    z = AddFloatOrMulInt::<span class="built_in">Do</span>(x, y); <span class="comment">// z = x * y;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好，意思表达清楚了。我们先从调用方的角度，把这个形式改写一下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> a, b, c;</span><br><span class="line">    c = AddFloatOrMulInt&lt;<span class="type">float</span>&gt;::<span class="built_in">Do</span>(a, b); <span class="comment">// c = a + b;</span></span><br><span class="line">	</span><br><span class="line">    <span class="type">int</span> x, y, z;</span><br><span class="line">    z = AddFloatOrMulInt&lt;<span class="type">int</span>&gt;::<span class="built_in">Do</span>(x, y); <span class="comment">// z = x * y;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也许你不明白为什么要改写成现在这个样子。看不懂不怪你，怪我讲得不好。但是你别急，先看看这样改写以后能不能跟我们的目标接近一点。如果我们把 <code>AddFloatOrMulInt&lt;float&gt;::Do</code> 看作一个普通的函数，那么我们可以写两个实现出来：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> AddFloatOrMulInt&lt;<span class="type">float</span>&gt;::<span class="built_in">Do</span>(<span class="type">float</span> a, <span class="type">float</span> b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> AddFloatOrMulInt&lt;<span class="type">int</span>&gt;::<span class="built_in">Do</span>(<span class="type">int</span> a, <span class="type">int</span> b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> a, b, c;</span><br><span class="line">    c = AddFloatOrMulInt&lt;<span class="type">float</span>&gt;::<span class="built_in">Do</span>(a, b); <span class="comment">// c = a + b;</span></span><br><span class="line">	</span><br><span class="line">    <span class="type">int</span> x, y, z;</span><br><span class="line">    z = AddFloatOrMulInt&lt;<span class="type">int</span>&gt;::<span class="built_in">Do</span>(x, y); <span class="comment">// z = x * y;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样是不是就很开心了？我们更进一步，把 <code>AddFloatOrMulInt&lt;int&gt;::Do</code> 换成合法的类模板：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个是给float用的。</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">T <span class="title">Do</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个是给int用的。</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">T <span class="title">Do</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a * b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">float</span> a, b, c;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 嗯，我们需要 c = a + b;</span></span><br><span class="line">    c = AddFloatOrMulInt&lt;<span class="type">float</span>&gt;::<span class="built_in">Do</span>(a, b);</span><br><span class="line">    <span class="comment">// ... 觉得哪里不对劲 ...</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 啊！有两个AddFloatOrMulInt，class看起来一模一样，要怎么区分呢！</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好吧，问题来了！如何要让两个内容不同，但是模板参数形式相同的类进行区分呢？特化！特化（specialization）是根据一个或多个特殊的整数或类型，给出模板实例化时的一个指定内容。我们先来看特化是怎么应用到这个问题上的。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先，要写出模板的一般形式（原型）</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="type">static</span> T <span class="title">Do</span><span class="params">(T a, T b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 在这个例子里面一般形式里面是什么内容不重要，因为用不上</span></span><br><span class="line">        <span class="comment">// 这里就随便给个0吧。</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">T</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 其次，我们要指定T是int时候的代码，这就是特化：</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span>&lt;<span class="type">int</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">Do</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> <span class="comment">// </span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a * b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 再次，我们要指定T是float时候的代码：</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span>&lt;<span class="type">float</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">float</span> <span class="title">Do</span><span class="params">(<span class="type">float</span> a, <span class="type">float</span> b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 这里面就不写了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们再把特化的形式拿出来一瞧：这货有点怪啊： <code>template &lt;&gt; class AddFloatOrMulInt&lt;int&gt;</code>。别急，我给你解释一下。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 我们这个模板的基本形式是什么？</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 但是这个类，是给T是Int的时候用的，于是我们写作</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span>&lt;<span class="type">int</span>&gt;;</span><br><span class="line"><span class="comment">// 当然，这里编译是通不过的。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 但是它又不是个普通类，而是类模板的一个特化（特例）。</span></span><br><span class="line"><span class="comment">// 所以前面要加模板关键字template，</span></span><br><span class="line"><span class="comment">// 以及模板参数列表</span></span><br><span class="line"><span class="keyword">template</span> &lt;/* 这里要填什么？ */&gt; <span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span>&lt;<span class="type">int</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 最后，模板参数列表里面填什么？因为原型的T已经被int取代了。所以这里就不能也不需要放任何额外的参数了。</span></span><br><span class="line"><span class="comment">// 所以这里放空。</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">AddFloatOrMulInt</span>&lt;<span class="type">int</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// ... 针对Int的实现 ... </span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Bingo!</span></span><br></pre></td></tr></table></figure>
+
+<p>哈，这样就好了。我们来做一个练习。我们有一些类型，然后你要用模板做一个对照表，让类型对应上一个数字。我先来做一个示范：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> ID = <span class="number">-1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="type">uint8_t</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> ID = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后呢，你的任务就是，要所有无符号的整数类型的特化（其实就是<code>uint8_t</code>到<code>uint64_t</code>啦），把所有的基本类型都赋予一个ID（当然是不一样的啦）。当你做完后呢，可以把类型所对应的ID打印出来，我仍然以 <code>uint8_t</code> 为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">PrintID</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;ID of uint8_t: &quot;</span> &lt;&lt; TypeToID&lt;<span class="type">uint8_t</span>&gt;::ID &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>嗯，看起来挺简单的，是吧。但是这里透露出了一个非常重要的信号，我希望你已经能察觉出来了： <code>TypeToID</code> 如同是一个函数。这个函数只能在编译期间执行。它输入一个类型，输出一个ID。</p>
+<p>如果你体味到了这一点，那么恭喜你，你的模板元编程已经开悟了。</p>
+<h3 id="3-2-3-特化：一些其它问题"><a href="#3-2-3-特化：一些其它问题" class="headerlink" title="3.2.3. 特化：一些其它问题"></a>3.2.3. 特化：一些其它问题</h3><p>在上一节结束之后，你一定做了许多的练习。我们再来做三个练习。第一，给<code>float</code>一个ID；第二，给<code>void*</code>一个ID；第三，给任意类型的指针一个ID。先来做第一个:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// TypeToID 的模板“原型”</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="type">float</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> ID = <span class="number">0xF10A7</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>嗯， 这个你已经了然于心了。那么<code>void*</code>呢？你想了想，这已经是一个复合类型了。不错你还是战战兢兢地写了下来：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="type">void</span>*&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> ID = <span class="number">0x401d</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">PrintID</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;ID of uint8_t: &quot;</span> &lt;&lt; TypeToID&lt;<span class="type">void</span>*&gt;::ID &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>遍译运行一下，对了。模板不过如此嘛。然后你觉得自己已经完全掌握了，并试图将所有C++类型都放到模板里面，开始了自我折磨的过程：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ClassB</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="built_in">void</span> ()&gt;;      <span class="comment">// 函数的TypeID</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="type">int</span>[<span class="number">3</span>]&gt;;       <span class="comment">// 数组的TypeID</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="built_in">int</span> (<span class="type">int</span>[<span class="number">3</span>])&gt;; <span class="comment">// 这是以数组为参数的函数的TypeID</span></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="built_in">int</span> (ClassB::*[<span class="number">3</span>])(<span class="type">void</span>*, <span class="type">float</span>[<span class="number">2</span>])&gt;; <span class="comment">// 我也不知道这是什么了，自己看着办吧。</span></span><br></pre></td></tr></table></figure>
+
+<p>甚至连 <code>const</code> 和 <code>volatile</code> 都能装进去：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="type">int</span> <span class="type">const</span> * <span class="keyword">volatile</span> * <span class="type">const</span> <span class="keyword">volatile</span>&gt;;</span><br></pre></td></tr></table></figure>
+
+<p>此时就很明白了，只要 <code>&lt;&gt;</code> 内填进去的是一个C++能解析的合法类型，模板都能让你特化。不过这个时候如果你一点都没有写错的话， <code>PrintID</code> 中只打印了我们提供了特化的类型的ID。那如果我们没有为之提供特化的类型呢？比如说double？OK，实践出真知，我们来尝试着运行一下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">PrintID</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;ID of double: &quot;</span> &lt;&lt; TypeToID&lt;<span class="type">double</span>&gt;::ID &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>嗯，它输出的是-1。我们顺藤摸瓜会看到， <code>TypeToID</code>的类模板“原型”的ID是值就是-1。通过这个例子可以知道，当模板实例化时提供的模板参数不能匹配到任何的特化形式的时候，它就会去匹配类模板的“原型”形式。</p>
+<p>不过这里有一个问题要理清一下。和继承不同，类模板的“原型”和它的特化类在实现上是没有关系的，并不是在类模板中写了 <code>ID</code> 这个Member，那所有的特化就必须要加入 <code>ID</code> 这个Member，或者特化就自动有了这个成员。完全没这回事。我们把类模板改成以下形式，或许能看的更清楚一点：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> NotID = <span class="number">-2</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="type">float</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> ID = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">PrintID</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;ID of float: &quot;</span> &lt;&lt; TypeToID&lt;<span class="type">float</span>&gt;::ID &lt;&lt; endl;       <span class="comment">// Print &quot;1&quot;</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;NotID of float: &quot;</span> &lt;&lt; TypeToID&lt;<span class="type">float</span>&gt;::NotID &lt;&lt; endl; <span class="comment">// Error! TypeToID&lt;float&gt;使用的特化的类，这个类的实现没有NotID这个成员。</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;ID of double: &quot;</span> &lt;&lt; TypeToID&lt;<span class="type">double</span>&gt;::ID &lt;&lt; endl;     <span class="comment">// Error! TypeToID&lt;double&gt;是由类模板实例化出来的，它只有NotID，没有ID这个成员。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就明白了。类模板和类模板的特化的作用，仅仅是指导编译器选择哪个编译，但是特化之间、特化和它原型的类模板之间，是分别独立实现的。所以如果多个特化、或者特化和对应的类模板有着类似的内容，很不好意思，你得写上若干遍了。</p>
+<p>第三个问题，是写一个模板匹配任意类型的指针。对于C语言来说，因为没有泛型的概念，因此它提供了无类型的指针<code>void*</code>。它的优点是，所有指针都能转换成它。它的缺点是，一旦转换称它后，你就再也不知道这个指针到底是指向<code>float</code>或者是<code>int</code>或者是<code>struct</code>了。</p>
+<p>比如说<code>copy</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">copy</span><span class="params">(<span class="type">void</span>* dst, <span class="type">void</span> <span class="type">const</span>* src, <span class="type">size_t</span> elemSize, <span class="type">size_t</span> elemCount, <span class="type">void</span> (*copyElem)(<span class="type">void</span>* dstElem, <span class="type">void</span> <span class="type">const</span>* srcElem))</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span> <span class="type">const</span>* reader = src;</span><br><span class="line">    <span class="type">void</span> <span class="type">const</span>* writer = dst;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; elemCount; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        copyElem(writer, reader);</span><br><span class="line">        advancePointer(reader, elemSize); <span class="comment">// 把Reader指针往后移动一些字节</span></span><br><span class="line">        advancePointer(writer, elemSize);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为什么要提供copyElem，是因为可能有些struct需要深拷贝，所以得用特殊的copy函数。这个在C++98&#x2F;03里面就体现为拷贝构造和赋值函数。</p>
+<p>但是不管怎么搞，因为这个函数的参数只是<code>void*</code>而已，当你使用了错误的elemSize，或者传入了错误的copyElem，就必须要到运行的时候才有可能看出来。注意，这还只是有可能而已。</p>
+<p>那么C++有了模板后，能否既能匹配任意类型的指针，同时又保留了类型信息呢？答案是显然的。至于怎么写，那就得充分发挥你的直觉了：</p>
+<p>首先，我们需要一个<code>typename T</code>来指代“任意类型”这四个字：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br></pre></td></tr></table></figure>
+
+<p>接下来，我们要写函数原型：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">copy</span><span class="params">(?? dest, ?? src, <span class="type">size_t</span> elemCount)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>??</code> 要怎么写呢？既然我们有了模板类型参数T，那我们不如就按照经验，写 <code>T*</code> 看看。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">copy</span><span class="params">(T* dst, T <span class="type">const</span>* src, <span class="type">size_t</span> elemCount)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>编译一下，咦，居然通过了。看来这里的语法与我们以前学到的知识并没有什么不同。这也是语言设计最重要的一点原则：一致性。它可以让你辛辛苦苦体验到的规律不至于白费。</p>
+<p>最后就是实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">copy</span><span class="params">(T* dst, T <span class="type">const</span>* src, <span class="type">size_t</span> elemCount)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; elemCount; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        dst[i] = src[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>是不是简洁了许多？你不需要再传入size；只要你有正确的赋值函数，也不需要提供定制的copy；也不用担心dst和src的类型不匹配了。</p>
+<p>最后，我们把函数模板学到的东西，也应用到类模板里面：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="comment">// 嗯，需要一个T</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;T*&gt; <span class="comment">// 我要对所有的指针类型特化，所以这里就写T*</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> ID = <span class="number">0x80000000</span>;	<span class="comment">// 用最高位表示它是一个指针</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>最后写个例子来测试一下，看看我们的 <code>T*</code> 能不能搞定 <code>float*</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">PrintID</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;ID of float*: &quot;</span> &lt;&lt; TypeToID&lt;<span class="type">float</span>*&gt;::ID &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>哈哈，大功告成。嗯，别急着高兴。待我问一个问题：你知道 <code>TypeToID&lt;float*&gt;</code> 后，这里的T是什么吗？换句话说，你知道下面这段代码打印的是什么吗？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// TypeToID 的其他代码，略过不表</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="comment">// 嗯，需要一个T</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;T*&gt; <span class="comment">// 我要对所有的指针类型特化，所以这里就写T*</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> T		 SameAsT;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> ID = <span class="number">0x80000000</span>; <span class="comment">// 用最高位表示它是一个指针</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">PrintID</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;ID of float*: &quot;</span> &lt;&lt; TypeToID&lt; TypeToID&lt;<span class="type">float</span>*&gt;::SameAsT &gt;::ID &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>别急着运行，你先猜。</p>
+<p>————————-  这里是给勤于思考的码猴的分割线  ——————————-</p>
+<p>OK，猜出来了吗，T是<code>float</code>。为什么呢？因为你用 <code>float *</code> 匹配了 <code>T *</code>，所以 <code>T</code> 就对应 <code>float</code> 了。没想清楚的自己再多体会一下。</p>
+<p>嗯，所以实际上，我们可以利用这个特性做一件事情：把指针类型的那个指针给“干掉”：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RemovePointer</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> T Result;  <span class="comment">// 如果放进来的不是一个指针，那么它就是我们要的结果。</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RemovePointer</span>&lt;T*&gt;	<span class="comment">// 祖传牛皮藓，专治各类指针</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> T Result;  <span class="comment">// 正如我们刚刚讲的，去掉一层指针，把 T* 这里的 T 取出来。</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    RemovePointer&lt;<span class="type">float</span>*&gt;::Result x = <span class="number">5.0f</span>; <span class="comment">// 喏，用RemovePointer后，那个Result就是把float*的指针处理掉以后的结果：float啦。</span></span><br><span class="line">    std::cout &lt;&lt; x &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然啦，这里我们实现的不算是真正的 <code>RemovePointer</code>，因为我们只去掉了一层指针。而如果传进来的是类似 <code>RemovePointer&lt;int**&gt;</code> 这样的东西呢？是的没错，去掉一层之后还是一个指针。<code>RemovePointer&lt;int**&gt;::Result</code> 应该是一个 <code>int*</code>，要怎么才能实现我们想要的呢？聪明的你一定能想到：只要像剥洋葱一样，一层一层一层地剥开，不就好了吗！相应地我们应该怎么实现呢？可以把 <code>RemovePointer</code> 的特化版本改成这样（当然如果有一些不明白的地方你可以暂时跳过，接着往下看，很快就会明白的）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RemovePointer</span>&lt;T*&gt;</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 如果是传进来的是一个指针，我们就剥夺一层，直到指针形式不存在为止。</span></span><br><span class="line">    <span class="comment">// 例如 RemovePointer&lt;int**&gt;，Result 是 RemovePointer&lt;int*&gt;::Result，</span></span><br><span class="line">    <span class="comment">// 而 RemovePointer&lt;int*&gt;::Result 又是 int，最终就变成了我们想要的 int，其它也是类似。</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> RemovePointer&lt;T&gt;::Result Result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>是的没错，这便是我们想要的 <code>RemovePointer</code> 的样子。类似的你还可以试着实现 <code>RemoveConst</code>, <code>AddPointer</code> 之类的东西。</p>
+<p>OK，回到我们之前的话题，如果这个时候，我需要给 <code>int*</code> 提供一个更加特殊的特化，那么我还得多提供一个：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// TypeToID 的其他代码，略过不表</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="comment">// 嗯，需要一个T</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;T*&gt;    <span class="comment">// 我要对所有的指针类型特化，所以这里就写T*</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">typedef</span> T SameAsT;</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> ID = <span class="number">0x80000000</span>; <span class="comment">// 用最高位表示它是一个指针</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;&gt; <span class="comment">// 嗯，int* 已经是个具体的不能再具体的类型了，所以模板不需要额外的类型参数了</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TypeToID</span>&lt;<span class="type">int</span>*&gt; <span class="comment">// 嗯，对int*的特化。在这里呢，要把int*整体看作一个类型</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> <span class="type">const</span> ID = <span class="number">0x12345678</span>; <span class="comment">// 给一个缺心眼的ID</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">PrintID</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;ID of int*: &quot;</span> &lt;&lt; TypeToID&lt;<span class="type">int</span>*&gt;::ID &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>嗯，这个时候它会输出0x12345678的十进制（大概？）。<br>可能会有较真的人说，<code>int*</code> 去匹配 <code>T</code> 或者 <code>T*</code>，也是合法的。就和你说22岁以上能结婚，那24岁当然也能结婚一样。<br>那为什么 <code>int*</code> 就会找 <code>int*</code>，<code>float *</code>因为没有合适的特化就去找 <code>T*</code>，更一般的就去找 <code>T</code> 呢？废话，有专门为你准备的东西你不用，非要自己找事？这就是直觉。<br>但是呢，直觉对付更加复杂的问题还是没用的（也不是没用，主要是你没这个直觉了）。我们要把这个直觉，转换成合理的规则——即模板的匹配规则。<br>当然，这个匹配规则是对复杂问题用的，所以我们会到实在一眼看不出来的时候才会动用它。一开始我们只要把握：<strong>模板是从最特殊到最一般形式进行匹配的</strong> 就可以了。</p>
+<h2 id="3-3-即用即推导"><a href="#3-3-即用即推导" class="headerlink" title="3.3. 即用即推导"></a>3.3. 即用即推导</h2><h3 id="3-3-1-视若无睹的语法错误"><a href="#3-3-1-视若无睹的语法错误" class="headerlink" title="3.3.1. 视若无睹的语法错误"></a>3.3.1. 视若无睹的语法错误</h3><p>这一节我们将讲述模板一个非常重要的行为特点：那就是什么时候编译器会对模板进行推导，推导到什么程度。</p>
+<p>这一知识，对于理解模板的编译期行为、以及修正模板编译错误都非常重要。</p>
+<p>我们先来看一个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">X</span> &#123;&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">Y</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">typedef</span> X&lt;T&gt; ReboundType;				        <span class="comment">// 类型定义1</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> X&lt;T&gt;::MemberType MemberType;	<span class="comment">// 类型定义2</span></span><br><span class="line">    <span class="keyword">typedef</span> UnknownType MemberType3;			    <span class="comment">// 类型定义3</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        X&lt;T&gt; instance0;</span><br><span class="line">        <span class="keyword">typename</span> X&lt;T&gt;::MemberType instance1;</span><br><span class="line">        WTF instance2</span><br><span class="line">        大王叫我来巡山 - + &amp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>把这段代码编译一下，类型定义3出错，其它的都没问题。不过到这里你应该会有几个问题：</p>
+<ol>
+<li>不是<code>struct X&lt;T&gt;</code>的定义是空的吗？为什么在<code>struct Y</code>内的类型定义2使用了 <code>X&lt;T&gt;::MemberType</code> 编译器没有报错？</li>
+<li>类型定义2中的<code>typename</code>是什么鬼？为什么类型定义1就不需要？</li>
+<li>为什么类型定义3会导致编译错误？</li>
+<li>为什么<code>void foo()</code>在MSVC下什么错误都没报？</li>
+</ol>
+<p>这时我们就需要请出C++11标准 —— 中的某些概念了。这是我们到目前为止第一次参阅标准。我希望能尽量减少直接参阅标准的次数，因此即便是极为复杂的模板匹配决议我都暂时没有引入标准中的描述。<br>然而，Template引入的“双阶段名称查找（Two phase name lookup）”堪称是C++中最黑暗的角落 —— 这是LLVM的团队自己在博客上说的 —— 因此在这里，我们还是有必要去了解标准中是如何规定的。</p>
+<h3 id="3-3-2-名称查找：I-am-who-I-am"><a href="#3-3-2-名称查找：I-am-who-I-am" class="headerlink" title="3.3.2. 名称查找：I am who I am"></a>3.3.2. 名称查找：I am who I am</h3><p>在C++标准中对于“名称查找（name lookup）”这个高大上的名词的诠释，主要集中出现在三处。第一处是3.4节，标题名就叫“Name Lookup”；第二处在10.2节，继承关系中的名称查找；第三处在14.6节，名称解析（name resolution）。</p>
+<p>名称查找&#x2F;名称解析，是编译器的基石。对编译原理稍有了解的人，都知道“符号表”的存在及重要意义。考虑一段最基本的C代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> b;</span><br><span class="line">b = (a + <span class="number">1</span>) * <span class="number">2</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Result: %d&quot;</span>, b);</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，所有出现的符号可以分为以下几类：</p>
+<ul>
+<li><code>int</code>：类型标识符，代表整型；</li>
+<li><code>a</code>, <code>b</code>, <code>printf</code>：变量名或函数名；</li>
+<li><code>=</code>, <code>+</code>, <code>*</code>：运算符；</li>
+<li><code>,</code>, <code>;</code>, <code>(</code>, <code>)</code>：分隔符；</li>
+</ul>
+<p>那么，编译器怎么知道<code>int</code>就是整数类型，<code>b=(a+1)*2</code>中的<code>a</code>和<code>b</code>就是整型变量呢？这就是名称查找&#x2F;名称解析的作用：它告诉编译器，这个标识符（identifer）是在哪里被声明或定义的，它究竟是什么意思。</p>
+<p>也正因为这个机制非常基础，所以它才会面临各种可能的情况，编译器也要想尽办法让它在大部分场合都表现的合理。比如我们常见的作用域规则，就是为了对付名称在不同代码块中传播、并且遇到重名要如何处理的问题。下面是一个最简单的、大家在语言入门过程中都会碰到的一个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">    a += <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Inside &lt;a&gt;: %d\n&quot;</span>, a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">g</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Outside &lt;a&gt;: %d\n&quot;</span>, a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">f</span>();</span><br><span class="line">    <span class="built_in">g</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* ------------ Console Output -----------------</span></span><br><span class="line"><span class="comment">Inside &lt;a&gt;: 2</span></span><br><span class="line"><span class="comment">Outside &lt;a&gt;: 0</span></span><br><span class="line"><span class="comment">--------------- Console Output -------------- */</span></span><br></pre></td></tr></table></figure>
+
+<p>我想大家尽管不能处理所有名称查找中所遇到的问题，但是对一些常见的名称查找规则也有了充分的经验，可以解决一些常见的问题。<br>但是模板的引入，使得名称查找这一本来就不简单的基本问题变得更加复杂了。<br>考虑下面这个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span>  &#123; <span class="type">int</span> a; &#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">AB</span> &#123; <span class="type">int</span> a, b; &#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">C</span>  &#123; <span class="type">int</span> c; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="built_in">foo</span>(T&amp; v0, C&amp; v1)&#123;</span><br><span class="line">    v0.a = <span class="number">1</span>;</span><br><span class="line">    v1.a = <span class="number">2</span>;</span><br><span class="line">    v1.c = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简单分析上述代码很容易得到以下结论：</p>
+<ol>
+<li>函数<code>foo</code>中的变量<code>v1</code>已经确定是<code>struct C</code>的实例，所以，<code>v1.a = 2;</code>会导致编译错误，<code>v1.c = 3;</code>是正确的代码；</li>
+<li>对于变量<code>v0</code>来说，这个问题就变得很微妙。如果<code>v0</code>是<code>struct A</code>或者<code>struct AB</code>的实例，那么<code>foo</code>中的语句<code>v0.a = 1;</code>就是正确的。如果是<code>struct C</code>，那么这段代码就是错误的。</li>
+</ol>
+<p>因此在模板定义的地方进行语义分析，并不能<strong>完全</strong>得出代码是正确或者错误的结论，只有到了实例化阶段，确定了模板参数的类型后，才知道这段代码正确与否。令人高兴的是，在这一问题上，我们和C++标准委员会的见地一致，说明我们的C++水平已经和Herb Sutter不分伯仲了。既然我们和Herb Sutter水平差不多，那凭什么人家就吃香喝辣？下面我们来选几条标准看看服不服：</p>
+<blockquote>
+<p><strong>14.6 名称解析（Name resolution）</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>1)</strong> 模板定义中能够出现以下三类名称：</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>模板名称、或模板实现中所定义的名称；</li>
+<li>和模板参数有关的名称；</li>
+<li>模板定义所在的定义域内能看到的名称。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>…</p>
+</blockquote>
+<blockquote>
+<p><strong>9)</strong> … 如果名字查找和模板参数有关，那么查找会延期到模板参数全都确定的时候。 …</p>
+</blockquote>
+<blockquote>
+<p><strong>10)</strong> 如果（模板定义内出现的）名字和模板参数无关，那么在模板定义处，就应该找得到这个名字的声明。…</p>
+</blockquote>
+<blockquote>
+<p><strong>14.6.2 依赖性名称（Dependent names）</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>1)</strong> …（模板定义中的）表达式和类型可能会依赖于模板参数，并且模板参数会影响到名称查找的作用域 …  如果表达式中有操作数依赖于模板参数，那么整个表达式都依赖于模板参数，名称查找延期到<strong>模板实例化时</strong>进行。并且定义时和实例化时的上下文都会参与名称查找。（依赖性）表达式可以分为类型依赖（类型指模板参数的类型）或值依赖。</p>
+</blockquote>
+<blockquote>
+<p><strong>14.6.2.2 类型依赖的表达式</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>2)</strong> 如果成员函数所属的类型是和模板参数有关的，那么这个成员函数中的<code>this</code>就认为是类型依赖的。</p>
+</blockquote>
+<blockquote>
+<p><strong>14.6.3 非依赖性名称（Non-dependent names）</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>1)</strong> 非依赖性名称在<strong>模板定义</strong>时使用通常的名称查找规则进行名称查找。</p>
+</blockquote>
+<p>[Working Draft: Standard of Programming Language C++, N3337][1]</p>
+<p>知道差距在哪了吗：人家会说黑话。什么时候咱们也会说黑话了，就是标准委员会成员了，反正懂得也不比他们少。不过黑话确实不太好懂 —— 怪我翻译不好的人，自己看原文，再说好懂了人家还靠什么吃饭 —— 我们来举一个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">B</span> &#123; <span class="type">int</span> v; &#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">X</span> &#123;</span><br><span class="line">    B b;                  <span class="comment">// B 是第三类名字，b 是第一类</span></span><br><span class="line">    T t;                  <span class="comment">// T 是第二类</span></span><br><span class="line">    X* anthor;            <span class="comment">// X 这里代指 X&lt;T&gt;，第一类</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">int</span> Y;        <span class="comment">// int 是第三类</span></span><br><span class="line">    Y y;                  <span class="comment">// Y 是第一类</span></span><br><span class="line">    C c;                  <span class="comment">// C 什么都不是，编译错误。</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       b.v += y;          <span class="comment">// b 是第一类，非依赖性名称</span></span><br><span class="line">       b.v *= T::s_mem;   <span class="comment">// T::s_mem 是第二类</span></span><br><span class="line">                          <span class="comment">// s_mem的作用域由T决定</span></span><br><span class="line">                          <span class="comment">// 依赖性名称，类型依赖</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>所以，按照标准的意思，名称查找会在模板定义和实例化时各做一次，分别处理非依赖性名称和依赖性名称的查找。这就是“两阶段名称查找”这一名词的由来。只不过这个术语我也不知道是谁发明的，它并没有出现的标准上，但是频繁出现在StackOverflow和Blog上。</p>
+<p>接下来，我们就来解决2.3.1节中留下的几个问题。</p>
+<p>先看第四个问题。为什么MSVC中，函数模板的定义内不管填什么编译器都不报错？因为MSVC在分析模板中成员函数定义时没有做任何事情。至于为啥连“大王叫我来巡山”都能过得去，这是C++语法&#x2F;语义分析的特殊性导致的。<br>C++是个非常复杂的语言，以至于它的编译器，不可能通过词法-语法-语义多趟分析清晰分割，因为它的语义将会直接干扰到语法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line">    A&lt;T&gt; b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这段简短的代码中，就包含了两个歧义的可能，一是<code>A</code>是模板，于是<code>A&lt;T&gt;</code>是一个实例化的类型，<code>b</code>是变量，另外一种是比较表达式（Comparison Expression）的组合，<code>((A &lt; T) &gt; b)</code>。</p>
+<p>甚至词法分析也会受到语义的干扰，C++11中才明确被修正的<code>vector&lt;vector&lt;int&gt;&gt;</code>，就因为<code>&gt;&gt;</code>被误解为右移或流操作符，而导致某些编译器上的错误。因此，在语义没有确定之前，连语法都没有分析的价值。</p>
+<p>大约是基于如此考量，为了偷懒，MSVC将包括所有模板成员函数的语法&#x2F;语义分析工作都挪到了第二个Phase，于是乎连带着语法分析都送进了第二个阶段。符合标准么？显然不符合。</p>
+<p>但是这里值得一提的是，MSVC的做法和标准相比，虽然投机取巧，但并非有弊无利。我们来先说一说坏处。考虑以下例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ----------- X.h ------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">X</span> &#123;</span><br><span class="line">    <span class="comment">// 实现代码</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ---------- X.cpp -----------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ... 一些代码 ...</span></span><br><span class="line">X&lt;<span class="type">int</span>&gt; xi; </span><br><span class="line"><span class="comment">// ... 一些代码 ...</span></span><br><span class="line">X&lt;<span class="type">float</span>&gt; xf;</span><br><span class="line"><span class="comment">// ... 一些代码 ...</span></span><br></pre></td></tr></table></figure>
+<p>此时如果X中有一些与模板参数无关的错误，如果名称查找&#x2F;语义分析在两个阶段完成，那么这些错误会很早、且唯一的被提示出来；但是如果一切都在实例化时处理，那么可能会导致不同的实例化过程提示同样的错误。而模板在运用过程中，往往会产生很多实例，此时便会大量报告同样的错误。</p>
+<p>当然，MSVC并不会真的这么做。根据推测，最终他们是合并了相同的错误。因为即便对于模板参数相关的编译错误，也只能看到最后一次实例化的错误信息：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">X</span> &#123;&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">Y</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">typedef</span> X&lt;T&gt; ReboundType; <span class="comment">// 类型定义1</span></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        X&lt;T&gt; instance0;</span><br><span class="line">        X&lt;T&gt;::MemberType instance1;</span><br><span class="line">        WTF instance2</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">poo</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Y&lt;<span class="type">int</span>&gt;::<span class="built_in">foo</span>();</span><br><span class="line">    Y&lt;<span class="type">float</span>&gt;::<span class="built_in">foo</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>MSVC下和模板相关的错误只有一个：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">error C2039: &#x27;MemberType&#x27;: is not a member of &#x27;X&lt;T&gt;&#x27;</span><br><span class="line">          with</span><br><span class="line">          [</span><br><span class="line">              T=float</span><br><span class="line">          ]</span><br></pre></td></tr></table></figure>
+<p>然后是一些语法错误，比如<code>MemberType</code>不是一个合法的标识符之类的。这样甚至你会误以为<code>int</code>情况下模板的实例化是正确的。虽然在有了经验之后会发现这个问题挺荒唐的，但是仍然会让新手有困惑。</p>
+<p>相比之下，更加遵守标准的Clang在错误提示上就要清晰许多：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">error: unknown type name &#x27;WTF&#x27;</span><br><span class="line">    WTF instance2</span><br><span class="line">    ^</span><br><span class="line">error: expected &#x27;;&#x27; at end of declaration</span><br><span class="line">    WTF instance2</span><br><span class="line">                 ^</span><br><span class="line">                 ;</span><br><span class="line">error: no type named &#x27;MemberType&#x27; in &#x27;X&lt;int&gt;&#x27;</span><br><span class="line">    typename X&lt;T&gt;::MemberType instance1;</span><br><span class="line">    ~~~~~~~~~~~~~~~^~~~~~~~~~</span><br><span class="line">    note: in instantiation of member function &#x27;Y&lt;int&gt;::foo&#x27; requested here</span><br><span class="line">        Y&lt;int&gt;::foo();</span><br><span class="line">                ^</span><br><span class="line">error: no type named &#x27;MemberType&#x27; in &#x27;X&lt;float&gt;&#x27;</span><br><span class="line">    typename X&lt;T&gt;::MemberType instance1;</span><br><span class="line">    ~~~~~~~~~~~~~~~^~~~~~~~~~</span><br><span class="line">    note: in instantiation of member function &#x27;Y&lt;float&gt;::foo&#x27; requested here</span><br><span class="line">        Y&lt;float&gt;::foo();</span><br><span class="line">                  ^</span><br><span class="line">4 errors generated.</span><br></pre></td></tr></table></figure>
+<p>可以看到，Clang的提示和标准更加契合。它很好地区分了模板在定义和实例化时分别产生的错误。</p>
+<p>另一个缺点也与之类似。因为没有足够的检查，如果你写的模板没有被实例化，那么很可能缺陷会一直存在于代码之中。特别是模板代码多在头文件。虽然不如接口那么重要，但也是属于被公开的部分，别人很可能会踩到坑上。缺陷一旦传播开修复起来就没那么容易了。</p>
+<p>但是正如我前面所述，这个违背了标准的特性，并不是一无是处。首先，它可以完美的兼容标准。符合标准的、能够被正确编译的代码，一定能够被MSVC的方案所兼容。其次，它带来了一个非常有趣的特性，看下面这个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span>;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">X</span> &#123;</span><br><span class="line">    <span class="type">int</span> v;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">convertTo</span><span class="params">(A&amp; a)</span> </span>&#123;</span><br><span class="line">       a.v = v; <span class="comment">// 这里需要A的实现</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span> &#123; <span class="type">int</span> v; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    X&lt;<span class="type">int</span>&gt; x;</span><br><span class="line">    x.<span class="built_in">foo</span>(<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子在Clang中是错误的，因为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">error: variable has incomplete type &#x27;A&#x27;</span><br><span class="line">                        A a;</span><br><span class="line">                          ^</span><br><span class="line">    note: forward declaration of &#x27;A&#x27;</span><br><span class="line">     struct A;</span><br><span class="line">            ^</span><br><span class="line">1 error generated.</span><br></pre></td></tr></table></figure>
+
+<p>符合标准的写法需要将类模板的定义，和函数模板的定义分离开：</p>
+<blockquote>
+<p>TODO 此处例子不够恰当，并且描述有歧义。需要在未来版本中修订。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span>;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">X</span> &#123;</span><br><span class="line">    <span class="type">int</span> v;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">convertTo</span><span class="params">(A&amp; a)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span> &#123; <span class="type">int</span> v; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="type">void</span> X&lt;T&gt;::<span class="built_in">convertTo</span>(A&amp; a) &#123;</span><br><span class="line">   a.v = v;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    X&lt;<span class="type">int</span>&gt; x;</span><br><span class="line">    x.<span class="built_in">foo</span>(<span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是其实我们知道，<code>foo</code>要到实例化之后，才需要真正的做语义分析。在MSVC上，因为函数实现就是到模板实例化时才处理的，所以这个例子是完全正常工作的。因此在上面这个例子中，MSVC的实现要比标准更加易于写和维护，是不是有点写Java&#x2F;C那种声明实现都在同一处的清爽感觉了呢！</p>
+<p>扩展阅读： [The Dreaded Two-Phase Name Lookup][2]</p>
+<h3 id="3-3-3-“多余的”-typename-关键字"><a href="#3-3-3-“多余的”-typename-关键字" class="headerlink" title="3.3.3. “多余的”  typename 关键字"></a>3.3.3. “多余的”  typename 关键字</h3><p>到了这里，2.3.1 中提到的四个问题，还有三个没有解决：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">X</span> &#123;&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">Y</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">typedef</span> X&lt;T&gt; ReboundType;						<span class="comment">// 这里为什么是正确的？</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> X&lt;T&gt;::MemberType MemberType2;	<span class="comment">// 这里的typename是做什么的？</span></span><br><span class="line">    <span class="keyword">typedef</span> UnknownType MemberType3;				<span class="comment">// 这里为什么会出错？</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>我们运用我们2.3.2节中学习到的标准，来对Y内部做一下分析：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">Y</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// X可以查找到原型；</span></span><br><span class="line">    <span class="comment">// X&lt;T&gt;是一个依赖性名称，模板定义阶段并不管X&lt;T&gt;是不是正确的。</span></span><br><span class="line">    <span class="keyword">typedef</span> X&lt;T&gt; ReboundType;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// X可以查找到原型；</span></span><br><span class="line">    <span class="comment">// X&lt;T&gt;是一个依赖性名称，X&lt;T&gt;::MemberType也是一个依赖性名称；</span></span><br><span class="line">    <span class="comment">// 所以模板声明时也不会管X模板里面有没有MemberType这回事。</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> X&lt;T&gt;::MemberType MemberType2;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// UnknownType 不是一个依赖性名称</span></span><br><span class="line">    <span class="comment">// 而且这个名字在当前作用域中不存在，所以直接报错。</span></span><br><span class="line">    <span class="keyword">typedef</span> UnknownType MemberType3;				</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>下面，唯一的问题就是第二个：<code>typename</code>是做什么的？</p>
+<p>对于用户来说，这其实是一个语法噪音。也就是说，其实就算没有它，语法上也说得过去。事实上，某些情况下MSVC的确会在标准需要的时候，不用写<code>typename</code>。但是标准中还是规定了形如 <code>T::MemberType</code> 这样的<code>qualified id</code> 在默认情况下不是一个类型，而是解释为<code>T</code>的一个成员变量<code>MemberType</code>，只有当<code>typename</code>修饰之后才能作为类型出现。</p>
+<p>事实上，标准对<code>typename</code>的使用规定极为复杂，也算是整个模板中的难点之一。如果想了解所有的标准，需要阅读标准14.6节下2-7条，以及14.6.2.1第一条中对于<code>current instantiation</code>的解释。</p>
+<p>简单来说，如果编译器能在出现的时候知道它是一个类型，那么就不需要<code>typename</code>，如果必须要到实例化的时候才能知道它是不是合法，那么定义的时候就把这个名称作为变量而不是类型。</p>
+<p>我们用一行代码来说明这个问题：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a * b;</span><br></pre></td></tr></table></figure>
+
+<p>在没有模板的情况下，这个语句有两种可能的意思：如果<code>a</code>是一个类型，这就是定义了一个指针<code>b</code>，它拥有类型<code>a*</code>；如果<code>a</code>是一个对象或引用，这就是计算一个表达式<code>a*b</code>，虽然结果并没有保存下来。可是如果上面的<code>a</code>是模板参数的成员，会发生什么呢？</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="type">void</span> <span class="title">meow</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T::a * b; <span class="comment">// 这是指针定义还是表达式语句？</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译器对模板进行语法检查的时候，必须要知道上面那一行到底是个什么——这当然可以推迟到实例化的时候进行（比如VC，这也是上面说过VC可以不加<code>typename</code>的原因），不过那是另一个故事了——显然在模板定义的时候，编译器并不能妄断。因此，C++标准规定，在没有<code>typename</code>约束的情况下认为这里<code>T::a</code>不是类型，因此<code>T::a * b;</code> 会被当作表达式语句（例如乘法）；而为了告诉编译器这是一个指针的定义，我们必须在<code>T::a</code>之前加上<code>typename</code>关键字，告诉编译器<code>T::a</code>是一个类型，这样整个语句才能符合指针定义的语法。</p>
+<p>在这里，我举几个例子帮助大家理解<code>typename</code>的用法，这几个例子已经足以涵盖日常使用[（预览）][3]：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">A</span>;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">B</span>;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">struct</span> <span class="title class_">X</span> &#123;</span><br><span class="line">    <span class="keyword">typedef</span> X&lt;T&gt; TA; <span class="comment">// 编译器当然知道 X&lt;T&gt; 是一个类型。</span></span><br><span class="line">    <span class="keyword">typedef</span> X    TB; <span class="comment">// X 等价于 X&lt;T&gt; 的缩写</span></span><br><span class="line">    <span class="keyword">typedef</span> T    TC; <span class="comment">// T 不是一个类型还玩毛</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// ！！！注意我要变形了！！！</span></span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">Y</span> &#123;</span><br><span class="line">        <span class="keyword">typedef</span> X&lt;T&gt;     TD;          <span class="comment">// X 的内部，既然外部高枕无忧，内部更不用说了</span></span><br><span class="line">        <span class="keyword">typedef</span> X&lt;T&gt;::Y  TE;          <span class="comment">// 嗯，这里也没问题，编译器知道Y就是当前的类型，</span></span><br><span class="line">                                      <span class="comment">// 这里在VS2015上会有错，需要添加 typename，</span></span><br><span class="line">                                      <span class="comment">// Clang 上顺利通过。</span></span><br><span class="line">        <span class="keyword">typedef</span> <span class="keyword">typename</span> X&lt;T*&gt;::Y TF; <span class="comment">// 这个居然要加 typename！</span></span><br><span class="line">                                      <span class="comment">// 因为，X&lt;T*&gt;和X&lt;T&gt;不一样哦，</span></span><br><span class="line">                                      <span class="comment">// 它可能会在实例化的时候被别的偏特化给抢过去实现了。</span></span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">typedef</span> A TG;                   <span class="comment">// 嗯，没问题，A在外面声明啦</span></span><br><span class="line">    <span class="keyword">typedef</span> B&lt;T&gt; TH;                <span class="comment">// B&lt;T&gt;也是一个类型</span></span><br><span class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> B&lt;T&gt;::type TI; <span class="comment">// 嗯，因为不知道B&lt;T&gt;::type的信息，</span></span><br><span class="line">                                    <span class="comment">// 所以需要typename</span></span><br><span class="line">    <span class="keyword">typedef</span> B&lt;<span class="type">int</span>&gt;::type TJ;        <span class="comment">// B&lt;int&gt; 不依赖模板参数，</span></span><br><span class="line">                                    <span class="comment">// 所以编译器直接就实例化（instantiate）了</span></span><br><span class="line">                                    <span class="comment">// 但是这个时候，B并没有被实现，所以就出错了</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-4-本章小结"><a href="#3-4-本章小结" class="headerlink" title="3.4. 本章小结"></a>3.4. 本章小结</h2><p>这一章是写作中最艰难的一章，中间停滞了将近一年。因为要说清楚C++模板中一些语法噪音和设计决议并不是一件轻松的事情。不过通过这一章的学习，我们知道了下面这几件事情：</p>
+<ol>
+<li><p><strong>部分特化&#x2F;偏特化</strong> 和 <strong>特化</strong> 相当于是模板实例化过程中的<code>if-then-else</code>。这使得我们根据不同类型，选择不同实现的需求得以实现；</p>
+</li>
+<li><p>在 2.3.3 一节我们插入了C++模板中最难理解的内容之一：名称查找。名称查找是语义分析的一个环节，模板内书写的 <strong>变量声明</strong>、<strong>typedef</strong>、<strong>类型名称</strong> 甚至 <strong>类模板中成员函数的实现</strong> 都要符合名称查找的规矩才不会出错；</p>
+</li>
+<li><p>C++编译器对语义的分析的原则是“大胆假设，小心求证”：在能求证的地方尽量求证 —— 比如两段式名称查找的第一阶段；无法检查的地方假设你是正确的 —— 比如<code>typedef typename A&lt;T&gt;::MemberType X;</code>在模板定义时因为<code>T</code>不明确不会轻易判定这个语句的死刑。</p>
+</li>
+</ol>
+<p>从下一章开始，我们将进入元编程环节。我们将使用大量的示例，一方面帮助巩固大家学到的模板知识，一方面也会引导大家使用函数式思维去解决常见的问题。</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%A8%A1%E6%9D%BF%E5%85%83%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80"><span class="toc-text">3. 模板元编程基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E7%BC%96%E7%A8%8B%EF%BC%8C%E5%85%83%E7%BC%96%E7%A8%8B%EF%BC%8C%E6%A8%A1%E6%9D%BF%E5%85%83%E7%BC%96%E7%A8%8B"><span class="toc-text">3.1. 编程，元编程，模板元编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%A8%A1%E6%9D%BF%E4%B8%96%E7%95%8C%E7%9A%84If-Then-Else%EF%BC%9A%E7%B1%BB%E6%A8%A1%E6%9D%BF%E7%9A%84%E7%89%B9%E5%8C%96%E4%B8%8E%E5%81%8F%E7%89%B9%E5%8C%96"><span class="toc-text">3.2. 模板世界的If-Then-Else：类模板的特化与偏特化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-1-%E6%A0%B9%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="toc-text">3.2.1. 根据类型执行代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-2-%E7%89%B9%E5%8C%96"><span class="toc-text">3.2.2. 特化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-3-%E7%89%B9%E5%8C%96%EF%BC%9A%E4%B8%80%E4%BA%9B%E5%85%B6%E5%AE%83%E9%97%AE%E9%A2%98"><span class="toc-text">3.2.3. 特化：一些其它问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%8D%B3%E7%94%A8%E5%8D%B3%E6%8E%A8%E5%AF%BC"><span class="toc-text">3.3. 即用即推导</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-1-%E8%A7%86%E8%8B%A5%E6%97%A0%E7%9D%B9%E7%9A%84%E8%AF%AD%E6%B3%95%E9%94%99%E8%AF%AF"><span class="toc-text">3.3.1. 视若无睹的语法错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-2-%E5%90%8D%E7%A7%B0%E6%9F%A5%E6%89%BE%EF%BC%9AI-am-who-I-am"><span class="toc-text">3.3.2. 名称查找：I am who I am</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-3-%E2%80%9C%E5%A4%9A%E4%BD%99%E7%9A%84%E2%80%9D-typename-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-text">3.3.3. “多余的”  typename 关键字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="toc-text">3.4. 本章小结</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/2024/02/06/cpp/泛型编程/template3/">https://kettycode.github.io/2024/02/06/cpp/泛型编程/template3/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2024/02/06/cpp/%E7%8E%B0%E4%BB%A3C++/base10/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          现代C++学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/02/06/cpp/%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/template5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          C++模板学习
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+          
+        
+
+
+  <section id="comments" class="vcomment"></section>
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/char/">cahr 和 wchar_t</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/hash/">哈希表小知识点及引申</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake1/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake2/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/git/git/">git学习从0开始</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hazel-bug/" style="font-size: 10px;">Hazel_bug</a> <a href="/tags/c-template/" style="font-size: 15px;">c++ template</a> <a href="/tags/c-%E5%B9%B6%E5%8F%91/" style="font-size: 17.5px;">c++并发</a> <a href="/tags/cmake/" style="font-size: 12.5px;">cmake</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 12.5px;">linux网络编程</a> <a href="/tags/modern-c/" style="font-size: 20px;">modern c++</a> <a href="/tags/tip/" style="font-size: 12.5px;">tip</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 12.5px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-%E5%B9%B6%E5%8F%91/" rel="tag">c++并发</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">linux网络编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tip/" rel="tag">tip</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://leetcode.cn/">力扣</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">博客园</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.bilibili.com/">b站</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 ketty.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+    <script>
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+      });
+      var notify = 'false' == true;
+      var verify = 'false' == true;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "7P3CzNq7WLUp6w49UFAQ6RLK-gzGzoHsz",
+          appKey: "ywWKNaoGnWQfvzV12QRNU12t",
+          placeholder: "Just go go",
+          pageSize:'10',
+          avatar:'mm',
+          lang:'zh-cn'
+      });
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

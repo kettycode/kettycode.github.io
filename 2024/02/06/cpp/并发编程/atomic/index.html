@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>C++并发编程学习 | 舍利子的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="舍利子的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">舍利子的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">心事无人诉，苦、苦、苦！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cpp/并发编程/atomic" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      C++并发编程学习
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-02-06T04:59:59.000Z" itemprop="datePublished">2024年02月06日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2024/02/06/cpp/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/atomic/#comments" class="article-comment-link">
+  
+    
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/02/06/cpp/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/atomic/" itemprop="commentCount"></span>
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="std-atomic"><a href="#std-atomic" class="headerlink" title="std::atomic"></a>std::atomic</h1><h2 id="std-atomic-flag"><a href="#std-atomic-flag" class="headerlink" title="std::atomic_flag"></a>std::atomic_flag</h2><h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>std::atomic_flag 只有默认构造函数，拷贝构造函数已被禁用，因此不能从其他的 std::atomic_flag 对象构造一个新的 std::atomic_flag 对象。</p>
+<p>如果在初始化时没有明确使用 ATOMIC_FLAG_INIT初始化，那么新创建的 std::atomic_flag 对象的状态是未指定的（unspecified）（既没有被 set 也没有被 clear。）另外，atomic_flag不能被拷贝，也不能 move 赋值。</p>
+<p>ATOMIC_FLAG_INIT: 如果某个 std::atomic_flag 对象使用该宏初始化，那么可以保证该 std::atomic_flag 对象在创建时处于 clear 状态。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span>              <span class="comment">// std::cout</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;atomic&gt;</span>                <span class="comment">// std::atomic, std::atomic_flag, ATOMIC_FLAG_INIT</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span>                <span class="comment">// std::thread, std::this_thread::yield</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span>                <span class="comment">// std::vector</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">std::atomic&lt;<span class="type">bool</span>&gt; <span class="title">ready</span><span class="params">(<span class="literal">false</span>)</span></span>;    <span class="comment">// can be checked without being set</span></span><br><span class="line">std::atomic_flag winner = ATOMIC_FLAG_INIT;    <span class="comment">// always set when checked</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">count1m</span><span class="params">(<span class="type">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (!ready) &#123;</span><br><span class="line">        std::this_thread::<span class="built_in">yield</span>();</span><br><span class="line">    &#125; <span class="comment">// 等待主线程中设置 ready 为 true.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; ++i) &#123;</span><br><span class="line">    &#125; <span class="comment">// 计数.</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果某个线程率先执行完上面的计数过程，则输出自己的 ID.</span></span><br><span class="line">    <span class="comment">// 此后其他线程执行 test_and_set 是 if 语句判断为 false，</span></span><br><span class="line">    <span class="comment">// 因此不会输出自身 ID.</span></span><br><span class="line">    <span class="keyword">if</span> (!winner.<span class="built_in">test_and_set</span>()) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;thread #&quot;</span> &lt;&lt; id &lt;&lt; <span class="string">&quot; won!\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::vector&lt;std::thread&gt; threads;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;spawning 10 threads that count to 1 million...\n&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; ++i)</span><br><span class="line">        threads.<span class="built_in">push_back</span>(std::<span class="built_in">thread</span>(count1m, i));</span><br><span class="line">    ready = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; th:threads)</span><br><span class="line">        th.<span class="built_in">join</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="std-atomic-flag-text-and-set"><a href="#std-atomic-flag-text-and-set" class="headerlink" title="std::atomic_flag::text_and_set"></a>std::atomic_flag::text_and_set</h3><p>test_and_set() 函数检查 std::atomic_flag 标志，如果 std::atomic_flag 之前没有被设置过，则设置 std::atomic_flag 的标志，并返回先前该 std::atomic_flag 对象是否被设置过，如果之前 std::atomic_flag 对象已被设置，则返回 true，否则返回 false。</p>
+<p>test-and-set 操作是原子的（因此 test-and-set 是原子 read-modify-write （RMW）操作）。</p>
+<h3 id="std-atomic-flag-clear"><a href="#std-atomic-flag-clear" class="headerlink" title="std::atomic_flag::clear"></a>std::atomic_flag::clear</h3><p>清除 std::atomic_flag 对象的标志位，即设置 atomic_flag 的值为 false</p>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p>结合 std::atomic_flag::test_and_set() 和 std::atomic_flag::clear()，std::atomic_flag 对象可以当作一个简单的自旋锁使用</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;atomic&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::atomic_flag lock = ATOMIC_FLAG_INIT;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">f</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> cnt = <span class="number">0</span>; cnt &lt; <span class="number">100</span>; ++cnt) &#123;</span><br><span class="line">        <span class="keyword">while</span> (lock.<span class="built_in">test_and_set</span>(std::memory_order_acquire))  <span class="comment">// acquire lock</span></span><br><span class="line">             ; <span class="comment">// spin</span></span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Output from thread &quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">        lock.<span class="built_in">clear</span>(std::memory_order_release);               <span class="comment">// release lock</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::vector&lt;std::thread&gt; v;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> n = <span class="number">0</span>; n &lt; <span class="number">10</span>; ++n) &#123;</span><br><span class="line">        v.<span class="built_in">emplace_back</span>(f, n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; t : v) &#123;</span><br><span class="line">        t.<span class="built_in">join</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的程序中，std::atomic_flag 对象 lock 的上锁操作可以理解为 lock.test_and_set(std::memory_order_acquire); (此处指定了 Memory Order，更多有关 Memory Order 的概念，我会在后续的文章中介绍)，解锁操作相当与 lock.clear(std::memory_order_release)。</p>
+<p>在上锁的时候，如果 lock.test_and_set 返回 false，则表示上锁成功（此时 while 不会进入自旋状态），因为此前 lock 的标志位为 false(即没有线程对 lock 进行上锁操作)，但调用 test_and_set 后 lock 的标志位为 true，说明某一线程已经成功获得了 lock 锁。</p>
+<p>如果在该线程解锁（即调用 lock.clear(std::memory_order_release)） 之前，另外一个线程也调用 lock.test_and_set(std::memory_order_acquire) 试图获得锁，则 test_and_set(std::memory_order_acquire) 返回 true，则 while 进入自旋状态。如果获得锁的线程解锁（即调用了 lock.clear(std::memory_order_release)）之后，某个线程试图调用 lock.test_and_set(std::memory_order_acquire) 并且返回 false，则 while 不会进入自旋，此时表明该线程成功地获得了锁。</p>
+<p>按照上面的分析，我们知道在某种情况下 std::atomic_flag 对象可以当作一个简单的自旋锁使用。</p>
+<h2 id="std-atomic-1"><a href="#std-atomic-1" class="headerlink" title="std::atomic"></a>std::atomic</h2><p>std::atomic 是模板类，一个模板类型为 T 的原子对象中封装了一个类型为 T 的值:  template <class T> struct atomic;<br>原子类型对象的主要特点就是从不同线程访问不会导致数据竞争(data race)。因此从不同线程访问某个原子对象是良性 (well-defined) 行为，而通常对于非原子类型而言，并发访问某个对象（如果不做任何同步操作）会导致未定义 (undifined) 行为发生。</p>
+<h3 id="构造函数-1"><a href="#构造函数-1" class="headerlink" title="构造函数"></a>构造函数</h3><p>默认构造函数，由默认构造函数创建的 std::atomic 对象处于未初始化(uninitialized)状态，对处于未初始化(uninitialized)状态 std::atomic对象可以由 atomic_init 函数进行初始化。<br>初始化构造函数，由类型 T初始化一个 std::atomic对象。<br>拷贝构造函数被禁用</p>
+<h3 id="std-atomic-operator"><a href="#std-atomic-operator" class="headerlink" title="std::atomic::operator&#x3D;()"></a>std::atomic::operator&#x3D;()</h3><p>普通的赋值拷贝操作已经被禁用。但是一个类型为 T 的变量可以赋值给相应的原子类型变量（相当与隐式转换），该操作是原子的，内存序(Memory Order) 默认为顺序一致性(std::memory_order_seq_cst)，如果需要指定其他的内存序，需使用 std::atomic::store()。</p>
+<h3 id="is-lock-free"><a href="#is-lock-free" class="headerlink" title="is_lock_free"></a>is_lock_free</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">is_lock_free</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">is_lock_free</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>判断该 std::atomic 对象是否具备 lock-free 的特性。如果某个对象满足 lock-free 特性，在多个线程访问该对象时不会导致线程阻塞。(可能使用某种事务内存transactional memory 方法实现 lock-free 的特性)。</p>
+<h3 id="store"><a href="#store" class="headerlink" title="store"></a>store</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">store</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">store</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>修改被封装的值，std::atomic::store 函数将类型为 T 的参数 val 复制给原子对象所封装的值。T 是 std::atomic 类模板参数。另外参数 sync 指定内存序(Memory Order)</p>
+<h3 id="load"><a href="#load" class="headerlink" title="load"></a>load</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">T <span class="title">load</span> <span class="params">(memory_order sync = memory_order_seq_cst)</span> <span class="type">const</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function">T <span class="title">load</span> <span class="params">(memory_order sync = memory_order_seq_cst)</span> <span class="type">const</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>读取被封装的值，参数 sync 设置内存序(Memory Order)</p>
+<h3 id="operator-T"><a href="#operator-T" class="headerlink" title="operator T"></a>operator T</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">T</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">operator</span> <span class="title">T</span><span class="params">()</span> <span class="type">const</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>与 load 功能类似，也是读取被封装的值，operator T() 是类型转换(type-cast)操作，默认的内存序是 std::memory_order_seq_cst</p>
+<h3 id="exchange"><a href="#exchange" class="headerlink" title="exchange"></a>exchange</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">T <span class="title">exchange</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function">T <span class="title">exchange</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>读取并修改被封装的值，exchange 会将 val 指定的值替换掉之前该原子对象封装的值，并返回之前该原子对象封装的值，整个过程是原子的(因此exchange 操作也称为 read-modify-write 操作)。sync参数指定内存序(Memory Order)</p>
+<h3 id="compare-exchange-weak"><a href="#compare-exchange-weak" class="headerlink" title="compare_exchange_weak"></a>compare_exchange_weak</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">compare_exchange_weak</span> <span class="params">(T&amp; expected, T val,</span></span></span><br><span class="line"><span class="params"><span class="function">           memory_order sync = memory_order_seq_cst)</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">compare_exchange_weak</span> <span class="params">(T&amp; expected, T val,</span></span></span><br><span class="line"><span class="params"><span class="function">           memory_order sync = memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">compare_exchange_weak</span> <span class="params">(T&amp; expected, T val,</span></span></span><br><span class="line"><span class="params"><span class="function">           memory_order success, memory_order failure)</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">compare_exchange_weak</span> <span class="params">(T&amp; expected, T val,</span></span></span><br><span class="line"><span class="params"><span class="function">           memory_order success, memory_order failure)</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>比较并交换被封装的值(weak)与参数 expected 所指定的值是否相等，如果：<br>相等，则用 val 替换原子对象的旧值。<br>不相等，则用原子对象的旧值替换 expected ，因此调用该函数之后，如果被该原子对象封装的值与参数 expected 所指定的值不相等，expected 中的内容就是原子对象的旧值。<br>该函数通常会读取原子对象封装的值，如果比较为 true(即原子对象的值等于 expected)，则替换原子对象的旧值，但整个操作是原子的，在某个线程读取和修改该原子对象时，另外的线程不能对读取和修改该原子对象。</p>
+<p>在第(2)种情况下，内存序（Memory Order）的选择取决于比较操作结果，如果比较结果为 true(即原子对象的值等于 expected)，则选择参数 success 指定的内存序，否则选择参数 failure 所指定的内存序。</p>
+<p>注意，该函数直接比较原子对象所封装的值与参数 expected 的物理内容，所以某些情况下，对象的比较操作在使用 operator&#x3D;&#x3D;() 判断时相等，但 compare_exchange_weak 判断时却可能失败，因为对象底层的物理内容中可能存在位对齐或其他逻辑表示相同但是物理表示不同的值(比如 true 和 2 或 3，它们在逻辑上都表示”真”，但在物理上两者的表示并不相同)。</p>
+<p>与compare_exchange_strong 不同, weak 版本的 compare-and-exchange 操作允许(spuriously 地)返回 false(即原子对象所封装的值与参数 expected 的物理内容相同，但却仍然返回 false)，不过在某些需要循环操作的算法下这是可以接受的，并且在一些平台下 compare_exchange_weak 的性能更好 。如果 compare_exchange_weak 的判断确实发生了伪失败(spurious failures)——即使原子对象所封装的值与参数 expected 的物理内容相同，但判断操作的结果却为 false，compare_exchange_weak函数返回 false，并且参数 expected 的值不会改变。</p>
+<p>对于某些不需要采用循环操作的算法而言, 通常采用compare_exchange_strong 更好。</p>
+<h2 id="std-atomic特化版本的成员函数"><a href="#std-atomic特化版本的成员函数" class="headerlink" title="std::atomic特化版本的成员函数"></a>std::atomic特化版本的成员函数</h2><h3 id="fetch-add"><a href="#fetch-add" class="headerlink" title="fetch_add"></a>fetch_add</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">if</span> T is <span class="title">integral</span> <span class="params">(<span class="number">1</span>)</span>:</span></span><br><span class="line"><span class="function">T fetch_add (T val, memory_order sync =</span> memory_order_seq_cst) <span class="keyword">volatile</span> <span class="keyword">noexcept</span>;</span><br><span class="line"><span class="function">T <span class="title">fetch_add</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">if</span> T is <span class="title">pointer</span> <span class="params">(<span class="number">2</span>)</span>	:</span></span><br><span class="line"><span class="function">T fetch_add (ptrdiff_t val, memory_order sync =</span> memory_order_seq_cst) <span class="keyword">volatile</span> <span class="keyword">noexcept</span>;</span><br><span class="line"><span class="function">T <span class="title">fetch_add</span> <span class="params">(<span class="type">ptrdiff_t</span> val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>将原子对象的封装值加 val，并返回原子对象的旧值（适用于整形和指针类型的 std::atomic 特化版本），整个过程是原子的。另外，如果第二个参数不指定（取默认参数 memory_order_seq_cst），则 fetch_add 相当与 std::atomic::operator+&#x3D;。</p>
+<h3 id="fetch-sub"><a href="#fetch-sub" class="headerlink" title="fetch_sub"></a>fetch_sub</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">if</span> T is <span class="title">integral</span> <span class="params">(<span class="number">1</span>)</span>:</span></span><br><span class="line"><span class="function">T fetch_sub (T val, memory_order sync =</span> memory_order_seq_cst) <span class="keyword">volatile</span> <span class="keyword">noexcept</span>;</span><br><span class="line"><span class="function">T <span class="title">fetch_sub</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">if</span> T is <span class="title">pointer</span> <span class="params">(<span class="number">2</span>)</span>:</span></span><br><span class="line"><span class="function">T fetch_sub (ptrdiff_t val, memory_order sync =</span> memory_order_seq_cst) <span class="keyword">volatile</span> <span class="keyword">noexcept</span>;</span><br><span class="line"><span class="function">T <span class="title">fetch_sub</span> <span class="params">(<span class="type">ptrdiff_t</span> val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>将原子对象的封装值减 val，并返回原子对象的旧值（适用于整形和指针类型的 std::atomic 特化版本），整个过程是原子的,另外，如果第二个参数不指定（取默认参数 memory_order_seq_cst），则 fetch_sub 相当与 std::atomic::operator-&#x3D;。</p>
+<h3 id="fetch-and"><a href="#fetch-and" class="headerlink" title="fetch_and"></a>fetch_and</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">T <span class="title">fetch_and</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function">T <span class="title">fetch_and</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>将原子对象的封装值按位与 val，并返回原子对象的旧值（只适用于整型的 std::atomic 特化版本），整个过程是原子的,另外，如果第二个参数不指定（取默认参数 memory_order_seq_cst），则 fetch_and 相当与 std::atomic::operator&amp;&#x3D;</p>
+<h3 id="fetch-or"><a href="#fetch-or" class="headerlink" title="fetch_or"></a>fetch_or</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">T <span class="title">fetch_or</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">volatile</span> <span class="keyword">noexcept</span></span>;</span><br><span class="line"><span class="function">T <span class="title">fetch_or</span> <span class="params">(T val, memory_order sync = memory_order_seq_cst)</span> <span class="keyword">noexcept</span></span>;</span><br></pre></td></tr></table></figure>
+<p>将原子对象的封装值按位或 val，并返回原子对象的旧值（只适用于整型的 std::atomic 特化版本），整个过程是原子的,另外，如果第二个参数不指定（取默认参数 memory_order_seq_cst），则 fetch_or 相当与 std::atomic::operator|&#x3D;</p>
+<h3 id="fetch-xor"><a href="#fetch-xor" class="headerlink" title="fetch_xor"></a>fetch_xor</h3><h3 id="operator"><a href="#operator" class="headerlink" title="operator++"></a>operator++</h3><h3 id="operator–"><a href="#operator–" class="headerlink" title="operator–"></a>operator–</h3><h3 id="operator-comp-assign"><a href="#operator-comp-assign" class="headerlink" title="operator(comp.assign.)"></a>operator(comp.assign.)</h3>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#std-atomic"><span class="toc-text">std::atomic</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#std-atomic-flag"><span class="toc-text">std::atomic_flag</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-atomic-flag-text-and-set"><span class="toc-text">std::atomic_flag::text_and_set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-atomic-flag-clear"><span class="toc-text">std::atomic_flag::clear</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E6%97%8B%E9%94%81"><span class="toc-text">自旋锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#std-atomic-1"><span class="toc-text">std::atomic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-1"><span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-atomic-operator"><span class="toc-text">std::atomic::operator&#x3D;()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#is-lock-free"><span class="toc-text">is_lock_free</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#store"><span class="toc-text">store</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#load"><span class="toc-text">load</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#operator-T"><span class="toc-text">operator T</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exchange"><span class="toc-text">exchange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#compare-exchange-weak"><span class="toc-text">compare_exchange_weak</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#std-atomic%E7%89%B9%E5%8C%96%E7%89%88%E6%9C%AC%E7%9A%84%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0"><span class="toc-text">std::atomic特化版本的成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fetch-add"><span class="toc-text">fetch_add</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fetch-sub"><span class="toc-text">fetch_sub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fetch-and"><span class="toc-text">fetch_and</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fetch-or"><span class="toc-text">fetch_or</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fetch-xor"><span class="toc-text">fetch_xor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#operator"><span class="toc-text">operator++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#operator%E2%80%93"><span class="toc-text">operator–</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#operator-comp-assign"><span class="toc-text">operator(comp.assign.)</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/2024/02/06/cpp/并发编程/atomic/">https://kettycode.github.io/2024/02/06/cpp/并发编程/atomic/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c-%E5%B9%B6%E5%8F%91/" rel="tag">c++并发</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2024/02/06/cpp/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/base/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          C++并发编程学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/02/06/cpp/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/socket%E7%BC%96%E7%A8%8B1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          Socket编程
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+          
+        
+
+
+  <section id="comments" class="vcomment"></section>
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/char/">cahr 和 wchar_t</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/hash/">哈希表小知识点及引申</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake1/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake2/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/git/git/">git学习从0开始</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hazel-bug/" style="font-size: 10px;">Hazel_bug</a> <a href="/tags/c-template/" style="font-size: 15px;">c++ template</a> <a href="/tags/c-%E5%B9%B6%E5%8F%91/" style="font-size: 17.5px;">c++并发</a> <a href="/tags/cmake/" style="font-size: 12.5px;">cmake</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 12.5px;">linux网络编程</a> <a href="/tags/modern-c/" style="font-size: 20px;">modern c++</a> <a href="/tags/tip/" style="font-size: 12.5px;">tip</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 12.5px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-%E5%B9%B6%E5%8F%91/" rel="tag">c++并发</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">linux网络编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tip/" rel="tag">tip</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://leetcode.cn/">力扣</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">博客园</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.bilibili.com/">b站</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 ketty.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+    <script>
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+      });
+      var notify = 'false' == true;
+      var verify = 'false' == true;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "7P3CzNq7WLUp6w49UFAQ6RLK-gzGzoHsz",
+          appKey: "ywWKNaoGnWQfvzV12QRNU12t",
+          placeholder: "Just go go",
+          pageSize:'10',
+          avatar:'mm',
+          lang:'zh-cn'
+      });
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

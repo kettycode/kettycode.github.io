@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>现代C++学习 | 舍利子的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="舍利子的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">舍利子的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">心事无人诉，苦、苦、苦！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cpp/现代C++/base5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      现代C++学习
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-02-06T04:59:59.000Z" itemprop="datePublished">2024年02月06日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2024/02/06/cpp/%E7%8E%B0%E4%BB%A3C++/base5/#comments" class="article-comment-link">
+  
+    
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/02/06/cpp/%E7%8E%B0%E4%BB%A3C++/base5/" itemprop="commentCount"></span>
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h1><h2 id="1-线性容器"><a href="#1-线性容器" class="headerlink" title="1.线性容器"></a>1.线性容器</h2><h3 id="std-array"><a href="#std-array" class="headerlink" title="std::array"></a>std::array</h3><p>1.为什么要引入 std::array 而不是直接使用 std::vector？<br>与 std::vector 不同，std::array 对象的大小是固定的，如果容器大小是固定的，那么可以优先考虑使用 std::array 容器。 另外由于 std::vector 是自动扩容的，当存入大量的数据后，并且对容器进行了删除操作， 容器并不会自动归还被删除元素相应的内存，这时候就需要手动运行 shrink_to_fit() 释放这部分内存。</p>
+<p>2.已经有了传统数组，为什么要用 std::array?<br>使用 std::array 能够让代码变得更加“现代化”，而且封装了一些操作函数，比如获取数组大小以及检查是否非空，同时还能够友好的使用标准库中的容器算法，比如 std::sort。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 非法,不同于 C 风格数组，std::array 不会自动退化成 T*</span></span><br><span class="line"><span class="comment">// int *arr_p = arr;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">int</span> *p, <span class="type">int</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::array&lt;<span class="type">int</span>, 4&gt; arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// C 风格接口传参</span></span><br><span class="line"><span class="comment">// foo(arr, arr.size()); // 非法, 无法隐式转换</span></span><br><span class="line"><span class="built_in">foo</span>(&amp;arr[<span class="number">0</span>], arr.<span class="built_in">size</span>());</span><br><span class="line"><span class="built_in">foo</span>(arr.<span class="built_in">data</span>(), arr.<span class="built_in">size</span>());</span><br></pre></td></tr></table></figure>
+
+<h3 id="std-forward-list"><a href="#std-forward-list" class="headerlink" title="std::forward_list"></a>std::forward_list</h3><p>std::forward_list 是一个列表容器，使用方法和 std::list 基本类似，因此我们就不花费篇幅进行介绍了。</p>
+<p>需要知道的是，和 std::list 的双向链表的实现不同，std::forward_list 使用单向链表进行实现， 提供了 O(1) 复杂度的元素插入，不支持快速随机访问（这也是链表的特点）， 也是标准库容器中唯一一个不提供 size() 方法的容器。当不需要双向迭代时，具有比 std::list 更高的空间利用率。</p>
+<h2 id="无序容器"><a href="#无序容器" class="headerlink" title="无序容器"></a>无序容器</h2><p>我们已经熟知了传统 C++ 中的有序容器 std::map&#x2F;std::set，这些元素内部通过红黑树进行实现， 插入和搜索的平均复杂度均为 O(log(size))。在插入元素时候，会根据 &lt; 操作符比较元素大小并判断元素是否相同， 并选择合适的位置插入到容器中。当对这个容器中的元素进行遍历时，输出结果会按照 &lt; 操作符的顺序来逐个遍历。</p>
+<p>无序容器中的元素是不进行排序的，内部通过 Hash 表实现，插入和搜索元素的平均复杂度为 O(constant)， 在不关心容器内部元素顺序时，能够获得显著的性能提升。</p>
+<p>C++11 引入了的两组无序容器分别是：std::unordered_map&#x2F;std::unordered_multimap 和 std::unordered_set&#x2F;std::unordered_multiset。</p>
+<p>它们的用法和原有的 std::map&#x2F;std::multimap&#x2F;std::set&#x2F;set::multiset 基本类似</p>
+<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><p>纵观传统 C++ 中的容器，除了 std::pair 外， 似乎没有现成的结构能够用来存放不同类型的数据（通常我们会自己定义结构）。 但 std::pair 的缺陷是显而易见的，只能保存两个元素。</p>
+<h3 id="元组基本操作"><a href="#元组基本操作" class="headerlink" title="元组基本操作"></a>元组基本操作</h3><p>关于元组的使用有三个核心的函数：<br>std::make_tuple: 构造元组<br>std::get: 获得元组某个位置的值<br>std::tie: 元组拆包</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tuple&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">get_student</span><span class="params">(<span class="type">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 返回类型被推断为 std::tuple&lt;double, char, std::string&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (id == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> std::<span class="built_in">make_tuple</span>(<span class="number">3.8</span>, <span class="string">&#x27;A&#x27;</span>, <span class="string">&quot;张三&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (id == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> std::<span class="built_in">make_tuple</span>(<span class="number">2.9</span>, <span class="string">&#x27;C&#x27;</span>, <span class="string">&quot;李四&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (id == <span class="number">2</span>)</span><br><span class="line">        <span class="keyword">return</span> std::<span class="built_in">make_tuple</span>(<span class="number">1.7</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&quot;王五&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">make_tuple</span>(<span class="number">0.0</span>, <span class="string">&#x27;D&#x27;</span>, <span class="string">&quot;null&quot;</span>);</span><br><span class="line">    <span class="comment">// 如果只写 0 会出现推断错误, 编译失败</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> student = <span class="built_in">get_student</span>(<span class="number">0</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;ID: 0, &quot;</span></span><br><span class="line">    &lt;&lt; <span class="string">&quot;GPA: &quot;</span> &lt;&lt; std::<span class="built_in">get</span>&lt;<span class="number">0</span>&gt;(student) &lt;&lt; <span class="string">&quot;, &quot;</span></span><br><span class="line">    &lt;&lt; <span class="string">&quot;成绩: &quot;</span> &lt;&lt; std::<span class="built_in">get</span>&lt;<span class="number">1</span>&gt;(student) &lt;&lt; <span class="string">&quot;, &quot;</span></span><br><span class="line">    &lt;&lt; <span class="string">&quot;姓名: &quot;</span> &lt;&lt; std::<span class="built_in">get</span>&lt;<span class="number">2</span>&gt;(student) &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">double</span> gpa;</span><br><span class="line">    <span class="type">char</span> grade;</span><br><span class="line">    std::string name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 元组进行拆包</span></span><br><span class="line">    std::<span class="built_in">tie</span>(gpa, grade, name) = <span class="built_in">get_student</span>(<span class="number">1</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;ID: 1, &quot;</span></span><br><span class="line">    &lt;&lt; <span class="string">&quot;GPA: &quot;</span> &lt;&lt; gpa &lt;&lt; <span class="string">&quot;, &quot;</span></span><br><span class="line">    &lt;&lt; <span class="string">&quot;成绩: &quot;</span> &lt;&lt; grade &lt;&lt; <span class="string">&quot;, &quot;</span></span><br><span class="line">    &lt;&lt; <span class="string">&quot;姓名: &quot;</span> &lt;&lt; name &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>std::get 除了使用常量获取元组对象外，C++14 增加了使用类型来获取元组中的对象：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::tuple&lt;std::string, <span class="type">double</span>, <span class="type">double</span>, <span class="type">int</span>&gt; <span class="title">t</span><span class="params">(<span class="string">&quot;123&quot;</span>, <span class="number">4.5</span>, <span class="number">6.7</span>, <span class="number">8</span>)</span></span>;</span><br><span class="line">std::cout &lt;&lt; std::<span class="built_in">get</span>&lt;std::string&gt;(t) &lt;&lt; std::endl;</span><br><span class="line">std::cout &lt;&lt; std::<span class="built_in">get</span>&lt;<span class="type">double</span>&gt;(t) &lt;&lt; std::endl; <span class="comment">// 非法, 引发编译期错误</span></span><br><span class="line">std::cout &lt;&lt; std::<span class="built_in">get</span>&lt;<span class="number">3</span>&gt;(t) &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行期索引"><a href="#运行期索引" class="headerlink" title="运行期索引"></a>运行期索引</h3><p>std::get&lt;&gt; 依赖一个编译期的常量，所以下面的方式是不合法的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> index = <span class="number">1</span>;</span><br><span class="line">std::<span class="built_in">get</span>&lt;index&gt;(t);</span><br></pre></td></tr></table></figure>
+<p>使用 std::variant&lt;&gt;（C++ 17 引入），提供给 variant&lt;&gt; 的类型模板参数 可以让一个 variant&lt;&gt; 从而容纳提供的几种类型的变量（在其他语言，例如 Python&#x2F;JavaScript 等，表现为动态类型）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;variant&gt;</span></span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="type">size_t</span> n, <span class="keyword">typename</span>... T&gt;</span><br><span class="line"><span class="keyword">constexpr</span> std::variant&lt;T...&gt; _tuple_index(<span class="type">const</span> std::tuple&lt;T...&gt;&amp; tpl, <span class="type">size_t</span> i) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">if</span> <span class="title">constexpr</span> <span class="params">(n &gt;= <span class="keyword">sizeof</span>...(T))</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throw</span> <span class="title">std::out_of_range</span><span class="params">(<span class="string">&quot;越界.&quot;</span>)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (i == n)</span><br><span class="line">        <span class="keyword">return</span> std::variant&lt;T...&gt;&#123; std::in_place_index&lt;n&gt;, std::<span class="built_in">get</span>&lt;n&gt;(tpl) &#125;;</span><br><span class="line">    <span class="keyword">return</span> _tuple_index&lt;(n &lt; <span class="keyword">sizeof</span>...(T)<span class="number">-1</span> ? n+<span class="number">1</span> : <span class="number">0</span>)&gt;(tpl, i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... T&gt;</span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> std::variant&lt;T...&gt; <span class="title">tuple_index</span><span class="params">(<span class="type">const</span> std::tuple&lt;T...&gt;&amp; tpl, <span class="type">size_t</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> _tuple_index&lt;<span class="number">0</span>&gt;(tpl, i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T0, <span class="keyword">typename</span> ... Ts&gt;</span><br><span class="line">std::ostream &amp; <span class="keyword">operator</span>&lt;&lt; (std::ostream &amp; s, std::variant&lt;T0, Ts...&gt; <span class="type">const</span> &amp; v) &#123; </span><br><span class="line">    std::<span class="built_in">visit</span>([&amp;](<span class="keyword">auto</span> &amp;&amp; x)&#123; s &lt;&lt; x;&#125;, v); </span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line">std::cout &lt;&lt; <span class="built_in">tuple_index</span>(t, i) &lt;&lt; std::endl;</span><br><span class="line"><span class="comment">//tuple_index(t,i) -&gt; tuple_index(t,1) -&gt; tuple_index&lt;0&gt;(t,1) -&gt; tuple_index&lt;1&gt;(t,1) -&gt;  &#123;std::in_place_index&lt;1&gt;,std::get&lt;1&gt;(t)&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="元组合并和遍历"><a href="#元组合并和遍历" class="headerlink" title="元组合并和遍历"></a>元组合并和遍历</h3><p>合并两个元组，这可以通过 std::tuple_cat 来实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> new_tuple = std::<span class="built_in">tuple_cat</span>(<span class="built_in">get_student</span>(<span class="number">1</span>), std::<span class="built_in">move</span>(t));</span><br></pre></td></tr></table></figure>
+
+<p>遍历一个元组</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">tuple_len</span><span class="params">(T &amp;tpl)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> std::tuple_size&lt;T&gt;::value;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 迭代</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i != <span class="built_in">tuple_len</span>(new_tuple); ++i)</span><br><span class="line">    <span class="comment">// 运行期索引</span></span><br><span class="line">    std::cout &lt;&lt; <span class="built_in">tuple_index</span>(new_tuple, i) &lt;&lt; std::endl;</span><br></pre></td></tr></table></figure>
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8"><span class="toc-text">容器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%BA%BF%E6%80%A7%E5%AE%B9%E5%99%A8"><span class="toc-text">1.线性容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#std-array"><span class="toc-text">std::array</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#std-forward-list"><span class="toc-text">std::forward_list</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E5%BA%8F%E5%AE%B9%E5%99%A8"><span class="toc-text">无序容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E7%BB%84"><span class="toc-text">元组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E7%BB%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">元组基本操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%9C%9F%E7%B4%A2%E5%BC%95"><span class="toc-text">运行期索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E7%BB%84%E5%90%88%E5%B9%B6%E5%92%8C%E9%81%8D%E5%8E%86"><span class="toc-text">元组合并和遍历</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/2024/02/06/cpp/现代C++/base5/">https://kettycode.github.io/2024/02/06/cpp/现代C++/base5/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2024/02/06/cpp/%E7%8E%B0%E4%BB%A3C++/base6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          现代C++学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/02/06/cpp/%E7%8E%B0%E4%BB%A3C++/base3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          现代C++学习
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+          
+        
+
+
+  <section id="comments" class="vcomment"></section>
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/char/">cahr 和 wchar_t</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/hash/">哈希表小知识点及引申</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake1/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake2/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/git/git/">git学习从0开始</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hazel-bug/" style="font-size: 10px;">Hazel_bug</a> <a href="/tags/c-template/" style="font-size: 15px;">c++ template</a> <a href="/tags/c-%E5%B9%B6%E5%8F%91/" style="font-size: 17.5px;">c++并发</a> <a href="/tags/cmake/" style="font-size: 12.5px;">cmake</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 12.5px;">linux网络编程</a> <a href="/tags/modern-c/" style="font-size: 20px;">modern c++</a> <a href="/tags/tip/" style="font-size: 12.5px;">tip</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 12.5px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-%E5%B9%B6%E5%8F%91/" rel="tag">c++并发</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">linux网络编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tip/" rel="tag">tip</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://leetcode.cn/">力扣</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">博客园</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.bilibili.com/">b站</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 ketty.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+    <script>
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+      });
+      var notify = 'false' == true;
+      var verify = 'false' == true;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "7P3CzNq7WLUp6w49UFAQ6RLK-gzGzoHsz",
+          appKey: "ywWKNaoGnWQfvzV12QRNU12t",
+          placeholder: "Just go go",
+          pageSize:'10',
+          avatar:'mm',
+          lang:'zh-cn'
+      });
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>

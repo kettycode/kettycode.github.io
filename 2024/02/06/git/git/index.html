@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>git学习从0开始 | 舍利子的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  
+  
+    <link rel="alternate" href="/atom.xml" title="舍利子的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/localshare/css/share.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">舍利子的博客</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">心事无人诉，苦、苦、苦！</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/."><i class="fa fa-home"></i> 首页</a>
+        
+          <a class="main-nav-link" href="/archives/"><i class="fa fa-archive"></i> 归档</a>
+        
+          <a class="main-nav-link" href="/about/"><i class="fa fa-user"></i> 关于</a>
+        
+          <a class="main-nav-link" href="/atom.xml"><i class="fa fa-rss"></i> 订阅</a>
+        
+      </nav>
+    </div>
+    <div id="search-form">
+      <div id="result-mask" class="hide"></div>
+      <label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label>
+      <div id="result-wrap" class="hide">
+        <div id="search-result"></div>
+      </div>
+      <div class="hide">
+        <template id="search-tpl">
+          <div class="item">
+            <a href="/{path}" title="{title}">
+              <div class="title">{title}</div>
+              <div class="time">{date}</div>
+              <div class="tags">{tags}</div>
+            </a>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-git/git" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      git学习从0开始
+    </h1>
+  
+
+
+      </header>
+    
+    <div class="article-meta">
+      
+      <span class="article-date">
+  <i class="fa fa-date"></i>
+  <time class="dt-published" datetime="2024-02-06T04:59:59.000Z" itemprop="datePublished">2024年02月06日</time>
+</span>
+      
+      
+        <span class="article-views">
+  <i class="fa fa-views"></i>
+  <i id="busuanzi_container_page_pv">
+      <i id="busuanzi_value_page_pv"></i>
+  </i>
+</span>
+
+      
+      
+<a href="/2024/02/06/git/git/#comments" class="article-comment-link">
+  
+    
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/02/06/git/git/" itemprop="commentCount"></span>
+    
+    
+    
+    
+    
+  
+  <i class="fa fa-commt"></i>
+  留言
+</a>
+
+
+    </div>
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1-初始化配置"><a href="#1-初始化配置" class="headerlink" title="1 初始化配置"></a>1 初始化配置</h1><h2 id="1-1-配置用户名和邮箱"><a href="#1-1-配置用户名和邮箱" class="headerlink" title="1.1 配置用户名和邮箱"></a>1.1 配置用户名和邮箱</h2><p>git config –global user.name  ketty(“ketty master”)<br>git config –global user.email <a href="mailto:&#x6b;&#101;&#116;&#x74;&#121;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#109;">&#x6b;&#101;&#116;&#x74;&#121;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#109;</a><br>参数含义：<br>省略(local) : 本地配置，只对本地仓库有效<br>–global : 全局配置，对所有仓库有效<br>–system : 系统配置，对所有用户有效</p>
+<h2 id="1-2-保存用户名和密码"><a href="#1-2-保存用户名和密码" class="headerlink" title="1.2 保存用户名和密码"></a>1.2 保存用户名和密码</h2><p>git config –global credential.helper store</p>
+<h2 id="1-3-查看git的配置信息"><a href="#1-3-查看git的配置信息" class="headerlink" title="1.3 查看git的配置信息"></a>1.3 查看git的配置信息</h2><p>git config –glabal –list</p>
+<h1 id="2-新建仓库"><a href="#2-新建仓库" class="headerlink" title="2 新建仓库"></a>2 新建仓库</h1><h2 id="2-1-创建一个仓库"><a href="#2-1-创建一个仓库" class="headerlink" title="2.1 创建一个仓库"></a>2.1 创建一个仓库</h2><p>git init<br>git init my-repo</p>
+<h2 id="2-2-克隆一个仓库"><a href="#2-2-克隆一个仓库" class="headerlink" title="2.2 克隆一个仓库"></a>2.2 克隆一个仓库</h2><p>git clone </p>
+<h1 id="3-工作区域和文件状态"><a href="#3-工作区域和文件状态" class="headerlink" title="3 工作区域和文件状态"></a>3 工作区域和文件状态</h1><h2 id="3-1-工作区域"><a href="#3-1-工作区域" class="headerlink" title="3.1 工作区域"></a>3.1 工作区域</h2><p>工作区(Working Directory) : 实际操作的目录<br>暂存区(Staging Area&#x2F;Index) : 中间区域,临时存放即将提交的修改内容<br>本地仓库(Local Repository) : git存储代码和版本信息的主要位置<br>git add : 工作区 -&gt; 暂存区<br>git commit : 暂存区 -&gt; 本地仓库</p>
+<h2 id="3-2-git中的文件状态"><a href="#3-2-git中的文件状态" class="headerlink" title="3.2 git中的文件状态"></a>3.2 git中的文件状态</h2><p>未跟踪(Untrack)<br>未修改(Unmodified)<br>已暂存(Modified)<br>已提交(Staged)</p>
+<h1 id="4-添加和提交文件"><a href="#4-添加和提交文件" class="headerlink" title="4 添加和提交文件"></a>4 添加和提交文件</h1><p>git status &#x2F;&#x2F;查看仓库状态<br>git add <file>&#x2F;&#x2F;添加到暂存区<br>git add .&#x2F;&#x2F;添加所有文件<br>git commit -m “描述”&#x2F;&#x2F;提交<br>git commit -am “描述” &#x2F;&#x2F;工作区-&gt;本地仓库<br>git log &#x2F;&#x2F;打印git记录 ,– oneline 查看简洁的提交记录<br>git rm –cached <file>… &#x2F;&#x2F;将提交到暂存的文件移除出来</p>
+<h1 id="5-回退版本"><a href="#5-回退版本" class="headerlink" title="5 回退版本"></a>5 回退版本</h1><p>git reset –soft &#x2F;&#x2F;回退到某个版本，保留工作区和暂存区的所有修改内容<br>git reset –hard &#x2F;&#x2F;回退到某个版本，丢弃工作区和暂存区的所有修改内容<br>git reset –mixed &#x2F;&#x2F;回退到某个版本，只保留工作区的修改内容</p>
+<h1 id="6-查看差异"><a href="#6-查看差异" class="headerlink" title="6 查看差异"></a>6 查看差异</h1><p>git diff &#x2F;&#x2F; 工作区 vs 暂存区<br>git diff HEAD &#x2F;&#x2F;工作区 + 暂存区 vs 本地仓库<br>git diff cached &#x2F;&#x2F;暂存区 vs 本地仓库<br>git diff staged &#x2F;&#x2F;暂存区 vs 本地仓库<br>git diff <commit_hash> <commit_hash> &#x2F;&#x2F;提交之间的差异<br>git diff HEAD~HEAD &#x2F;&#x2F;提交之间的差异<br>git diff <branch_name> <branch_name> &#x2F;&#x2F;分支之间的差异</p>
+<h1 id="7-删除文件"><a href="#7-删除文件" class="headerlink" title="7 删除文件"></a>7 删除文件</h1><p>&#x2F;&#x2F;删除之后记得提交<br>rm file ; gti add file &#x2F;&#x2F;删除工作区的文件，然后暂存删除文件<br>git rm <file> &#x2F;&#x2F;把文件从工作区和暂存区同时删除<br>git rm –cached <file> &#x2F;&#x2F;把文件从暂存区删除<br>git rm -r* &#x2F;&#x2F;递归删除某个目录下的所有子目录和文件</p>
+<h1 id="8-忽略文件"><a href="#8-忽略文件" class="headerlink" title="8 忽略文件"></a>8 忽略文件</h1><p>.gitignore文件</p>
+<h1 id="9-SSH配置和克隆仓库"><a href="#9-SSH配置和克隆仓库" class="headerlink" title="9 SSH配置和克隆仓库"></a>9 SSH配置和克隆仓库</h1><p>ssh-keygen -t rsa -b 4096<br>&#x2F;&#x2F;私匙文件：id_rsa<br>&#x2F;&#x2F;公匙文件：id_rsa.pub</p>
+<p>git push <remote> <branch> &#x2F;&#x2F;推送更新内容<br>git pull <remote> &#x2F;&#x2F;拉取更新内容</p>
+<h1 id="10-关联本地仓库和远程仓库"><a href="#10-关联本地仓库和远程仓库" class="headerlink" title="10 关联本地仓库和远程仓库"></a>10 关联本地仓库和远程仓库</h1><p>&#x2F;&#x2F;添加远程仓库<br>1.git remote add &lt;远程仓库别名&gt; &lt;远程仓库地址&gt;<br>2.git push -u &lt;远程仓库别名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt;</p>
+<p>git remote -v &#x2F;&#x2F;查看远程仓库<br>git pull &lt;远程仓库别名&gt; &lt;远程分支名&gt;:&lt;本地分支名&gt; &#x2F;&#x2F;拉取远程仓库内容<br>(相同可省略冒号及后面的部分)</p>
+<h1 id="分支基本操作"><a href="#分支基本操作" class="headerlink" title="分支基本操作"></a>分支基本操作</h1><p>git branch &#x2F;&#x2F;查看分支列表<br>git branch &lt;新分支名&gt; &#x2F;&#x2F;创建新分支<br>git checkout &lt;新分支名&gt; &#x2F;&#x2F;切换新分支<br>git switch &lt;新分支名&gt; &#x2F;&#x2F;切换新分支<br>git merge &lt;新分支名&gt; &#x2F;&#x2F;合并分支<br>git branch -d &lt;新分支名&gt; &#x2F;&#x2F;删除已合并分支<br>git branch -D &lt;新分支名&gt; &#x2F;&#x2F;删除未合并分支</p>
+<h1 id="分支合并冲突"><a href="#分支合并冲突" class="headerlink" title="分支合并冲突"></a>分支合并冲突</h1><p>手动更改文件解决合并冲突<br>git merge –about &#x2F;&#x2F;终止合并</p>
+<h1 id="回退和rebase"><a href="#回退和rebase" class="headerlink" title="回退和rebase"></a>回退和rebase</h1><p>git rebase &lt;分支名&gt;</p>
+
+        
+            <div id="toc-article">
+                
+  <div class="widget-wrap" id="toc-wrap">
+    <h3 class="widget-title"><i class="fa fa-toc"></i> 文章目录</h3>
+    <div class="widget">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%88%9D%E5%A7%8B%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="toc-text">1 初始化配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E9%82%AE%E7%AE%B1"><span class="toc-text">1.1 配置用户名和邮箱</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E4%BF%9D%E5%AD%98%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81"><span class="toc-text">1.2 保存用户名和密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E6%9F%A5%E7%9C%8Bgit%E7%9A%84%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-text">1.3 查看git的配置信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%96%B0%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="toc-text">2 新建仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%BB%93%E5%BA%93"><span class="toc-text">2.1 创建一个仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%85%8B%E9%9A%86%E4%B8%80%E4%B8%AA%E4%BB%93%E5%BA%93"><span class="toc-text">2.2 克隆一个仓库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81"><span class="toc-text">3 工作区域和文件状态</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%9F%9F"><span class="toc-text">3.1 工作区域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-git%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81"><span class="toc-text">3.2 git中的文件状态</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%B7%BB%E5%8A%A0%E5%92%8C%E6%8F%90%E4%BA%A4%E6%96%87%E4%BB%B6"><span class="toc-text">4 添加和提交文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%9B%9E%E9%80%80%E7%89%88%E6%9C%AC"><span class="toc-text">5 回退版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E6%9F%A5%E7%9C%8B%E5%B7%AE%E5%BC%82"><span class="toc-text">6 查看差异</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="toc-text">7 删除文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6"><span class="toc-text">8 忽略文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-SSH%E9%85%8D%E7%BD%AE%E5%92%8C%E5%85%8B%E9%9A%86%E4%BB%93%E5%BA%93"><span class="toc-text">9 SSH配置和克隆仓库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-%E5%85%B3%E8%81%94%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="toc-text">10 关联本地仓库和远程仓库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">分支基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6%E5%86%B2%E7%AA%81"><span class="toc-text">分支合并冲突</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9E%E9%80%80%E5%92%8Crebase"><span class="toc-text">回退和rebase</span></a></li></ol>
+    </div>
+  </div>
+
+
+            </div>
+        
+        
+          <blockquote id="copyright">
+              <p>原文链接: <a href="https://kettycode.github.io/2024/02/06/git/git/">https://kettycode.github.io/2024/02/06/git/git/</a></p>
+              <p>版权声明: 转载请注明出处.</p>
+          </blockquote>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div class="article-tag-wrap">
+          
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+
+          
+    <div class="social-share">
+      <span>分享到:</span>
+    </div>
+
+
+
+        </div>
+      
+      
+        
+<nav id="article-nav">
+  
+    <a href="/2024/02/06/cpp/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/base1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">older</strong>
+      <div class="article-nav-title">
+        
+          linux网络编程基础知识
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/02/06/cmake/cmake2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">newer</strong>
+      <div class="article-nav-title">
+        
+          cmake学习从0开始
+        
+      </div>
+    </a>
+  
+</nav>
+
+      
+      
+        
+          
+        
+
+
+  <section id="comments" class="vcomment"></section>
+
+
+
+
+
+
+
+      
+    </footer>
+  </div>
+</article>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-posts"></i> 最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/char/">cahr 和 wchar_t</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/19/cpp/tip/hash/">哈希表小知识点及引申</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake1/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/cmake/cmake2/">cmake学习从0开始</a>
+          </li>
+        
+          <li>
+            <a href="/2024/02/06/git/git/">git学习从0开始</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hazel-bug/" style="font-size: 10px;">Hazel_bug</a> <a href="/tags/c-template/" style="font-size: 15px;">c++ template</a> <a href="/tags/c-%E5%B9%B6%E5%8F%91/" style="font-size: 17.5px;">c++并发</a> <a href="/tags/cmake/" style="font-size: 12.5px;">cmake</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" style="font-size: 12.5px;">linux网络编程</a> <a href="/tags/modern-c/" style="font-size: 20px;">modern c++</a> <a href="/tags/tip/" style="font-size: 12.5px;">tip</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" style="font-size: 12.5px;">位运算</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">博客</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 10px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-archive"></i> 归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024年</a><span class="archive-list-count">29</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023年</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-tag"></i> 标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hazel-bug/" rel="tag">Hazel_bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-template/" rel="tag">c++ template</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-%E5%B9%B6%E5%8F%91/" rel="tag">c++并发</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cmake/" rel="tag">cmake</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag">linux网络编程</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/modern-c/" rel="tag">modern c++</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tip/" rel="tag">tip</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/" rel="tag">vue</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag">位运算</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title"><i class="fa fa-link"></i> 友情链接</h3>
+    <div class="widget">
+      <ul>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://leetcode.cn/">力扣</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.cnblogs.com/">博客园</a>
+        </li>
+      
+        <li>
+          <a target="_blank" rel="noopener" href="https://www.bilibili.com/">b站</a>
+        </li>
+      
+      </ul>
+    </div>
+  </div>
+
+
+  
+</aside>
+        
+      </div>
+      <a id="totop" href="#top"></a>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <p>
+        <a href="/sitemap.xml">网站地图</a>
+        <span> | </span><a href="/atom.xml">订阅本站</a>
+        <span> | </span><a href="/about/">联系博主</a>
+      </p>
+      
+        <p>
+          <i class="fa fa-visitors"></i>
+          <i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>
+          ，
+          <i class="fa fa-views"></i>
+          <i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>
+        </p>
+      
+      <p>
+        <span>Copyright &copy; 2024 ketty.</span>
+        <span>Theme by <a href="https://github.com/chaooo/hexo-theme-BlueLake/" target="_blank">BlueLake.</a></span>
+        <span>Powered by <a href="https://hexo.io/" target="_blank">Hexo.</a></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </div>
+  
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+<script src="/js/search.json.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+  
+<script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+    
+<script src="/localshare/js/social-share.js"></script>
+
+    
+<script src="/localshare/js/qrcode.js"></script>
+
+  
+  
+
+
+
+  
+
+  
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js"></script>
+
+    <script>
+      var GUEST_INFO = ['nick','mail','link'];
+      var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+      });
+      var notify = 'false' == true;
+      var verify = 'false' == true;
+      new Valine({
+          el: '.vcomment',
+          notify: notify,
+          verify: verify,
+          appId: "7P3CzNq7WLUp6w49UFAQ6RLK-gzGzoHsz",
+          appKey: "ywWKNaoGnWQfvzV12QRNU12t",
+          placeholder: "Just go go",
+          pageSize:'10',
+          avatar:'mm',
+          lang:'zh-cn'
+      });
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+
+
+
+
+</body>
+</html>
